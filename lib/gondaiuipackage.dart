@@ -5,6 +5,21 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
+
+extension ListUtil<T> on List<T>{
+  
+  ListView custom(Function(T item) itemWidget,[Widget separator]){
+    
+    return ListView.separated(
+      itemBuilder:(context,i)=>itemWidget(this[i]),
+      separatorBuilder:(context,i)=>separator??SizedBox(height:5),
+      itemCount:this.length,
+    );
+  }
+
+}
+
 extension DoubleUtil on double {
   double percent(double fraction) => this * fraction;
 
