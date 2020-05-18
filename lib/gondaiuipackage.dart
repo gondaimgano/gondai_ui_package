@@ -5,59 +5,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-extension ListUtil<T> on List<T> {
-  ListView custom(Function(T item) itemWidget, [Widget separator]) {
-    return ListView.separated(
-      itemBuilder: (context, i) => itemWidget(this[i]),
-      separatorBuilder: (context, i) => separator ?? SizedBox(height: 5),
-      itemCount: this.length,
-    );
-  }
-
-  GridView grid(
-      Function(T item) itemWidget, {
-        int columns,
-      }) =>
-      GridView.count(
-        shrinkWrap: true,
-        primary: false,
-        padding: const EdgeInsets.all(20),
-        crossAxisSpacing: 30,
-        mainAxisSpacing: 60,
-        crossAxisCount: columns ?? 2,
-        children: <Widget>[
-          ...this.map((item) => itemWidget(item)),
-        ],
-      );
-}
-
-extension CardUtil on Widget {
-  Card inCard() => Card(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(30),
-    ),
-    margin: const EdgeInsets.all(12.0),
-    child: this,
-  );
-
-  FittedBox inBox() => FittedBox(
-    fit: BoxFit.contain,
-    child: this,
-  );
-
-  AspectRatio inAspect([double ratio]) => AspectRatio(
-    aspectRatio: ratio ?? 1.0,
-    child: this,
-  );
-
-  Container inContainer(BuildContext context) => Container(
-    width: MediaQuery.of(context).size.width * 0.9,
-    height: MediaQuery.of(context).size.height * 0.9,
-    color: Colors.blue,
-    child: this,
-  );
-}
-
 extension DoubleUtil on double {
   double percent(double fraction) => this * fraction;
 
