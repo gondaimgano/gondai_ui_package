@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
+
 extension ListUtil<T> on List<T> {
   ListView custom(Function(T item) itemWidget, [Widget separator]) {
     return ListView.separated(
@@ -30,6 +31,38 @@ extension ListUtil<T> on List<T> {
           ...this.map((item) => itemWidget(item)),
         ],
       );
+
+
+}
+
+extension ListString on List<String>{
+  Padding dataRow()=>Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+           this[0].text().bold(),
+        this[1].text()
+      ],
+    ),
+  );
+}
+
+extension ListWidget on List<Widget>{
+  Column inColumn({
+    MainAxisAlignment mainAxisAlignment,
+    MainAxisSize mainAxisSize ,
+    CrossAxisAlignment crossAxisAlignment ,
+
+    VerticalDirection verticalDirection ,
+  })=>Column(
+    mainAxisSize: mainAxisSize??MainAxisSize.min,
+    mainAxisAlignment :mainAxisAlignment??MainAxisAlignment.start,
+    crossAxisAlignment :crossAxisAlignment??CrossAxisAlignment.center,
+
+    verticalDirection : verticalDirection??VerticalDirection.down,
+    children:this,
+  );
 }
 
 extension CardUtil on Widget {
@@ -57,8 +90,9 @@ extension CardUtil on Widget {
     color: Colors.blue,
     child: this,
   );
-}
 
+
+}
 
 extension DoubleUtil on double {
   double percent(double fraction) => this * fraction;
@@ -252,6 +286,11 @@ extension WidgetUI on Widget {
 
   Padding addPadding(double ms) => Padding(
     padding: EdgeInsets.all(ms),
+    child: this,
+  );
+  
+   Form inForm(GlobalKey key)=>Form(
+    key: key,
     child: this,
   );
 
