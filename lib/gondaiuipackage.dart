@@ -725,7 +725,7 @@ extension TextUtil on Text {
     child: this.addPadding(16.0),
   );
 
-  Text bold(context) => Text(
+  Text bold([context]) => Text(
     this.data,
     style: (() {
       if (this.style != null)
