@@ -205,6 +205,10 @@ extension WidgetUI on Widget {
     child: this,
   );
 
+  SingleChildScrollView inScrollView()=>SingleChildScrollView(
+    child: this,
+  );
+
   Center addCenter() => Center(
     child: this,
   );
@@ -532,7 +536,11 @@ extension StringUI on String {
 
               ): TextFormField(
                 controller: controller,
-                validator: validator??(s)=>s.isEmpty? "Please supply a valid value in $this": null ,
+                validator: validator??(s){
+                  if(s.isEmpty)
+                    return "Please Supply valid value for $this";
+                  return null;
+                },
                 obscureText: obscureText ?? false,
                 keyboardType: inputType ?? TextInputType.text,
                 decoration: InputDecoration(
