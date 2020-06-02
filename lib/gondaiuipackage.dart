@@ -5,95 +5,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
-extension ListUtil<T> on List<T> {
-  ListView custom(Function(T item) itemWidget, [Widget separator]) {
-    return ListView.separated(
-      itemBuilder: (context, i) => itemWidget(this[i]),
-      separatorBuilder: (context, i) => separator ?? SizedBox(height: 5),
-      itemCount: this.length,
-    );
-  }
-
-  GridView grid(
-      Function(T item) itemWidget, {
-        int columns,
-      }) =>
-      GridView.count(
-        shrinkWrap: true,
-        primary: false,
-        padding: const EdgeInsets.all(20),
-        crossAxisSpacing: 30,
-        mainAxisSpacing: 60,
-        crossAxisCount: columns ?? 2,
-        children: <Widget>[
-          ...this.map((item) => itemWidget(item)),
-        ],
-      );
-
-
-}
-
-extension ListString on List<String>{
-  Padding dataRow()=>Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-           this[0].text().bold(),
-        this[1].text()
-      ],
-    ),
-  );
-}
-
-extension ListWidget on List<Widget>{
-  Column inColumn({
-    MainAxisAlignment mainAxisAlignment,
-    MainAxisSize mainAxisSize ,
-    CrossAxisAlignment crossAxisAlignment ,
-
-    VerticalDirection verticalDirection ,
-  })=>Column(
-    mainAxisSize: mainAxisSize??MainAxisSize.min,
-    mainAxisAlignment :mainAxisAlignment??MainAxisAlignment.start,
-    crossAxisAlignment :crossAxisAlignment??CrossAxisAlignment.center,
-
-    verticalDirection : verticalDirection??VerticalDirection.down,
-    children:this,
-  );
-}
-
-extension CardUtil on Widget {
-  Card inCard() => Card(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(30),
-    ),
-    margin: const EdgeInsets.all(12.0),
-    child: this,
-  );
-
-  FittedBox inBox() => FittedBox(
-    fit: BoxFit.contain,
-    child: this,
-  );
-
-  AspectRatio inAspect([double ratio]) => AspectRatio(
-    aspectRatio: ratio ?? 1.0,
-    child: this,
-  );
-
-  Container inContainer(BuildContext context) => Container(
-    width: MediaQuery.of(context).size.width * 0.9,
-    height: MediaQuery.of(context).size.height * 0.9,
-    color: Colors.blue,
-    child: this,
-  );
-
-
-}
-
 extension DoubleUtil on double {
   double percent(double fraction) => this * fraction;
 
@@ -286,11 +197,6 @@ extension WidgetUI on Widget {
 
   Padding addPadding(double ms) => Padding(
     padding: EdgeInsets.all(ms),
-    child: this,
-  );
-  
-   Form inForm(GlobalKey key)=>Form(
-    key: key,
     child: this,
   );
 
@@ -725,7 +631,7 @@ extension TextUtil on Text {
     child: this.addPadding(16.0),
   );
 
-  Text bold([context]) => Text(
+  Text bold(context) => Text(
     this.data,
     style: (() {
       if (this.style != null)
