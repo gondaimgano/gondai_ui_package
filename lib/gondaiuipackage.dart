@@ -200,6 +200,11 @@ extension WidgetUI on Widget {
     child: this,
   );
 
+  Form inForm(GlobalKey key)=>Form(
+    key: key,
+    child: this,
+  );
+
   Center addCenter() => Center(
     child: this,
   );
@@ -527,7 +532,7 @@ extension StringUI on String {
 
               ): TextFormField(
                 controller: controller,
-                validator: validator,
+                validator: validator??(s)=>s.isEmpty? "Please supply a valid value in $this": null ,
                 obscureText: obscureText ?? false,
                 keyboardType: inputType ?? TextInputType.text,
                 decoration: InputDecoration(
