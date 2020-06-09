@@ -25,6 +25,7 @@ class CupertinoFormField extends FormField<String> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             CupertinoTextField(
+              onSubmitted: field.didChange,
               controller: controller,
               onChanged:field.didChange,
               minLines: 1,
@@ -67,6 +68,7 @@ class _CupertinoFormTextField extends FormFieldState<String>{
   CupertinoFormField get widget => super.widget;
   @override
   void didChange(String value) {
+    print(value);
     super.didChange(value);
     if (widget.onChanged != null) {
       widget.onChanged(value);
