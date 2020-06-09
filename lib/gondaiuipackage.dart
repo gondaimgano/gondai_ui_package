@@ -5,8 +5,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
 extension ListUtil<T> on List<T> {
   ListView custom(Function(T item) itemWidget, [Widget separator]) {
     return ListView.separated(
@@ -41,7 +39,7 @@ extension ListString on List<String>{
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-           this[0].text().bold(),
+        this[0].text().bold(),
         this[1].text()
       ],
     ),
@@ -288,9 +286,13 @@ extension WidgetUI on Widget {
     padding: EdgeInsets.all(ms),
     child: this,
   );
-  
-   Form inForm(GlobalKey key)=>Form(
+
+  Form inForm(GlobalKey key)=>Form(
     key: key,
+    child: this,
+  );
+
+  SingleChildScrollView inScrollView()=>SingleChildScrollView(
     child: this,
   );
 
@@ -621,7 +623,11 @@ extension StringUI on String {
 
               ): TextFormField(
                 controller: controller,
-                validator: validator,
+                validator: validator??(s){
+                  if(s.isEmpty)
+                    return "Please Supply valid value for $this";
+                  return null;
+                },
                 obscureText: obscureText ?? false,
                 keyboardType: inputType ?? TextInputType.text,
                 decoration: InputDecoration(
@@ -725,7 +731,7 @@ extension TextUtil on Text {
     child: this.addPadding(16.0),
   );
 
-  Text bold(context) => Text(
+  Text bold([context]) => Text(
     this.data,
     style: (() {
       if (this.style != null)
