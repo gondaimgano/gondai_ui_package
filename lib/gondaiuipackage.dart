@@ -491,7 +491,7 @@ extension StringUI on String {
 
     controller: controller,
    validator: validator,
-    inputType: inputType,
+    keyboardType: inputType,
 
   ):
   TextFormField(
@@ -538,7 +538,7 @@ extension StringUI on String {
 
             controller: controller,
             validator: validator,
-            inputType: inputType,
+            keyboardType: inputType,
             obscureText: obscureText??false,
 
 
@@ -590,7 +590,7 @@ extension StringUI on String {
                     return "Please Supply valid value for $this";
                   return null;
                 },
-                inputType: inputType,
+                keyboardType: inputType,
                 obscureText: obscureText??false,
                  
 
