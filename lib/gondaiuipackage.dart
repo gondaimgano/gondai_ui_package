@@ -608,7 +608,7 @@ extension StringUI on String {
                // obscureText:obscureText??false,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  color: CupertinoColors.placeholderText,
+                  color: Colors.black87,
                   fontSize: 18,
                 ),
                 padding: EdgeInsets.all(16.0),
@@ -616,8 +616,9 @@ extension StringUI on String {
                 keyboardType: inputType ?? TextInputType.text,
                 placeholder: this,
                 decoration: BoxDecoration(
-                 // color: CupertinoColors.placeholderText,
+                  color: CupertinoColors.placeholderText,
                   borderRadius: BorderRadius.all(Radius.circular(8.0),),
+
 
                   //backgroundBlendMode: BlendMode.screen
                 ),
