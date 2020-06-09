@@ -24,7 +24,7 @@ class CupertinoFormField extends FormField<String> {
           children: <Widget>[
             CupertinoTextField(
               controller: controller,
-              onChanged:onChanged,
+              onChanged:field.didChange,
               minLines: 1,
               // obscureText:obscureText??false,
               style: TextStyle(
