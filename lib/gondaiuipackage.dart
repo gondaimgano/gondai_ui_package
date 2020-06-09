@@ -605,6 +605,7 @@ extension StringUI on String {
 
                 controller: controller,
                 minLines: 1,
+                obscureText:obscureText??false,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: CupertinoColors.placeholderText,
