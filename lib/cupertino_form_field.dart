@@ -61,14 +61,57 @@ class CupertinoFormField extends FormField<String> {
 }
 
 class _CupertinoFormTextField extends FormFieldState<String>{
+  TextEditingController _controller;
+
+  TextEditingController get _effectiveController => widget.controller ?? _controller;
+
   @override
-  CupertinoFormField get widget => super.widget;
+  TextFormField get widget => super.widget as TextFormField;
+
   @override
-  void didChange(String value) {
-    super.didChange(value);
-    if (widget.onChanged != null) {
-      widget.onChanged(value);
+  void initState() {
+    super.initState();
+    if (widget.controller == null) {
+      _controller = TextEditingController(text: widget.initialValue);
+    } else {
+      widget.controller.addListener(_handleControllerChanged);
     }
+  }
+
+  @override
+  void didUpdateWidget(TextFormField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.controller != oldWidget.controller) {
+      oldWidget.controller?.removeListener(_handleControllerChanged);
+      widget.controller?.addListener(_handleControllerChanged);
+
+      if (oldWidget.controller != null && widget.controller == null)
+        _controller = TextEditingController.fromValue(oldWidget.controller.value);
+      if (widget.controller != null) {
+        setValue(widget.controller.text);
+        if (oldWidget.controller == null)
+          _controller = null;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.controller?.removeListener(_handleControllerChanged);
+    super.dispose();
+  }
+
+  @override
+  void reset() {
+    super.reset();
+    setState(() {
+      _effectiveController.text = widget.initialValue;
+    });
+  }
+
+  void _handleControllerChanged() {
+    if (_effectiveController.text != value)
+      didChange(_effectiveController.text);
   }
 }
 
