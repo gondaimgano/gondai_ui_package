@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import  'cupertino_form_field.dart';
+
 extension ListUtil<T> on List<T> {
   ListView custom(Function(T item) itemWidget, [Widget separator]) {
     return ListView.separated(
@@ -485,23 +487,12 @@ extension StringUI on String {
 
   Widget inputField(TextEditingController controller,
       {Function validator, TextInputType inputType}) =>Platform.isIOS?
-  CupertinoTextField(
+  CupertinoFormField(
 
     controller: controller,
-    minLines: 1,
-    style: TextStyle(
-      fontWeight: FontWeight.w400,
-      color: CupertinoColors.placeholderText,
-      fontSize: 18,
-    ),
-    padding: EdgeInsets.all(16.0),
-    keyboardType: inputType ?? TextInputType.text,
-    placeholder: this,
-    decoration: BoxDecoration(
-      color: Colors.grey.withOpacity(0.3),
-      borderRadius: BorderRadius.all(Radius.circular(12.0),),
-      //backgroundBlendMode: BlendMode.screen
-    ),
+   validator: validator,
+    inputType: inputType,
+
 
   ):
   TextFormField(
@@ -544,23 +535,13 @@ extension StringUI on String {
             controller.text = "${dt?.day}-${dt?.month}-${dt?.year}";
         },
         child: AbsorbPointer(
-          child:Platform.isIOS? CupertinoTextField(
+          child:Platform.isIOS?  CupertinoFormField(
 
             controller: controller,
-            minLines: 1,
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              color: CupertinoColors.placeholderText,
-              fontSize: 18,
-            ),
-            //obscureText: obscureText ?? false,
-            keyboardType: inputType ?? TextInputType.text,
-            placeholder: this,
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.3),
-              borderRadius: BorderRadius.all(Radius.circular(12.0),),
-              //backgroundBlendMode: BlendMode.screen
-            ),
+            validator: validator,
+            inputType: inputType,
+            obscureText: obscureText??false,
+
 
           ): TextFormField(
             controller: controller,
@@ -601,27 +582,17 @@ extension StringUI on String {
                   )),
             ),
             child: AbsorbPointer(
-              child:Platform.isIOS?CupertinoTextField(
+              child:Platform.isIOS?CupertinoFormField(
 
                 controller: controller,
-                minLines: 1,
-               // obscureText:obscureText??false,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87,
-                  fontSize: 18,
-                ),
-                padding: EdgeInsets.all(16.0),
-                obscureText: obscureText ?? false,
-                keyboardType: inputType ?? TextInputType.text,
-                placeholder: this,
-                decoration: BoxDecoration(
-                  color: CupertinoColors.placeholderText,
-                  borderRadius: BorderRadius.all(Radius.circular(8.0),),
+                validator: validator??(s){
+                  if(s.isEmpty)
+                    return "Please Supply valid value for $this";
+                  return null;
+                },
+                inputType: inputType,
+                obscureText: obscureText??false,
 
-
-                  //backgroundBlendMode: BlendMode.screen
-                ),
 
               ): TextFormField(
                 controller: controller,
