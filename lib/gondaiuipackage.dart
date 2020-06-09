@@ -493,7 +493,6 @@ extension StringUI on String {
    validator: validator,
     inputType: inputType,
 
-
   ):
   TextFormField(
     controller: controller,

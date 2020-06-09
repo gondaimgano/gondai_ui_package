@@ -13,18 +13,18 @@ class CupertinoFormField extends FormField<String> {
     TextEditingController controller,
     String placeholder,
   }):super(
-      onSaved:onSaved,
+      onSaved:onSaved??(s)=>controller.text=s,
       validator:validator??(s)=>s.isEmpty?"Please Supply value":null,
       initialValue:  controller != null ? controller.text : (initialValue ?? ''),
       autovalidate: autoValidate,
-      builder:(state){
+      builder:(field){
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             CupertinoTextField(
               controller: controller,
               onChanged: (s){
-                state.didChange(s);
+                field.didChange(s);
               },
               minLines: 1,
               // obscureText:obscureText??false,
@@ -37,7 +37,7 @@ class CupertinoFormField extends FormField<String> {
               obscureText: obscureText ?? false,
               keyboardType: inputType ?? TextInputType.text,
               placeholder: placeholder,
-              decoration: BoxDecoration(
+             decoration: BoxDecoration(
                 color: CupertinoColors.systemGrey,
                 borderRadius: BorderRadius.all(Radius.circular(8.0),),
 
@@ -45,9 +45,9 @@ class CupertinoFormField extends FormField<String> {
               ),
             ),
             SizedBox(height: 5,),
-            state.hasError?Row(
+            field.hasError?Row(
               children: [
-                Text(state.errorText,textAlign:TextAlign.start,style: TextStyle(color:CupertinoColors.systemRed,fontSize:11,),),
+                Text(field.errorText,textAlign:TextAlign.start,style: TextStyle(color:CupertinoColors.systemRed,fontSize:11,),),
               ],
             ):Container(width: 0,height: 0,),
           ],
