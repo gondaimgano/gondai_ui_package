@@ -585,6 +585,7 @@ extension StringUI on String {
               child:Platform.isIOS?CupertinoFormField(
 
                 controller: controller,
+                placeholder: this,
                 validator: validator??(s){
                   if(s.isEmpty)
                     return "Please Supply valid value for $this";
@@ -592,7 +593,7 @@ extension StringUI on String {
                 },
                 inputType: inputType,
                 obscureText: obscureText??false,
-
+                 
 
               ): TextFormField(
                 controller: controller,
