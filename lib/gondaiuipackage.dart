@@ -492,7 +492,7 @@ extension StringUI on String {
     controller: controller,
    validator: validator??(s)=>s.isEmpty?"Field cannot be empty":null,
     inputType: inputType,
-
+    placeholder: this,
   ):
   TextFormField(
     controller: controller,
