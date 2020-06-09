@@ -605,18 +605,18 @@ extension StringUI on String {
 
                 controller: controller,
                 minLines: 1,
-                obscureText:obscureText??false,
+               // obscureText:obscureText??false,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: CupertinoColors.placeholderText,
                   fontSize: 18,
                 ),
                 padding: EdgeInsets.all(16.0),
-                //obscureText: obscureText ?? false,
+                obscureText: obscureText ?? false,
                 keyboardType: inputType ?? TextInputType.text,
                 placeholder: this,
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.3),
+                 // color: CupertinoColors.placeholderText,
                   borderRadius: BorderRadius.all(Radius.circular(8.0),),
 
                   //backgroundBlendMode: BlendMode.screen
