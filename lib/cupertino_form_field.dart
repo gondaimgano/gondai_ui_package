@@ -30,7 +30,7 @@ class CupertinoFormField extends FormField<String> {
               // obscureText:obscureText??false,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                color: CupertinoColors.systemGrey,
+                color: CupertinoColors.placeholderText,
                 fontSize: 18,
               ),
               padding: EdgeInsets.all(16.0),
@@ -38,7 +38,7 @@ class CupertinoFormField extends FormField<String> {
               keyboardType: inputType ?? TextInputType.text,
               placeholder: placeholder,
               decoration: BoxDecoration(
-                color: CupertinoColors.placeholderText,
+                color: CupertinoColors.systemGrey,
                 borderRadius: BorderRadius.all(Radius.circular(8.0),),
 
                 //backgroundBlendMode: BlendMode.screen
