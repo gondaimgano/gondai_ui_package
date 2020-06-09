@@ -13,8 +13,8 @@ class CupertinoFormField extends FormField<String> {
     TextEditingController controller,
     String placeholder,
   }):super(
-      onSaved:onSaved??(s)=>controller.text=s,
-      validator:validator??(s)=>s.isEmpty?"Please Supply value":null,
+      onSaved:onSaved,
+      validator:validator,
       initialValue:  controller != null ? controller.text : (initialValue ?? ''),
       autovalidate: autoValidate,
       builder:(field){
