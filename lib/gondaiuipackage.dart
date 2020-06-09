@@ -490,13 +490,13 @@ extension StringUI on String {
   CupertinoFormField(
 
     controller: controller,
-   validator: validator,
+   validator: validator??(s)=>s.isEmpty?"Field cannot be empty":null,
     inputType: inputType,
 
   ):
   TextFormField(
     controller: controller,
-    validator: validator,
+    validator: validator??(s)=>s.isEmpty?"Field cannot be empty":null,
     keyboardType: inputType ?? TextInputType.text,
     decoration: InputDecoration(
       filled: true,
