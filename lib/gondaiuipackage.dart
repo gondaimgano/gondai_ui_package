@@ -1,4 +1,5 @@
 library gondaiuipackage;
+export 'custom_tile.dart';
 
 import 'dart:io';
 
