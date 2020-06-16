@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dropdown_form_field.dart';
 
 import  'cupertino_form_field.dart';
 
@@ -32,7 +33,24 @@ extension ListUtil<T> on List<T> {
           ...this.map((item) => itemWidget(item)),
         ],
       );
-
+  DropDownFormField dropDown(
+  TextEditingController controller,
+      { String hintText,
+        String textField,
+        String valueField,
+        Function onChange,
+      }
+        )=>DropDownFormField(
+    hintText: hintText??"Select Ten Item",
+    required: true,
+    dataSource: this,
+    value: controller.text,
+    textField: textField,
+    valueField: valueField,
+     onChanged: (newValue){
+      onChange(newValue);
+     },
+  );
 
 }
 
