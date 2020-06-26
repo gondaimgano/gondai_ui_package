@@ -602,7 +602,7 @@ extension StringUI on String {
                   )),
             ),
             child: AbsorbPointer(
-              child:Platform.isIOS?CupertinoFormField(
+              child:/*Platform.isIOS?CupertinoFormField(
 
                 controller: controller,
                 placeholder: this,
@@ -616,7 +616,7 @@ extension StringUI on String {
 
                  
 
-              ): TextFormField(
+              ): */TextFormField(
                 controller: controller,
                 validator: validator??(s){
                   if(s.isEmpty)
