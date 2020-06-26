@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  neumorphic: any
+  gradient_widgets: ^0.5.2
 
 dev_dependencies:
   flutter_test:

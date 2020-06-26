@@ -1,33 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gondaiuipackage/gondaiuipackage.dart';
+import 'package:neumorphic/neumorphic.dart';
 
 void main() {
   runApp(MyApp());
 }
 
+Color _color = Color(0xFFf2f2f2);
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: _color,
+    ));
+
+    return NeuApp(
+      title: 'Neumorphic App',
+      theme: NeuThemeData(
+        platform: TargetPlatform.iOS,
         primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        backgroundColor: Color.lerp(_color, Colors.black, 0.005),
+        scaffoldBackgroundColor: _color,
+        dialogBackgroundColor: Colors.grey[300],
+        appBarTheme: AppBarTheme(
+          brightness: Brightness.light,
+          color: _color,
+          textTheme: TextTheme(
+            title: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+        ),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: "Hello",),
+      // home: CheckScreen(), // (predatorx7) Used to test user issues.
     );
   }
 }
@@ -103,24 +121,26 @@ class _MyHomePageState extends State<MyHomePage> {
             [
               {
                 "name": "Gondai",
-                "title":"Find",
-                "dragon":"Dragon"
+                "title": "Find",
+                "dragon": "Dragon"
               },
               {
                 "name": "Nathaniel",
-                "title":"fish"
+                "title": "fish"
               },
               {
                 "name": "Richard",
-                "title":"frog"
+                "title": "frog"
               },
             ].dropDown(_dropDownController,
                 textField: "tt", valueField: "drg",
-            onChange: (s){
-             setState(() {
-               _dropDownController.text=s;
-             });
-            }),
+                onChange: (s) {
+                  setState(() {
+                    _dropDownController.text = s;
+                  });
+                }),
+            SizedBox(height: 12,),
+            "Login".raisedButton().addPadding(8.0),
           ],
         ),
       ),

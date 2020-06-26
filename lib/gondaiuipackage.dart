@@ -5,6 +5,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gradient_widgets/gradient_widgets.dart';
+import 'package:neumorphic/neumorphic.dart';
 import 'dropdown_form_field.dart';
 
 import  'cupertino_form_field.dart';
@@ -655,14 +657,32 @@ extension StringUI on String {
           inputType: TextInputType.emailAddress,
           obscureText: true);
 
-  Widget raisedButton([VoidCallback onPressed]) => Platform.isIOS
+  Widget raisedButton([VoidCallback onPressed]) => /*Platform.isIOS
       ? CupertinoButton.filled(
-    child: this.center(),
+    child:  Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors:[
+                Color(0xFF823B8E),
+                Color(0xFFED2A7B),
+              ]
+          )
+      ),
+      child: this.center(),
+    ),
     onPressed: onPressed ?? () {},
   )
-      : RaisedButton(
-    onPressed: onPressed ?? () {},
-    child: this.center().addPadding(16.0),
+      : */GradientButton(
+    increaseWidthBy: double.infinity,
+    increaseHeightBy: 15,
+    callback: onPressed ?? () {},
+    gradient: LinearGradient(
+      colors: [
+        Color(0xff823b8e),
+        Color(0xffed2a7b)
+      ]
+    ),
+    child: this.text(),
     elevation: 0.0,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
@@ -696,6 +716,29 @@ extension StringUI on String {
       textAlign: TextAlign.center,
     );
   })();
+
+  NeuText _neuText([BuildContext context]) => (() {
+    if (context != null)
+      return NeuText(
+        this,
+       // textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.headline,
+      );
+    return NeuText(
+      this,
+     style: TextStyle(fontSize: 20),
+     // textAlign: TextAlign.center,
+    );
+  })();
+
+  Widget _neuButton([VoidCallback onPressed]) =>  NeuButton(
+    onPressed: onPressed ?? () {},
+    child: this._neuText().addPadding(16.0),
+    decoration: NeumorphicDecoration(
+     // color: Colors.purple[800],
+
+    ),
+  );
 }
 
 extension TextUtil on Text {
