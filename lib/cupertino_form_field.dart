@@ -40,7 +40,7 @@ class CupertinoFormField extends FormField<String> {
               keyboardType: inputType ?? TextInputType.text,
               placeholder: placeholder,
              decoration: BoxDecoration(
-                color: CupertinoColors.systemGrey,
+                color: CupertinoColors.lightBackgroundGray,
                 borderRadius: BorderRadius.all(Radius.circular(8.0),),
 
                 //backgroundBlendMode: BlendMode.screen
