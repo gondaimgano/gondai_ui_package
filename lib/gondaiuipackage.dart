@@ -1,4 +1,5 @@
 library gondaiuipackage;
+
 export 'custom_tile.dart';
 
 import 'dart:io';
@@ -9,7 +10,7 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:neumorphic/neumorphic.dart';
 import 'dropdown_form_field.dart';
 
-import  'cupertino_form_field.dart';
+import 'cupertino_form_field.dart';
 
 extension ListUtil<T> on List<T> {
   ListView custom(Function(T item) itemWidget, [Widget separator]) {
@@ -21,9 +22,9 @@ extension ListUtil<T> on List<T> {
   }
 
   GridView grid(
-      Function(T item) itemWidget, {
-        int columns,
-      }) =>
+    Function(T item) itemWidget, {
+    int columns,
+  }) =>
       GridView.count(
         shrinkWrap: true,
         primary: false,
@@ -35,91 +36,88 @@ extension ListUtil<T> on List<T> {
           ...this.map((item) => itemWidget(item)),
         ],
       );
+
   DropDownFormField dropDown(
-  TextEditingController controller,
-      { String hintText,
-        String textField,
-        String valueField,
-        Function onChange,
-      }
-        )=>DropDownFormField(
-    hintText: hintText??"Select Ten Item",
-    required: true,
-    dataSource: this,
-    value: controller.text,
-    textField: textField,
-    valueField: valueField,
-     onChanged: (newValue){
-      onChange(newValue);
-     },
-  );
-
+    TextEditingController controller, {
+    String hintText,
+    String textField,
+    String valueField,
+    Function onChange,
+  }) =>
+      DropDownFormField(
+        hintText: hintText ?? "Select Ten Item",
+        required: true,
+        dataSource: this,
+        value: controller.text,
+        textField: textField,
+        valueField: valueField,
+        onChanged: (newValue) {
+          onChange(newValue);
+        },
+      );
 }
 
-extension ListString on List<String>{
-  Padding dataRow()=>Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        this[0].text().bold(),
-        this[1].text()
-      ],
-    ),
-  );
+extension ListString on List<String> {
+  Padding dataRow() => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[this[0].text().bold(), this[1].text()],
+        ),
+      );
 }
 
-extension ListWidget on List<Widget>{
+extension ListWidget on List<Widget> {
   Column inColumn({
     MainAxisAlignment mainAxisAlignment,
-    MainAxisSize mainAxisSize ,
-    CrossAxisAlignment crossAxisAlignment ,
-
-    VerticalDirection verticalDirection ,
-  })=>Column(
-    mainAxisSize: mainAxisSize??MainAxisSize.min,
-    mainAxisAlignment :mainAxisAlignment??MainAxisAlignment.start,
-    crossAxisAlignment :crossAxisAlignment??CrossAxisAlignment.center,
-
-    verticalDirection : verticalDirection??VerticalDirection.down,
-    children:this,
-  );
+    MainAxisSize mainAxisSize,
+    CrossAxisAlignment crossAxisAlignment,
+    VerticalDirection verticalDirection,
+  }) =>
+      Column(
+        mainAxisSize: mainAxisSize ?? MainAxisSize.min,
+        mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+        crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
+        verticalDirection: verticalDirection ?? VerticalDirection.down,
+        children: this,
+      );
 }
 
 extension CardUtil on Widget {
   Card inCard() => Card(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(30),
-    ),
-    margin: const EdgeInsets.all(12.0),
-    child: this,
-  );
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        margin: const EdgeInsets.all(12.0),
+        child: this,
+      );
 
   FittedBox inBox() => FittedBox(
-    fit: BoxFit.contain,
-    child: this,
-  );
+        fit: BoxFit.contain,
+        child: this,
+      );
 
   AspectRatio inAspect([double ratio]) => AspectRatio(
-    aspectRatio: ratio ?? 1.0,
-    child: this,
-  );
+        aspectRatio: ratio ?? 1.0,
+        child: this,
+      );
 
   Container inContainer(BuildContext context) => Container(
-    width: MediaQuery.of(context).size.width * 0.9,
-    height: MediaQuery.of(context).size.height * 0.9,
-    color: Colors.blue,
-    child: this,
-  );
-
-
+        width: MediaQuery.of(context).size.width * 0.9,
+        height: MediaQuery.of(context).size.height * 0.9,
+        color: Colors.blue,
+        child: this,
+      );
 }
 
 extension DoubleUtil on double {
   double percent(double fraction) => this * fraction;
 
   RoundedRectangleBorder roundedRectangleBorder() => RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(this),),);
+        borderRadius: BorderRadius.all(
+          Radius.circular(this),
+        ),
+      );
 
   double toDollar() {
     if (this == 0) return this;
@@ -150,32 +148,32 @@ extension BuildContextUI on BuildContext {
   double percentOfWidth(double fraction) => this.width().percent(fraction);
 
   Widget farmAppAvatar() => Container(
-    height: this.percentOfWidth(0.35),
-    width: this.percentOfWidth(0.35),
-    child: CircleAvatar(
-      backgroundImage: AssetImage(
-        "assets/background.jpg",
-      ),
-    ),
-  );
+        height: this.percentOfWidth(0.35),
+        width: this.percentOfWidth(0.35),
+        child: CircleAvatar(
+          backgroundImage: AssetImage(
+            "assets/background.jpg",
+          ),
+        ),
+      );
 
   void navigateTo(screen, {bool back = false}) => () {
-    if (!back)
-      Navigator.of(this).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => screen,
-          ),
+        if (!back)
+          Navigator.of(this).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => screen,
+              ),
               (s) => false);
-    else
-      Navigator.of(this).push(MaterialPageRoute(
-        builder: (context) => screen,
-      ));
-  }();
+        else
+          Navigator.of(this).push(MaterialPageRoute(
+            builder: (context) => screen,
+          ));
+      }();
 
   Text textWithTheme(String t) => Text(
-    t,
-    style: Theme.of(this).textTheme.title,
-  );
+        t,
+        style: Theme.of(this).textTheme.title,
+      );
 
   MaterialButton buttonWithTheme(String label, {VoidCallback onPressed}) =>
       RaisedButton(
@@ -184,7 +182,7 @@ extension BuildContextUI on BuildContext {
       );
 
   TextFormField inputField(TextEditingController controller,
-      {Function validator, TextInputType inputType}) =>
+          {Function validator, TextInputType inputType}) =>
       TextFormField(
         controller: controller,
         validator: validator,
@@ -195,212 +193,212 @@ extension BuildContextUI on BuildContext {
       );
 
   Center center(Widget child) => Center(
-    child: child,
-  );
+        child: child,
+      );
 
   Container fill() => Container(
-    width: MediaQuery.of(this).size.width,
-    height: MediaQuery.of(this).size.height,
-  );
+        width: MediaQuery.of(this).size.width,
+        height: MediaQuery.of(this).size.height,
+      );
 
   Stack filledStack() => Stack(
-    children: <Widget>[
-      this.fill(),
-    ],
-  );
+        children: <Widget>[
+          this.fill(),
+        ],
+      );
 
   Column wrappedColumn() => Column(
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[],
-  );
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[],
+      );
 
   Row buildRow() => Row(
-    children: <Widget>[],
-  );
+        children: <Widget>[],
+      );
 }
 
 extension ColumnUI on Column {
   Column addWrappedChild(Widget child) => Column(
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      ...this.children,
-      SizedBox(
-        height: 12,
-      ),
-      child,
-    ],
-  );
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ...this.children,
+          SizedBox(
+            height: 12,
+          ),
+          child,
+        ],
+      );
 }
 
 extension RowUI on Row {
   Row addRowChild(Widget child) => Row(
-    children: <Widget>[
-      ...this.children,
-      //SizedBox(width: 12,),
-      child,
-    ],
-  );
+        children: <Widget>[
+          ...this.children,
+          //SizedBox(width: 12,),
+          child,
+        ],
+      );
 }
 
 extension InputUI on TextFormField {
   AbsorbPointer readOnly() => AbsorbPointer(
-    child: this,
-  );
+        child: this,
+      );
 
   Widget onPop(BuildContext context) => Scaffold(
-    body: Column(
-      children: <Widget>[
-        this,
-      ],
-    ),
-    floatingActionButton: FloatingActionButton(
-      onPressed: () => Navigator.of(context).pop(this.controller.text),
-    ),
-  );
+        body: Column(
+          children: <Widget>[
+            this,
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.of(context).pop(this.controller.text),
+        ),
+      );
 }
 
 extension WidgetUI on Widget {
   void showInBottomSheet(BuildContext context) => showBottomSheet(
-    context: context,
-    builder: (context) => Container(
-      width: context.width(),
-      margin:
-      EdgeInsets.only(bottom: 30.0, left: 8.0, right: 8.0, top: 30.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(50),
+        context: context,
+        builder: (context) => Container(
+          width: context.width(),
+          margin:
+              EdgeInsets.only(bottom: 30.0, left: 8.0, right: 8.0, top: 30.0),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(50),
+              ),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.white12, blurRadius: 1.0, spreadRadius: 9.0),
+              ]),
+          child: Card(
+            child: Container(
+              padding: EdgeInsets.all(16.0),
+              child: this,
+            ),
           ),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.white12, blurRadius: 1.0, spreadRadius: 9.0),
-          ]),
-      child: Card(
-        child: Container(
-          padding: EdgeInsets.all(16.0),
-          child: this,
         ),
-      ),
-    ),
-  );
+      );
 
   Container square([double sq]) => Container(
-    child: this,
-    width: sq ?? 100,
-    height: sq ?? 100,
-  );
+        child: this,
+        width: sq ?? 100,
+        height: sq ?? 100,
+      );
 
   Container circle([color]) => Container(
-    child: this,
-    decoration: BoxDecoration(
-        shape: BoxShape.circle, color: color ?? CupertinoColors.white),
-  );
+        child: this,
+        decoration: BoxDecoration(
+            shape: BoxShape.circle, color: color ?? CupertinoColors.white),
+      );
 
   Flexible flexible(int flex) => Flexible(
-    flex: flex ?? 1,
-    child: this,
-  );
+        flex: flex ?? 1,
+        child: this,
+      );
 
   Expanded expand(int flex) => Expanded(
-    flex: flex ?? 1,
-    child: this,
-  );
+        flex: flex ?? 1,
+        child: this,
+      );
 
   Padding addPadding(double ms) => Padding(
-    padding: EdgeInsets.all(ms),
-    child: this,
-  );
+        padding: EdgeInsets.all(ms),
+        child: this,
+      );
 
-  Form inForm(GlobalKey key)=>Form(
-    key: key,
-    child: this,
-  );
+  Form inForm(GlobalKey key) => Form(
+        key: key,
+        child: this,
+      );
 
-  SingleChildScrollView inScrollView()=>SingleChildScrollView(
-    child: this,
-  );
+  SingleChildScrollView inScrollView() => SingleChildScrollView(
+        child: this,
+      );
 
   Center addCenter() => Center(
-    child: this,
-  );
+        child: this,
+      );
 
   Widget fillWidth(BuildContext context) => Container(
-    child: this,
-    width: MediaQuery.of(context).size.width,
-  );
+        child: this,
+        width: MediaQuery.of(context).size.width,
+      );
 
   Widget backgroundColor([Color color]) => Container(
-    child: this,
-    color: color ?? Colors.white,
-  );
+        child: this,
+        color: color ?? Colors.white,
+      );
 
   Widget withDivider() => Column(
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      this,
-      SizedBox(
-        height: 12,
-      ),
-      Divider(
-        indent: 10,
-        endIndent: 10,
-      ),
-    ],
-  );
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          this,
+          SizedBox(
+            height: 12,
+          ),
+          Divider(
+            indent: 10,
+            endIndent: 10,
+          ),
+        ],
+      );
 }
 
 extension AlignUI on Align {
   Stack insideStack() => Stack(
-    children: <Widget>[],
-  );
+        children: <Widget>[],
+      );
 
   Stack filledStack(BuildContext context) => Stack(
-    children: <Widget>[
-      context.fill(),
-      this,
-    ],
-  );
+        children: <Widget>[
+          context.fill(),
+          this,
+        ],
+      );
 }
 
 extension PostionedUI on Positioned {
   Stack insideStack() => Stack(
-    children: <Widget>[],
-  );
+        children: <Widget>[],
+      );
 
   Stack filledStack(BuildContext context) => Stack(
-    children: <Widget>[
-      context.fill(),
-    ],
-  );
+        children: <Widget>[
+          context.fill(),
+        ],
+      );
 }
 
 extension StackUI on Stack {
   Stack addStackChild(Widget child) => Stack(
-    children: <Widget>[
-      ...this.children,
-      child,
-    ],
-  );
+        children: <Widget>[
+          ...this.children,
+          child,
+        ],
+      );
 
   Stack fillWithChild(Widget child) => Stack(
-    children: <Widget>[
-      ...this.children,
-      Positioned.fill(child: child),
-    ],
-  );
+        children: <Widget>[
+          ...this.children,
+          Positioned.fill(child: child),
+        ],
+      );
 
   Stack fillWithAssetImage(String image) => Stack(
-    children: <Widget>[
-      ...this.children,
-      Positioned.fill(
-        child: Hero(
-            tag: "Done",
-            child: Image.asset(
-              "assets/$image",
-              fit: BoxFit.fitHeight,
-            )),
-      ),
-    ],
-  );
+        children: <Widget>[
+          ...this.children,
+          Positioned.fill(
+            child: Hero(
+                tag: "Done",
+                child: Image.asset(
+                  "assets/$image",
+                  fit: BoxFit.fitHeight,
+                )),
+          ),
+        ],
+      );
 }
 
 enum BubbleDecide {
@@ -410,64 +408,68 @@ enum BubbleDecide {
 
 extension StringUI on String {
   Future<void> showCircularBubbleAlert(BuildContext context) => showBubbleAlert(
-    context,
-    Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        SizedBox(
-          width: 50,
-          height: 50,
-          child:Platform.isIOS?CupertinoActivityIndicator(
-            radius: 15,
-          ): CircularProgressIndicator(
-            valueColor:
-            AlwaysStoppedAnimation(Theme.of(context).accentColor),
-            strokeWidth: 7.0,
-          ),
+        context,
+        Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            SizedBox(
+              width: 50,
+              height: 50,
+              child: Platform.isIOS
+                  ? CupertinoActivityIndicator(
+                      radius: 15,
+                    )
+                  : CircularProgressIndicator(
+                      valueColor:
+                          AlwaysStoppedAnimation(Theme.of(context).accentColor),
+                      strokeWidth: 7.0,
+                    ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+          ],
         ),
-        SizedBox(
-          height: 12,
-        ),
-      ],
-    ),
-    [Container()], //actions
-  );
+        [Container()], //actions
+      );
 
   Future<dynamic> showBubbleAlert(
-      BuildContext context,
-      Widget child, [
-        List<Widget> actions,
-        String title = "",
-      ]) =>
-          (){
-        if(Platform.isIOS)
-          return showCupertinoDialog(context: context, builder: (context){
-            return  AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              title: Text(title ?? ''),
-              content: child,
-              actions: actions ??
-                  <Widget>[
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(BubbleDecide.OK);
-                      },
-                      child: Text("Ok"),
-                    ),
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(BubbleDecide.CANCEL);
-                      },
-                      child: Text("Cancel"),
-                    )
-                  ],
-            );
-          });
+    BuildContext context,
+    Widget child, [
+    List<Widget> actions,
+    String title = "",
+  ]) =>
+      () {
+        if (Platform.isIOS)
+          return showCupertinoDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  title: Text(title ?? ''),
+                  content: child,
+                  actions: actions ??
+                      <Widget>[
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(BubbleDecide.OK);
+                          },
+                          child: Text("Ok"),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(BubbleDecide.CANCEL);
+                          },
+                          child: Text("Cancel"),
+                        )
+                      ],
+                );
+              });
         return showGeneralDialog(
 
-          //barrierColor: Colors.black.withOpacity(0.5),
+            //barrierColor: Colors.black.withOpacity(0.5),
             transitionBuilder: (context, a1, a2, widget) {
               return ScaleTransition(
                 scale: CurvedAnimation(
@@ -502,33 +504,47 @@ extension StringUI on String {
             barrierDismissible: false,
             barrierLabel: '',
             context: context,
-            pageBuilder: (context, animation1, animation2) {});}(
-
-      );
+            pageBuilder: (context, animation1, animation2) {});
+      }();
 
   Widget inputField(TextEditingController controller,
-      {Function validator, TextInputType inputType}) =>Platform.isIOS?
-  CupertinoFormField(
+          {Function validator, TextInputType inputType,Widget prefix}) =>
+     /* Platform.isIOS
+          ? CupertinoFormField(
+              controller: controller,
+              validator: validator ??
+                  (s) => s.isEmpty ? "Field cannot be empty" : null,
+              inputType: inputType,
+              placeholder: this,
+            )
+          :*/ TextFormField(
+              controller: controller,
+              validator: validator ??
+                  (s) => s.isEmpty ? "Field cannot be empty" : null,
+              keyboardType: inputType ?? TextInputType.text,
+        decoration: InputDecoration(
+          //filled: true,
+          //fillColor: Colors.white,
 
-    controller: controller,
-   validator: validator??(s)=>s.isEmpty?"Field cannot be empty":null,
-    inputType: inputType,
-    placeholder: this,
-  ):
-  TextFormField(
-    controller: controller,
-    validator: validator??(s)=>s.isEmpty?"Field cannot be empty":null,
-    keyboardType: inputType ?? TextInputType.text,
-    decoration: InputDecoration(
-      filled: true,
-      fillColor: CupertinoColors.white,
-      border: null,
-      labelText: this,
-    ),
-  );
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: CupertinoColors.systemGrey),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: CupertinoColors.systemGrey),
+            ),
+            border: UnderlineInputBorder(
+              borderSide: BorderSide(color: CupertinoColors.systemGrey),
+            ),
+            labelText: this,
+            prefixIcon: prefix ??
+                Icon(
+                  Icons.label,
+                  color: CupertinoColors.systemGrey,
+                )),
+            );
 
   TextFormField passwordField(TextEditingController controller,
-      {Function validator, TextInputType inputType}) =>
+          {Function validator, TextInputType inputType}) =>
       TextFormField(
         controller: controller,
         validator: validator,
@@ -542,7 +558,7 @@ extension StringUI on String {
       );
 
   Widget popUpDateField(BuildContext context, TextEditingController controller,
-      {Function validator, TextInputType inputType, bool obscureText}) =>
+          {Function validator, TextInputType inputType, bool obscureText}) =>
       InkWell(
         onTap: () async {
           var dt = await showDatePicker(
@@ -555,54 +571,57 @@ extension StringUI on String {
             controller.text = "${dt?.day}-${dt?.month}-${dt?.year}";
         },
         child: AbsorbPointer(
-          child:Platform.isIOS?  CupertinoFormField(
-
-            controller: controller,
-            validator: validator,
-            inputType: inputType,
-            obscureText: obscureText??false,
-
-
-          ): TextFormField(
-            controller: controller,
-            validator: validator,
-            obscureText: obscureText ?? false,
-            keyboardType: inputType ?? TextInputType.text,
-            decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: null,
-                labelText: this),
-          ),
+          child: Platform.isIOS
+              ? CupertinoFormField(
+                  controller: controller,
+                  validator: validator,
+                  inputType: inputType,
+                  obscureText: obscureText ?? false,
+                )
+              : TextFormField(
+                  controller: controller,
+                  validator: validator,
+                  obscureText: obscureText ?? false,
+                  keyboardType: inputType ?? TextInputType.text,
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: null,
+                      labelText: this),
+                ),
         ),
       );
 
   Widget popUpField(BuildContext context, TextEditingController controller,
-      {Function validator, TextInputType inputType, bool obscureText}) =>
+          {Function validator,
+          TextInputType inputType,
+          bool obscureText,
+          Widget prefix}) =>
       Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           InkResponse(
             onTap: () async =>
-            controller.text = await Navigator.of(context).push(
+                controller.text = await Navigator.of(context).push(
               MaterialPageRoute(
                   builder: (context) => Scaffold(
-                    body: SafeArea(
-                      child: Column(
-                        children: <Widget>[
-                          this.inputField(controller),
-                        ],
-                      ).addPadding(10.0),
-                    ),
-                    floatingActionButton: FloatingActionButton(
-                      child: Icon(Icons.arrow_forward_ios).addPadding(8.0),
-                      onPressed: () =>
-                          Navigator.of(context).pop(controller.text),
-                    ),
-                  )),
+                        body: SafeArea(
+                          child: Column(
+                            children: <Widget>[
+                              this.inputField(controller),
+                            ],
+                          ).addPadding(10.0),
+                        ),
+                        floatingActionButton: FloatingActionButton(
+                          child: Icon(Icons.arrow_forward_ios).addPadding(8.0),
+                          onPressed: () =>
+                              Navigator.of(context).pop(controller.text),
+                        ),
+                      )),
             ),
             child: AbsorbPointer(
-              child:/*Platform.isIOS?CupertinoFormField(
+              child:
+                  /*Platform.isIOS?CupertinoFormField(
 
                 controller: controller,
                 placeholder: this,
@@ -616,20 +635,36 @@ extension StringUI on String {
 
                  
 
-              ): */TextFormField(
+              ): */
+                  TextFormField(
                 controller: controller,
-                validator: validator??(s){
-                  if(s.isEmpty)
-                    return "Please Supply valid value for $this";
-                  return null;
-                },
+                validator: validator ??
+                    (s) {
+                      if (s.isEmpty)
+                        return "Please Supply valid value for $this";
+                      return null;
+                    },
                 obscureText: obscureText ?? false,
                 keyboardType: inputType ?? TextInputType.text,
                 decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: null,
-                    labelText: this),
+                    //filled: true,
+                    //fillColor: Colors.white,
+
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CupertinoColors.systemGrey),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CupertinoColors.systemGrey),
+                    ),
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CupertinoColors.systemGrey),
+                    ),
+                    labelText: this,
+                    prefixIcon: prefix ??
+                        Icon(
+                          Icons.label,
+                          color: CupertinoColors.systemGrey,
+                        )),
               ),
             ).fillWidth(context),
           ),
@@ -640,25 +675,26 @@ extension StringUI on String {
       );
 
   Widget popUpNumberField(
-      BuildContext context, TextEditingController controller,
-      {Function validator}) =>
+          BuildContext context, TextEditingController controller,
+          {Function validator}) =>
       this.popUpField(context, controller,
           validator: validator, inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
-      {Function validator, TextInputType inputType}) =>
+          {Function validator, TextInputType inputType}) =>
       this.popUpField(context, controller,
           validator: validator, inputType: TextInputType.emailAddress);
 
   Widget popUpPasswordField(
-      BuildContext context, TextEditingController controller,
-      {Function validator, TextInputType inputType}) =>
+          BuildContext context, TextEditingController controller,
+          {Function validator, TextInputType inputType}) =>
       this.popUpField(context, controller,
           validator: validator,
           inputType: TextInputType.emailAddress,
           obscureText: true);
 
-  Widget raisedButton([VoidCallback onPressed]) => /*Platform.isIOS
+  Widget raisedButton([VoidCallback onPressed]) =>
+      /*Platform.isIOS
       ? CupertinoButton.filled(
     child:  Container(
       decoration: BoxDecoration(
@@ -673,175 +709,172 @@ extension StringUI on String {
     ),
     onPressed: onPressed ?? () {},
   )
-      : */GradientButton(
-    increaseWidthBy: double.infinity,
-    increaseHeightBy: 15,
-    callback: onPressed ?? () {},
-    gradient: LinearGradient(
-      colors: [
-        Color(0xff823b8e),
-        Color(0xffed2a7b)
-      ]
-    ),
-    child: this.text(),
-    elevation: 0.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(
-          10,
+      : */
+      GradientButton(
+        increaseWidthBy: double.infinity,
+        increaseHeightBy: 15,
+        callback: onPressed ?? () {},
+        gradient:
+            LinearGradient(colors: [Color(0xff823b8e), Color(0xffed2a7b)]),
+        child: this.text(),
+        elevation: 0.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              10,
+            ),
+          ),
         ),
-      ),
-    ),
-  );
+      );
 
-  Widget flatButton([VoidCallback onPressed]) =>Platform.isIOS
+  Widget flatButton([VoidCallback onPressed]) => Platform.isIOS
       ? CupertinoButton(
-    child: this.center(),
-    onPressed: onPressed ?? () {},
-  ): FlatButton(
-    onPressed: onPressed ?? () {},
-    child: this.center().addPadding(16.0),
-  );
+          child: this.center(),
+          onPressed: onPressed ?? () {},
+        )
+      : FlatButton(
+          onPressed: onPressed ?? () {},
+          child: this.center().addPadding(16.0),
+        );
 
   Text text() => Text(this);
 
   Text center([BuildContext context]) => (() {
-    if (context != null)
-      return Text(
-        this,
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.headline,
-      );
-    return Text(
-      this,
-      textAlign: TextAlign.center,
-    );
-  })();
+        if (context != null)
+          return Text(
+            this,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headline,
+          );
+        return Text(
+          this,
+          textAlign: TextAlign.center,
+        );
+      })();
 
   NeuText _neuText([BuildContext context]) => (() {
-    if (context != null)
-      return NeuText(
-        this,
-       // textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.headline,
+        if (context != null)
+          return NeuText(
+            this,
+            // textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headline,
+          );
+        return NeuText(
+          this,
+          style: TextStyle(fontSize: 20),
+          // textAlign: TextAlign.center,
+        );
+      })();
+
+  Widget _neuButton([VoidCallback onPressed]) => NeuButton(
+        onPressed: onPressed ?? () {},
+        child: this._neuText().addPadding(16.0),
+        decoration: NeumorphicDecoration(
+            // color: Colors.purple[800],
+
+            ),
       );
-    return NeuText(
-      this,
-     style: TextStyle(fontSize: 20),
-     // textAlign: TextAlign.center,
-    );
-  })();
-
-  Widget _neuButton([VoidCallback onPressed]) =>  NeuButton(
-    onPressed: onPressed ?? () {},
-    child: this._neuText().addPadding(16.0),
-    decoration: NeumorphicDecoration(
-     // color: Colors.purple[800],
-
-    ),
-  );
 }
 
 extension TextUtil on Text {
   Widget raisedButton([VoidCallback onPressed]) => Platform.isIOS
       ? CupertinoButton.filled(
-      child: this.addPadding(16.0),
-      onPressed: () {
-        print("test");
-      })
+          child: this.addPadding(16.0),
+          onPressed: () {
+            print("test");
+          })
       : MaterialButton(
-    onPressed: onPressed ?? () {},
-    child: this.addPadding(16.0),
-    elevation: 0.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(
-          10,
-        ),
-      ),
-    ),
-  );
+          onPressed: onPressed ?? () {},
+          child: this.addPadding(16.0),
+          elevation: 0.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                10,
+              ),
+            ),
+          ),
+        );
 
   FlatButton flatButton([VoidCallback onPressed]) => FlatButton(
-    onPressed: onPressed ?? () {},
-    child: this.addPadding(16.0),
-  );
+        onPressed: onPressed ?? () {},
+        child: this.addPadding(16.0),
+      );
 
   Text bold([context]) => Text(
-    this.data,
-    style: (() {
-      if (this.style != null)
-        return this.style.copyWith(
-          fontWeight: FontWeight.bold,
-        );
-      return TextStyle(
-        fontWeight: FontWeight.bold,
+        this.data,
+        style: (() {
+          if (this.style != null)
+            return this.style.copyWith(
+                  fontWeight: FontWeight.bold,
+                );
+          return TextStyle(
+            fontWeight: FontWeight.bold,
+          );
+        })(),
       );
-    })(),
-  );
 
   Text caption(context) => Text(
-    this.data,
-    style: (() {
-      if (this.style != null)
-        return this.style.copyWith(
-          fontWeight: FontWeight.w400,
-          color: Colors.black87,
-        );
-      return TextStyle(
-        fontWeight: FontWeight.w400,
+        this.data,
+        style: (() {
+          if (this.style != null)
+            return this.style.copyWith(
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87,
+                );
+          return TextStyle(
+            fontWeight: FontWeight.w400,
+          );
+        })(),
       );
-    })(),
-  );
 
   Text subtitle(context) => Text(
-    this.data,
-    style: (() {
-      if (this.style != null)
-        return this.style.copyWith(
-          fontWeight: FontWeight.w100,
-          color: Colors.grey,
-        );
-      return TextStyle(
-        fontWeight: FontWeight.w400,
+        this.data,
+        style: (() {
+          if (this.style != null)
+            return this.style.copyWith(
+                  fontWeight: FontWeight.w100,
+                  color: Colors.grey,
+                );
+          return TextStyle(
+            fontWeight: FontWeight.w400,
+          );
+        })(),
       );
-    })(),
-  );
 
   Text headline(context) => Text(
-    this.data,
-    style: (() {
-      if (this.style != null)
-        return this.style.copyWith(
-          fontSize: 30.0,
-        );
-      return TextStyle(
-        fontSize: 30.0,
+        this.data,
+        style: (() {
+          if (this.style != null)
+            return this.style.copyWith(
+                  fontSize: 30.0,
+                );
+          return TextStyle(
+            fontSize: 30.0,
+          );
+        })(),
       );
-    })(),
-  );
 
   Text color(context, [Color color]) => Text(
-    this.data,
-    style: (() {
-      if (this.style != null)
-        return this.style.copyWith(
-          color: color ?? Colors.white,
-        );
-      return TextStyle(
-        color: color ?? Colors.white,
+        this.data,
+        style: (() {
+          if (this.style != null)
+            return this.style.copyWith(
+                  color: color ?? Colors.white,
+                );
+          return TextStyle(
+            color: color ?? Colors.white,
+          );
+        })(),
       );
-    })(),
-  );
 }
 
 extension ButtonUtil on MaterialButton {
   Widget fixedWidth(BuildContext context, [double width]) => ButtonTheme(
-    minWidth: width ?? context.width().percent(0.33),
-    textTheme: ButtonTextTheme.primary,
-    buttonColor: Colors.blueAccent,
-    height: 30,
-    child: this,
-  );
+        minWidth: width ?? context.width().percent(0.33),
+        textTheme: ButtonTextTheme.primary,
+        buttonColor: Colors.blueAccent,
+        height: 30,
+        child: this,
+      );
 }
-
