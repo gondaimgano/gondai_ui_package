@@ -92,6 +92,18 @@ extension CardUtil on Widget {
         child: this,
       );
 
+  GradientCard inCardGradient() => GradientCard(
+        gradient:
+            LinearGradient(colors: [Color(0xff823b8e), Color(0xffed2a7b)]),
+        child: Container(width: double.infinity, child: this.addPadding(8.0)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomRight: 30.0.circular(),
+            bottomLeft: 30.0.circular(),
+          ),
+        ),
+      );
+
   FittedBox inBox() => FittedBox(
         fit: BoxFit.contain,
         child: this,
@@ -101,11 +113,27 @@ extension CardUtil on Widget {
         aspectRatio: ratio ?? 1.0,
         child: this,
       );
-
+ Widget sizeUpHeightTo(BuildContext context,double frac)=>Container(
+   child:this,
+   height: context.height().percent(frac),
+ );
   Container inContainer(BuildContext context) => Container(
-        width: MediaQuery.of(context).size.width * 0.9,
-        height: MediaQuery.of(context).size.height * 0.9,
-        color: Colors.blue,
+        width: MediaQuery.of(context).size.width,
+      //  height: MediaQuery.of(context).size.height * 0.3,
+
+        decoration: BoxDecoration(
+          //color: Colors.purple[700],
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+
+              colors: [Color(0xff823b8e), Color(0xffed2a7b)],
+          ),
+          borderRadius: BorderRadius.only(
+            bottomRight: 30.0.circular(),
+            bottomLeft: 30.0.circular(),
+          ),
+        ),
         child: this,
       );
 }
@@ -118,6 +146,8 @@ extension DoubleUtil on double {
           Radius.circular(this),
         ),
       );
+
+  Radius circular() => Radius.circular(this);
 
   double toDollar() {
     if (this == 0) return this;
@@ -508,8 +538,8 @@ extension StringUI on String {
       }();
 
   Widget inputField(TextEditingController controller,
-          {Function validator, TextInputType inputType,Widget prefix}) =>
-     /* Platform.isIOS
+          {Function validator, TextInputType inputType, Widget prefix}) =>
+      /* Platform.isIOS
           ? CupertinoFormField(
               controller: controller,
               validator: validator ??
@@ -517,14 +547,15 @@ extension StringUI on String {
               inputType: inputType,
               placeholder: this,
             )
-          :*/ TextFormField(
-              controller: controller,
-              validator: validator ??
-                  (s) => s.isEmpty ? "Field cannot be empty" : null,
-              keyboardType: inputType ?? TextInputType.text,
+          :*/
+      TextFormField(
+        controller: controller,
+        validator:
+            validator ?? (s) => s.isEmpty ? "Field cannot be empty" : null,
+        keyboardType: inputType ?? TextInputType.text,
         decoration: InputDecoration(
-          //filled: true,
-          //fillColor: Colors.white,
+            //filled: true,
+            //fillColor: Colors.white,
 
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: CupertinoColors.systemGrey),
@@ -541,7 +572,7 @@ extension StringUI on String {
                   Icons.label,
                   color: CupertinoColors.systemGrey,
                 )),
-            );
+      );
 
   TextFormField passwordField(TextEditingController controller,
           {Function validator, TextInputType inputType}) =>
@@ -678,11 +709,13 @@ extension StringUI on String {
           BuildContext context, TextEditingController controller,
           {Function validator}) =>
       this.popUpField(context, controller,
+
           validator: validator, inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType}) =>
+          {Function validator, TextInputType inputType,IconData prefix=Icons.email}) =>
       this.popUpField(context, controller,
+          prefix: Icon(prefix,color: CupertinoColors.systemGrey,),
           validator: validator, inputType: TextInputType.emailAddress);
 
   Widget popUpPasswordField(
@@ -691,6 +724,7 @@ extension StringUI on String {
       this.popUpField(context, controller,
           validator: validator,
           inputType: TextInputType.emailAddress,
+          prefix: Icon(Icons.security,color: CupertinoColors.systemGrey,),
           obscureText: true);
 
   Widget raisedButton([VoidCallback onPressed]) =>
@@ -751,6 +785,8 @@ extension StringUI on String {
           textAlign: TextAlign.center,
         );
       })();
+
+
 
   NeuText _neuText([BuildContext context]) => (() {
         if (context != null)
@@ -834,13 +870,43 @@ extension TextUtil on Text {
           if (this.style != null)
             return this.style.copyWith(
                   fontWeight: FontWeight.w100,
-                  color: Colors.grey,
+                  color: this.style.color??Colors.grey,
                 );
           return TextStyle(
             fontWeight: FontWeight.w400,
           );
         })(),
       );
+
+  Text fontSize(double size) => Text(
+    this.data,
+    style: (() {
+      if (this.style != null)
+        return this.style.copyWith(
+          fontWeight:this.style.fontWeight?? FontWeight.w100,
+          color: this.style.color??Colors.grey,
+          fontSize: size??16
+        );
+      return TextStyle(
+        fontSize: size??16,
+      );
+    })(),
+  );
+
+  Text fontWeight(FontWeight weight) => Text(
+    this.data,
+    style: (() {
+      if (this.style != null)
+        return this.style.copyWith(
+            fontWeight:weight?? FontWeight.w100,
+            color: this.style.color??Colors.grey,
+            fontSize: this.style.fontSize??16
+        );
+      return TextStyle(
+        fontWeight: weight??16,
+      );
+    })(),
+  );
 
   Text headline(context) => Text(
         this.data,
