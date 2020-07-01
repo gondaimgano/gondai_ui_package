@@ -444,6 +444,13 @@ enum BubbleDecide {
 }
 
 extension StringUI on String {
+
+  String mask(){
+    var card=this;
+    var firstSix= card.substring(0,6);
+    var lastFour =card.substring(card.length-4);
+   return "$firstSix********$lastFour";
+  }
   Future<void> showCircularBubbleAlert(BuildContext context) => showBubbleAlert(
         context,
         Stack(
