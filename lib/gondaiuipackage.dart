@@ -24,17 +24,20 @@ extension ListUtil<T> on List<T> {
   GridView grid(
     Function(T item) itemWidget, {
     int columns,
+        double aspectRatio=2.44
   }) =>
-      GridView.count(
+      GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount:columns?? 2,
+          childAspectRatio:aspectRatio,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 12,
+        ),
         shrinkWrap: true,
         primary: false,
         padding: const EdgeInsets.all(20),
-        crossAxisSpacing: 30,
-        mainAxisSpacing: 60,
-        crossAxisCount: columns ?? 2,
-        children: <Widget>[
-          ...this.map((item) => itemWidget(item)),
-        ],
+        itemBuilder: (context,i)=>itemWidget(this[i]),
+        itemCount: this.length,
       );
 
   DropDownFormField dropDown(
@@ -84,6 +87,10 @@ extension ListWidget on List<Widget> {
 }
 
 extension CardUtil on Widget {
+  AnimatedSwitcher inAnimatedSwitcher()=>AnimatedSwitcher(
+    duration: Duration(milliseconds: 800),
+    child: this,
+  );
   Card inCard() => Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
@@ -788,28 +795,8 @@ extension StringUI on String {
 
 
 
-  NeuText _neuText([BuildContext context]) => (() {
-        if (context != null)
-          return NeuText(
-            this,
-            // textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline,
-          );
-        return NeuText(
-          this,
-          style: TextStyle(fontSize: 20),
-          // textAlign: TextAlign.center,
-        );
-      })();
 
-  Widget _neuButton([VoidCallback onPressed]) => NeuButton(
-        onPressed: onPressed ?? () {},
-        child: this._neuText().addPadding(16.0),
-        decoration: NeumorphicDecoration(
-            // color: Colors.purple[800],
 
-            ),
-      );
 }
 
 extension TextUtil on Text {
