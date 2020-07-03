@@ -588,6 +588,8 @@ extension StringUI on String {
                 )),
       );
 
+      Widget adaptiveProgressIndicator()=>Platform.isIOS?CupertinoActivityIndicator():CircularProgressIndicator();
+
   TextFormField passwordField(TextEditingController controller,
           {Function validator, TextInputType inputType}) =>
       TextFormField(
