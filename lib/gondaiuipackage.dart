@@ -475,6 +475,7 @@ extension StringUI on String {
             SizedBox(
               height: 12,
             ),
+            this.text().subtitle(context).fontSize(18),
           ],
         ),
         [Container()], //actions
