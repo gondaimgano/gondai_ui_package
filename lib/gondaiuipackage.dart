@@ -456,8 +456,9 @@ extension StringUI on String {
   }
   Future<void> showCircularBubbleAlert(BuildContext context) => showBubbleAlert(
         context,
-        Stack(
-          alignment: Alignment.center,
+        Column(
+        //  alignment: Alignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(
               width: 50,
@@ -473,9 +474,12 @@ extension StringUI on String {
                     ),
             ),
             SizedBox(
-              height: 12,
+              height: 4,
             ),
             this.text().subtitle(context).fontSize(18),
+            SizedBox(
+              height: 8,
+            ),
           ],
         ),
         [Container()], //actions
