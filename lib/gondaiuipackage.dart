@@ -16,7 +16,8 @@ extension ListUtil<T> on List<T> {
   ListView custom(Function(T item) itemWidget, [Widget separator]) {
     return ListView.separated(
       itemBuilder: (context, i) => itemWidget(this[i]),
-      separatorBuilder: (context, i) => separator ?? SizedBox(height: 5),
+      separatorBuilder: (context, i) => separator ?? SizedBox(height: 5
+      ),
       itemCount: this.length,
     );
   }
@@ -295,15 +296,16 @@ extension InputUI on TextFormField {
 }
 
 extension WidgetUI on Widget {
+
   void showInBottomSheet(BuildContext context) => showBottomSheet(
         context: context,
         builder: (context) => Container(
           width: context.width(),
           margin:
-              EdgeInsets.only(bottom: 30.0, left: 8.0, right: 8.0, top: 30.0),
+              EdgeInsets.only(bottom: 15.0, left: 8.0, right: 8.0, top: 15.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(
-                Radius.circular(50),
+                Radius.circular(15),
               ),
               boxShadow: [
                 BoxShadow(
@@ -445,11 +447,12 @@ enum BubbleDecide {
 
 extension StringUI on String {
 
-  String mask(){
+  String mask(int x){
     var card=this;
     var firstSix= card.substring(0,6);
     var lastFour =card.substring(card.length-4);
-   return "$firstSix********$lastFour";
+   var asterisk= List.generate(x, (i)=>"*").toList().join();
+   return "$firstSix$asterisk$lastFour";
   }
   Future<void> showCircularBubbleAlert(BuildContext context) => showBubbleAlert(
         context,
