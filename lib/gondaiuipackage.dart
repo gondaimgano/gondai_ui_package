@@ -651,6 +651,7 @@ extension StringUI on String {
           {Function validator,
           TextInputType inputType,
           bool obscureText,
+            Color color,
           Widget prefix}) =>
       Column(
         mainAxisSize: MainAxisSize.min,
@@ -706,19 +707,19 @@ extension StringUI on String {
                     //fillColor: Colors.white,
 
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: CupertinoColors.systemGrey),
+                      borderSide: BorderSide(color:color?? CupertinoColors.systemGrey),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: CupertinoColors.systemGrey),
+                      borderSide: BorderSide(color:color?? CupertinoColors.systemGrey),
                     ),
                     border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: CupertinoColors.systemGrey),
+                      borderSide: BorderSide(color:color?? CupertinoColors.systemGrey),
                     ),
                     labelText: this,
                     prefixIcon: prefix ??
                         Icon(
                           Icons.label,
-                          color: CupertinoColors.systemGrey,
+                          color:color?? CupertinoColors.systemGrey,
                         )),
               ),
             ).fillWidth(context),
@@ -731,43 +732,40 @@ extension StringUI on String {
 
   Widget popUpNumberField(
           BuildContext context, TextEditingController controller,
-          {Function validator}) =>
+          {Function validator,Color color}) =>
       this.popUpField(context, controller,
-
+          color: color,
           validator: validator, inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType,IconData prefix=Icons.email}) =>
+          {Function validator, TextInputType inputType,IconData prefix=Icons.email,Color color}) =>
       this.popUpField(context, controller,
-          prefix: Icon(prefix,color: CupertinoColors.systemGrey,),
+          color: color,
+          prefix: Icon(prefix,color:color?? CupertinoColors.systemGrey,),
           validator: validator, inputType: TextInputType.emailAddress);
 
   Widget popUpPasswordField(
           BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType}) =>
+          {Function validator, TextInputType inputType,Color color}) =>
       this.popUpField(context, controller,
           validator: validator,
           inputType: TextInputType.emailAddress,
-          prefix: Icon(Icons.security,color: CupertinoColors.systemGrey,),
+          color: color,
+          prefix: Icon(Icons.security,color: color??CupertinoColors.systemGrey,),
           obscureText: true);
 
-  Widget raisedButton([VoidCallback onPressed]) =>
-      /*Platform.isIOS
+  Widget raisedButton([VoidCallback onPressed,bool isOS=false]) =>
+     isOS
       ? CupertinoButton.filled(
     child:  Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors:[
-                Color(0xFF823B8E),
-                Color(0xFFED2A7B),
-              ]
-          )
+        color: Colors.white
       ),
       child: this.center(),
     ),
     onPressed: onPressed ?? () {},
   )
-      : */
+      :
       GradientButton(
         increaseWidthBy: double.infinity,
         increaseHeightBy: 15,
