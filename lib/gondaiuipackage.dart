@@ -796,6 +796,16 @@ extension StringUI on String {
           child: this.center().addPadding(16.0),
         );
 
+  Widget alternateFlatButton(BuildContext context,[VoidCallback onPressed,Color color])=>ClipRRect(
+    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+    child: FlatButton(
+
+      child: this.text().color(context,color??Colors.purple).addPadding(16.0),
+      color: Colors.white,
+      onPressed: onPressed??(){},
+    ),
+  );
+
   Text text() => Text(this);
 
   Text center([BuildContext context]) => (() {
