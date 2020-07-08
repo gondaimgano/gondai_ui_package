@@ -655,6 +655,7 @@ extension StringUI on String {
           Widget prefix}) =>
       Column(
         mainAxisSize: MainAxisSize.min,
+
         children: <Widget>[
           InkResponse(
             onTap: () async =>
@@ -702,20 +703,22 @@ extension StringUI on String {
                     },
                 obscureText: obscureText ?? false,
                 keyboardType: inputType ?? TextInputType.text,
+                    style: TextStyle(color: color??CupertinoColors.systemGrey),
                 decoration: InputDecoration(
                     //filled: true,
                     //fillColor: Colors.white,
 
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color:color?? CupertinoColors.systemGrey),
+                      borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color:color?? CupertinoColors.systemGrey),
+                      borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
                     ),
                     border: UnderlineInputBorder(
-                      borderSide: BorderSide(color:color?? CupertinoColors.systemGrey),
+                      borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
                     ),
                     labelText: this,
+                    labelStyle: TextStyle(color: color??CupertinoColors.systemGrey),
                     prefixIcon: prefix ??
                         Icon(
                           Icons.label,

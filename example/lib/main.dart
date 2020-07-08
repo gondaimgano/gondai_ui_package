@@ -207,11 +207,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // print(MediaQuery.of(context).size.height);
     return Scaffold(
-      body:SingleChildScrollView(
-        child: Column(children: <Widget>[
-          _buildCategory(),
-          _buildList(),
-        ],).addPadding(8.0),
+      body:Container(
+       // color: Colors.white,
+        margin: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+            "Text".popUpNumberField(context, _controller,color: Colors.white),
+
+              "Text".popUpEmailField(context, _controller,color: Colors.white),
+              "Text".popUpPasswordField(context, _controller,color: Colors.white)
+          ],).addPadding(8.0),
+        ),
       ),
     );
   }
