@@ -22,6 +22,17 @@ extension ListUtil<T> on List<T> {
     );
   }
 
+
+  ListView horizontal(Function(T item) itemWidget, [Widget separator]) {
+    return ListView.separated(
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, i) => itemWidget(this[i]),
+      separatorBuilder: (context, i) => separator ?? SizedBox(width: 5
+      ),
+      itemCount: this.length,
+
+    );
+  }
   GridView grid(
     Function(T item) itemWidget, {
     int columns,
