@@ -780,13 +780,9 @@ extension StringUI on String {
     onPressed: onPressed ?? () {},
   )
       :
-      GradientButton(
-        increaseWidthBy: double.infinity,
-        increaseHeightBy: 15,
-        callback: onPressed ?? () {},
-        gradient:
-            LinearGradient(colors: [Color(0xff823b8e), Color(0xffed2a7b)]),
-        child: this.text(),
+      RaisedButton(
+        onPressed: onPressed ?? () {},
+        child: this.center().addPadding(16.0),
         elevation: 0.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
