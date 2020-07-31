@@ -624,7 +624,7 @@ extension StringUI on String {
       );
 
   Widget popUpDateField(BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType, bool obscureText}) =>
+          {Function validator, TextInputType inputType, bool obscureText,Color color,Widget prefix}) =>
       InkWell(
         onTap: () async {
           var dt = await showDatePicker(
@@ -637,7 +637,7 @@ extension StringUI on String {
             controller.text = "${dt?.year}/${dt?.month}/${dt?.day}";
         },
         child: AbsorbPointer(
-          child: Platform.isIOS
+          child: false//Platform.isIOS
               ? CupertinoFormField(
                   controller: controller,
                   validator: validator,
@@ -645,16 +645,37 @@ extension StringUI on String {
                   obscureText: obscureText ?? false,
                 )
               : TextFormField(
-                  controller: controller,
-                  validator: validator,
-                  obscureText: obscureText ?? false,
-                  keyboardType: inputType ?? TextInputType.text,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: null,
-                      labelText: this),
+            controller: controller,
+            validator: validator ??
+                    (s) {
+                  if (s.isEmpty)
+                    return "Please Supply valid value for $this";
+                  return null;
+                },
+            obscureText: obscureText ?? false,
+            keyboardType: inputType ?? TextInputType.text,
+            style: TextStyle(color: color??CupertinoColors.systemGrey),
+            decoration: InputDecoration(
+              //filled: true,
+              //fillColor: Colors.white,
+
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
                 ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
+                ),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
+                ),
+                labelText: this,
+                labelStyle: TextStyle(color: color??CupertinoColors.systemGrey),
+                prefixIcon: prefix ??
+                    Icon(
+                      Icons.label,
+                      color:color?? CupertinoColors.systemGrey,
+                    )),
+          ),
         ),
       );
 
