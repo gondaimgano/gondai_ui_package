@@ -634,7 +634,7 @@ extension StringUI on String {
               lastDate: DateTime.now());
 
           if (dt != null)
-            controller.text = "${dt?.day}-${dt?.month}-${dt?.year}";
+            controller.text = "${dt?.year}/${dt?.month}/${dt?.day}";
         },
         child: AbsorbPointer(
           child: Platform.isIOS
