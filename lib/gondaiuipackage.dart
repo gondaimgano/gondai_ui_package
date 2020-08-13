@@ -476,8 +476,8 @@ extension StringUI on String {
               width: 50,
               height: 50,
               child:
-              Loading(indicator: BallPulseIndicator(), size: 100.0),
-              /* Platform.isIOS
+              //Loading(indicator: BallPulseIndicator(), size: 100.0),
+               Platform.isIOS
                   ? CupertinoActivityIndicator(
                       radius: 15,
                     )
@@ -485,7 +485,7 @@ extension StringUI on String {
                       valueColor:
                           AlwaysStoppedAnimation(Theme.of(context).accentColor),
                       strokeWidth: 7.0,
-                    ),*/
+                    ),
             ),
             SizedBox(
               height: 12,
