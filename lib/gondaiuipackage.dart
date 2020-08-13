@@ -7,6 +7,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/loading.dart';
 import 'dropdown_form_field.dart';
 
 import 'cupertino_form_field.dart';
@@ -473,7 +475,9 @@ extension StringUI on String {
             SizedBox(
               width: 50,
               height: 50,
-              child: Platform.isIOS
+              child:
+              Loading(indicator: BallPulseIndicator(), size: 100.0),
+              /* Platform.isIOS
                   ? CupertinoActivityIndicator(
                       radius: 15,
                     )
@@ -481,10 +485,10 @@ extension StringUI on String {
                       valueColor:
                           AlwaysStoppedAnimation(Theme.of(context).accentColor),
                       strokeWidth: 7.0,
-                    ),
+                    ),*/
             ),
             SizedBox(
-              height: 4,
+              height: 12,
             ),
             this.text().subtitle(context).fontSize(18),
             SizedBox(
