@@ -503,7 +503,7 @@ extension StringUI on String {
     BuildContext context,
     Widget child, [
     List<Widget> actions,
-    String title = "",
+    String title = " ",
   ]) =>
       () {
         if (Platform.isIOS)
