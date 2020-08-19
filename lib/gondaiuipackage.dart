@@ -586,6 +586,7 @@ extension StringUI on String {
           :*/
       TextFormField(
         controller: controller,
+          autofocus: true,
         validator:
             validator ?? (s) => s.isEmpty ? "Field cannot be empty" : null,
         keyboardType: inputType ?? TextInputType.text,
@@ -687,7 +688,8 @@ extension StringUI on String {
           TextInputType inputType,
           bool obscureText,
             Color color,
-          Widget prefix}) =>
+          Widget prefix,
+          String optionalLabel,}) =>
       Column(
         mainAxisSize: MainAxisSize.min,
 
@@ -733,7 +735,7 @@ extension StringUI on String {
                 validator: validator ??
                     (s) {
                       if (s.isEmpty)
-                        return "Please Supply valid value for $this";
+                        return "Please Supply valid value for ${optionalLabel??this}";
                       return null;
                     },
                 obscureText: obscureText ?? false,
@@ -770,9 +772,10 @@ extension StringUI on String {
 
   Widget popUpNumberField(
           BuildContext context, TextEditingController controller,
-          {Function validator,Color color}) =>
+          {Function validator,Color color,Widget prefix}) =>
       this.popUpField(context, controller,
           color: color,
+          prefix: prefix,
           validator: validator, inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
