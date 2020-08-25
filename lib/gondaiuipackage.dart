@@ -7,9 +7,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:loading/indicator/ball_pulse_indicator.dart';
-import 'package:loading/loading.dart';
 import 'dropdown_form_field.dart';
+import 'package:flutter/services.dart';
 
 import 'cupertino_form_field.dart';
 
@@ -702,7 +701,7 @@ extension StringUI on String {
                         body: SafeArea(
                           child: Column(
                             children: <Widget>[
-                              this.inputField(controller),
+                              this.inputField(controller,inputType: inputType ?? TextInputType.text),
                             ],
                           ).addPadding(10.0),
                         ),
