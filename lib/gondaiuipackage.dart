@@ -789,7 +789,7 @@ extension StringUI on String {
           {Function validator, TextInputType inputType,Color color}) =>
       this.popUpField(context, controller,
           validator: validator,
-          inputType: TextInputType.emailAddress,
+          inputType: TextInputType.visiblePassword,
           color: color,
           prefix: Icon(Icons.security,color: color??CupertinoColors.systemGrey,),
           obscureText: true);
