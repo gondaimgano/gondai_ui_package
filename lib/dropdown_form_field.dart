@@ -47,6 +47,8 @@ class DropDownFormField extends FormField<dynamic> {
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<dynamic>(
+                  isExpanded: true,
+
                   hint: Text(
                     hintText,
                     style: TextStyle(color: Colors.grey.shade500),
@@ -63,6 +65,7 @@ class DropDownFormField extends FormField<dynamic> {
                     );
                   }).toList(),
                 ),
+
               ),
             ),
             SizedBox(height: state.hasError ? 5.0 : 0.0),
