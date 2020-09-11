@@ -786,12 +786,12 @@ extension StringUI on String {
 
   Widget popUpPasswordField(
           BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType,Color color}) =>
+          {Function validator, TextInputType inputType,Color color,Widget prefix}) =>
       this.popUpField(context, controller,
           validator: validator,
           inputType: TextInputType.visiblePassword,
           color: color,
-          prefix: Icon(Icons.security,color: color??CupertinoColors.systemGrey,),
+          prefix: prefix??Icon(Icons.security,color: color??CupertinoColors.systemGrey,),
           obscureText: true);
 
   Widget raisedButton([VoidCallback onPressed,bool isOS=false]) =>
