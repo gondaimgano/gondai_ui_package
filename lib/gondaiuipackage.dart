@@ -590,23 +590,27 @@ extension StringUI on String {
             validator ?? (s) => s.isEmpty ? "Field cannot be empty" : null,
         keyboardType: inputType ?? TextInputType.text,
         decoration: InputDecoration(
-            //filled: true,
-            //fillColor: Colors.white,
+            filled: true,
+            fillColor: Colors.white,
 
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: CupertinoColors.systemGrey),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color:CupertinoColors.white),
+                borderRadius: BorderRadius.circular(10.0)
             ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: CupertinoColors.systemGrey),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color:CupertinoColors.white),
+                borderRadius: BorderRadius.circular(10.0)
             ),
-            border: UnderlineInputBorder(
-              borderSide: BorderSide(color: CupertinoColors.systemGrey),
+            border: OutlineInputBorder(
+                borderSide: BorderSide(color:CupertinoColors.white),
+                borderRadius: BorderRadius.circular(10.0)
             ),
             labelText: this,
+            labelStyle: TextStyle(color: CupertinoColors.systemGrey),
             prefixIcon: prefix ??
                 Icon(
                   Icons.label,
-                  color: CupertinoColors.systemGrey,
+                  color:CupertinoColors.systemGrey,
                 )),
       );
 
@@ -659,17 +663,17 @@ extension StringUI on String {
             keyboardType: inputType ?? TextInputType.text,
             style: TextStyle(color: color??CupertinoColors.systemGrey),
             decoration: InputDecoration(
-              //filled: true,
-              //fillColor: Colors.white,
+              filled: true,
+              fillColor: Colors.white,
 
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color:color??CupertinoColors.white),
                 ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color:color??CupertinoColors.white),
                 ),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color:color??CupertinoColors.white),
                 ),
                 labelText: this,
                 labelStyle: TextStyle(color: color??CupertinoColors.systemGrey),
@@ -701,7 +705,7 @@ extension StringUI on String {
                         body: SafeArea(
                           child: Column(
                             children: <Widget>[
-                              this.inputField(controller,inputType: inputType ?? TextInputType.text),
+                              this.inputField(controller,inputType: inputType ?? TextInputType.text,prefix: prefix),
                             ],
                           ).addPadding(10.0),
                         ),
@@ -714,10 +718,11 @@ extension StringUI on String {
             ),
             child: AbsorbPointer(
               child:
-                  /*Platform.isIOS?CupertinoFormField(
+                  false?CupertinoFormField(
 
                 controller: controller,
                 placeholder: this,
+
                 validator: validator??(s){
                   if(s.isEmpty)
                     return "Please Supply valid value for $this";
@@ -728,7 +733,7 @@ extension StringUI on String {
 
                  
 
-              ): */
+              ):
                   TextFormField(
                 controller: controller,
                 validator: validator ??
@@ -739,19 +744,22 @@ extension StringUI on String {
                     },
                 obscureText: obscureText ?? false,
                 keyboardType: inputType ?? TextInputType.text,
-                    style: TextStyle(color: color??CupertinoColors.systemGrey),
+                    style: TextStyle(color: color??CupertinoColors.white),
                 decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
 
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
+                      borderSide: BorderSide(color:color??CupertinoColors.white),
+                      borderRadius: BorderRadius.circular(10.0)
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
+                      borderSide: BorderSide(color:color??CupertinoColors.white),
+                        borderRadius: BorderRadius.circular(10.0)
                     ),
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
+                      borderSide: BorderSide(color:color??CupertinoColors.white),
+                        borderRadius: BorderRadius.circular(10.0)
                     ),
                     labelText: this,
                     labelStyle: TextStyle(color: color??CupertinoColors.systemGrey),

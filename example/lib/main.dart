@@ -143,12 +143,12 @@ class _MyHomePageState extends State<MyHomePage> {
             "Text".popUpNumberField(context, _controller,prefix: IconButton(
               onPressed: ()=>print("hello"),
               icon: Icon(Icons.home),
-              color: Colors.red,
+             // color: Colors.red,
 
             )),
 
-              "Text".popUpEmailField(context, _controller,color: Colors.white),
-              "Text".popUpPasswordField(context, _controller,color: Colors.white)
+              "Text".popUpEmailField(context, _controller,),
+              "Text".popUpPasswordField(context, _controller,)
           ],).addPadding(8.0),
         ),
       ),
