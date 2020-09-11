@@ -692,7 +692,8 @@ extension StringUI on String {
           bool obscureText,
             Color color,
           Widget prefix,
-          String optionalLabel,}) =>
+          String optionalLabel,
+          bool filled}) =>
       Column(
         mainAxisSize: MainAxisSize.min,
 
@@ -746,7 +747,7 @@ extension StringUI on String {
                 keyboardType: inputType ?? TextInputType.text,
                     style: TextStyle(color: color??CupertinoColors.white),
                 decoration: InputDecoration(
-                    filled: true,
+                    filled:filled?? true,
                     fillColor: Colors.white,
 
                     enabledBorder: OutlineInputBorder(
@@ -794,11 +795,12 @@ extension StringUI on String {
 
   Widget popUpPasswordField(
           BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType,Color color,Widget prefix}) =>
+          {Function validator, TextInputType inputType,Color color,Widget prefix,bool filled}) =>
       this.popUpField(context, controller,
           validator: validator,
           inputType: TextInputType.visiblePassword,
           color: color,
+          filled: filled,
           prefix: prefix??Icon(Icons.security,color: color??CupertinoColors.systemGrey,),
           obscureText: true);
 
