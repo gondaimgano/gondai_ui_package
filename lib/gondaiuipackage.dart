@@ -745,7 +745,7 @@ extension StringUI on String {
                     },
                 obscureText: obscureText ?? false,
                 keyboardType: inputType ?? TextInputType.text,
-                    style: TextStyle(color: color??CupertinoColors.white),
+                    style: TextStyle(color: color??CupertinoColors.systemGrey),
                 decoration: InputDecoration(
                     filled:filled?? true,
                     fillColor: Colors.white,
