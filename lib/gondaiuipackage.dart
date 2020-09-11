@@ -741,16 +741,16 @@ extension StringUI on String {
                 keyboardType: inputType ?? TextInputType.text,
                     style: TextStyle(color: color??CupertinoColors.systemGrey),
                 decoration: InputDecoration(
-                    //filled: true,
-                    //fillColor: Colors.white,
+                    filled: true,
+                    fillColor: Colors.white,
 
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
                     ),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
                     ),
-                    border: UnderlineInputBorder(
+                    border: OutlineInputBorder(
                       borderSide: BorderSide(color:color??CupertinoColors.systemGrey),
                     ),
                     labelText: this,
