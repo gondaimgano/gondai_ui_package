@@ -778,10 +778,10 @@ extension StringUI on String {
           validator: validator, inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType,IconData prefix=Icons.email,Color color}) =>
+          {Function validator, TextInputType inputType,Widget prefix,Color color}) =>
       this.popUpField(context, controller,
           color: color,
-          prefix: Icon(prefix,color:color?? CupertinoColors.systemGrey,),
+          prefix: prefix,
           validator: validator, inputType: TextInputType.emailAddress);
 
   Widget popUpPasswordField(
