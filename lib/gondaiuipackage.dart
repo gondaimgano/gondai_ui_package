@@ -780,17 +780,19 @@ extension StringUI on String {
 
   Widget popUpNumberField(
           BuildContext context, TextEditingController controller,
-          {Function validator,Color color,Widget prefix}) =>
+          {Function validator,Color color,Widget prefix,bool filled}) =>
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
+          filled: filled,
           validator: validator, inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType,Widget prefix,Color color}) =>
+          {Function validator, TextInputType inputType,Widget prefix,Color color,bool filled}) =>
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
+          filled: filled,
           validator: validator, inputType: TextInputType.emailAddress);
 
   Widget popUpPasswordField(
