@@ -66,6 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final TextEditingController _controller = TextEditingController();
 
+  GlobalKey<FormState> _globalKey=GlobalKey<FormState>();
+
   Widget _buildCategory() => [
         {
           "name": "Learn ",
@@ -81,7 +83,6 @@ class _MyHomePageState extends State<MyHomePage> {
           (item) => LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
                   return RawMaterialButton(
-
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(15.0),
@@ -110,46 +111,63 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                           Align(
-                            alignment:
-                                Alignment.center.add(Alignment(0.2, 0)),
+                            alignment: Alignment.center.add(Alignment(0.2, 0)),
                             child: item["name"]
                                 .toString()
                                 .text()
                                 .fontSize(20)
                                 .color(context, Colors.white),
                           ),
-
                         ],
                       ).backgroundColor(item["color"]),
                     ),
                   );
                 },
               ),
-          columns: 2,aspectRatio: 2.44);
-
-
+          columns: 2,
+          aspectRatio: 2.44);
 
   @override
   Widget build(BuildContext context) {
     // print(MediaQuery.of(context).size.height);
     return Scaffold(
-      body:Container(
-       // color: Colors.white,
+      body: Container(
+        // color: Colors.white,
         margin: const EdgeInsets.all(8.0),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-            "Text".popUpNumberField(context, _controller,prefix: IconButton(
-              onPressed: ()=>print("hello"),
-              icon: Icon(Icons.home),
-             // color: Colors.red,
-
-            )),
-
-              "Text".popUpEmailField(context, _controller,),
-              "Text".popUpPasswordField(context, _controller,)
-          ],).addPadding(8.0),
+              "Text".popUpNumberField(context, _controller,
+                  prefix: IconButton(
+                    onPressed: () => print("hello"),
+                    icon: Icon(Icons.home),
+                    // color: Colors.red,
+                  )),
+              "Text".popUpEmailField(
+                context,
+                _controller,
+              ),
+              "Text".popUpPasswordField(
+                context,
+                _controller,
+              ),
+              [
+                {"d": "Hello"},
+                {"d": ""},
+              ].dropDown(_controller,
+                  hintText: "Choose",
+                  textField: "d",
+                  valueField: "d", onChange: (newValue) {
+                _controller.text = newValue;
+                setState(() {});
+              }),
+              "Ok".raisedButton((){
+                if(_globalKey.currentState.validate())
+                  {}
+              }).fillWidth(context)
+            ],
+          ).addPadding(8.0).inForm(_globalKey),
         ),
       ),
     );

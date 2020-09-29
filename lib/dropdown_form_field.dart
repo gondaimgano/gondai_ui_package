@@ -30,43 +30,44 @@ class DropDownFormField extends FormField<dynamic> {
         this.contentPadding = const EdgeInsets.fromLTRB(12, 12, 8, 0)})
       : super(
     onSaved: onSaved,
-    validator: validator,
+    validator: validator??(s){
+      if(s.toString().isNotEmpty)
+      return null;
+      return errorText;
+    },
     autovalidate: autovalidate,
     initialValue: value == '' ? null : value,
     builder: (FormFieldState<dynamic> state) {
       return Container(
         padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.0),
+          color: Colors.white
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            InputDecorator(
-              decoration: InputDecoration(
-                contentPadding: contentPadding,
-                labelText: titleText,
-                filled: filled,
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<dynamic>(
-                  isExpanded: true,
+            DropdownButtonHideUnderline(
+              child: DropdownButton<dynamic>(
+                isExpanded: true,
 
-                  hint: Text(
-                    hintText,
-                    style: TextStyle(color: Colors.grey.shade500),
-                  ),
-                  value: value?.isNotEmpty == false? null : value,
-                  onChanged: (dynamic newValue) {
-                    state.didChange(newValue);
-                    onChanged(newValue);
-                  },
-                  items: dataSource.map((item) {
-                    return DropdownMenuItem<dynamic>(
-                      value: item[valueField],
-                      child: Text(item[textField]??"No Map Entry Field $textField"),
-                    );
-                  }).toList(),
+                hint: Text(
+                  hintText,
+                  style: TextStyle(color: Colors.grey.shade500),
                 ),
-
+                value: value?.isNotEmpty == false? null : value,
+                onChanged: (dynamic newValue) {
+                  state.didChange(newValue);
+                  onChanged(newValue);
+                },
+                items: dataSource.map((item) {
+                  return DropdownMenuItem<dynamic>(
+                    value: item[valueField],
+                    child: Text(item[textField]??"No Map Entry Field $textField"),
+                  );
+                }).toList(),
               ),
+
             ),
             SizedBox(height: state.hasError ? 5.0 : 0.0),
             Text(
