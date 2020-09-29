@@ -48,7 +48,7 @@ class DropDownFormField extends FormField<dynamic> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<dynamic>(
                   isExpanded: true,
