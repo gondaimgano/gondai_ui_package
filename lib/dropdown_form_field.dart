@@ -31,7 +31,7 @@ class DropDownFormField extends FormField<dynamic> {
       : super(
     onSaved: onSaved,
     validator: validator??(s){
-      if(s.toString().isNotEmpty)
+      if(s.toString().isNotEmpty&&s.toString().length>0)
       return null;
       return errorText;
     },
