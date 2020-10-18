@@ -13,12 +13,13 @@ import 'package:flutter/services.dart';
 import 'cupertino_form_field.dart';
 
 extension ListUtil<T> on List<T> {
-  ListView custom(Function(T item) itemWidget, [Widget separator]) {
+  ListView custom(Function(T item) itemWidget, [Widget separator,bool shrinkWrap]) {
     return ListView.separated(
       itemBuilder: (context, i) => itemWidget(this[i]),
-      separatorBuilder: (context, i) => separator ?? SizedBox(height: 5
+      separatorBuilder: (context, i) => separator ?? SizedBox(height: 3
       ),
       itemCount: this.length,
+      shrinkWrap:shrinkWrap??false,
     );
   }
 
