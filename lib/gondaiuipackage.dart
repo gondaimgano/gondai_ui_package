@@ -23,6 +23,17 @@ extension ListUtil<T> on List<T> {
     );
   }
 
+  ListView neverMoveList(Function(T item) itemWidget, [Widget separator,bool shrinkWrap]) {
+    return ListView.separated(
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, i) => itemWidget(this[i]),
+      separatorBuilder: (context, i) => separator ?? SizedBox(height: 3
+      ),
+      itemCount: this.length,
+      shrinkWrap:shrinkWrap??false,
+    );
+  }
+
 
   ListView horizontal(Function(T item) itemWidget, [Widget separator]) {
     return ListView.separated(

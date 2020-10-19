@@ -19,7 +19,7 @@ class CupertinoFormField extends FormField<String> {
       onSaved:onSaved,
       validator:validator,
       initialValue:  controller != null ? controller.text : (initialValue ?? ''),
-      autovalidate: autoValidate,
+      //autovalidate: autoValidate,
       builder:(field){
         return Column(
           mainAxisSize: MainAxisSize.min,
