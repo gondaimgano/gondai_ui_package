@@ -13,54 +13,49 @@ import 'package:flutter/services.dart';
 import 'cupertino_form_field.dart';
 
 extension ListUtil<T> on List<T> {
-  ListView custom(Function(T item) itemWidget, [Widget separator,bool shrinkWrap]) {
+  ListView custom(Function(T item) itemWidget,
+      [Widget separator, bool shrinkWrap]) {
     return ListView.separated(
       itemBuilder: (context, i) => itemWidget(this[i]),
-      separatorBuilder: (context, i) => separator ?? SizedBox(height: 3
-      ),
+      separatorBuilder: (context, i) => separator ?? SizedBox(height: 3),
       itemCount: this.length,
-      shrinkWrap:shrinkWrap??false,
+      shrinkWrap: shrinkWrap ?? false,
     );
   }
 
-  ListView neverMoveList(Function(T item) itemWidget, [Widget separator,bool shrinkWrap]) {
+  ListView neverMoveList(Function(T item) itemWidget,
+      [Widget separator, bool shrinkWrap]) {
     return ListView.separated(
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, i) => itemWidget(this[i]),
-      separatorBuilder: (context, i) => separator ?? SizedBox(height: 3
-      ),
+      separatorBuilder: (context, i) => separator ?? SizedBox(height: 3),
       itemCount: this.length,
-      shrinkWrap:shrinkWrap??false,
+      shrinkWrap: shrinkWrap ?? false,
     );
   }
-
 
   ListView horizontal(Function(T item) itemWidget, [Widget separator]) {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, i) => itemWidget(this[i]),
-      separatorBuilder: (context, i) => separator ?? SizedBox(width: 5
-      ),
+      separatorBuilder: (context, i) => separator ?? SizedBox(width: 5),
       itemCount: this.length,
-
     );
   }
-  GridView grid(
-    Function(T item) itemWidget, {
-    int columns,
-        double aspectRatio=2.44
-  }) =>
+
+  GridView grid(Function(T item) itemWidget,
+          {int columns, double aspectRatio = 2.44}) =>
       GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount:columns?? 2,
-          childAspectRatio:aspectRatio,
+          crossAxisCount: columns ?? 2,
+          childAspectRatio: aspectRatio,
           crossAxisSpacing: 10,
           mainAxisSpacing: 12,
         ),
         shrinkWrap: true,
         primary: false,
         padding: const EdgeInsets.all(20),
-        itemBuilder: (context,i)=>itemWidget(this[i]),
+        itemBuilder: (context, i) => itemWidget(this[i]),
         itemCount: this.length,
       );
 
@@ -111,10 +106,10 @@ extension ListWidget on List<Widget> {
 }
 
 extension CardUtil on Widget {
-  AnimatedSwitcher inAnimatedSwitcher()=>AnimatedSwitcher(
-    duration: Duration(milliseconds: 800),
-    child: this,
-  );
+  AnimatedSwitcher inAnimatedSwitcher() => AnimatedSwitcher(
+        duration: Duration(milliseconds: 800),
+        child: this,
+      );
   Card inCard() => Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
@@ -144,21 +139,20 @@ extension CardUtil on Widget {
         aspectRatio: ratio ?? 1.0,
         child: this,
       );
- Widget sizeUpHeightTo(BuildContext context,double frac)=>Container(
-   child:this,
-   height: context.height().percent(frac),
- );
+  Widget sizeUpHeightTo(BuildContext context, double frac) => Container(
+        child: this,
+        height: context.height().percent(frac),
+      );
   Container inContainer(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
-      //  height: MediaQuery.of(context).size.height * 0.3,
+        //  height: MediaQuery.of(context).size.height * 0.3,
 
         decoration: BoxDecoration(
           //color: Colors.purple[700],
           gradient: LinearGradient(
             begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-
-              colors: [Color(0xff823b8e), Color(0xffed2a7b)],
+            end: Alignment.bottomCenter,
+            colors: [Color(0xff823b8e), Color(0xffed2a7b)],
           ),
           borderRadius: BorderRadius.only(
             bottomRight: 30.0.circular(),
@@ -193,8 +187,14 @@ extension DoubleUtil on double {
   String toCurrency([String currency = "USD"]) {
     RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
     Function mathFunc = (Match match) => '${match[1]},';
-    return "${this.toStringAsFixed(2)} $currency"
-        .replaceAllMapped(reg, mathFunc);
+    String _r1 = "";
+    try {
+      _r1 = "${this.toStringAsFixed(2)} $currency"
+          .replaceAllMapped(reg, mathFunc);
+    } catch (ex) {
+      _r1 = "${this}";
+    }
+    return _r1;
   }
 // Alignment topCenter()=>Alignment.topCenter.add();
 }
@@ -319,7 +319,6 @@ extension InputUI on TextFormField {
 }
 
 extension WidgetUI on Widget {
-
   void showInBottomSheet(BuildContext context) => showBottomSheet(
         context: context,
         builder: (context) => Container(
@@ -469,34 +468,34 @@ enum BubbleDecide {
 }
 
 extension StringUI on String {
-
-  String mask(int x){
-    var card=this;
-    var firstSix= card.substring(0,6);
-    var lastFour =card.substring(card.length-4);
-   var asterisk= List.generate(x, (i)=>"*").toList().join();
-   return "$firstSix$asterisk$lastFour";
+  String mask(int x) {
+    var card = this;
+    var firstSix = card.substring(0, 6);
+    var lastFour = card.substring(card.length - 4);
+    var asterisk = List.generate(x, (i) => "*").toList().join();
+    return "$firstSix$asterisk$lastFour";
   }
+
   Future<void> showCircularBubbleAlert(BuildContext context) => showBubbleAlert(
         context,
         Column(
-        //  alignment: Alignment.center,
+          //  alignment: Alignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(
               width: 50,
               height: 50,
               child:
-              //Loading(indicator: BallPulseIndicator(), size: 100.0),
-               Platform.isIOS
-                  ? CupertinoActivityIndicator(
-                      radius: 15,
-                    )
-                  : CircularProgressIndicator(
-                      valueColor:
-                          AlwaysStoppedAnimation(Theme.of(context).accentColor),
-                      strokeWidth: 7.0,
-                    ),
+                  //Loading(indicator: BallPulseIndicator(), size: 100.0),
+                  Platform.isIOS
+                      ? CupertinoActivityIndicator(
+                          radius: 15,
+                        )
+                      : CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(
+                              Theme.of(context).accentColor),
+                          strokeWidth: 7.0,
+                        ),
             ),
             SizedBox(
               height: 12,
@@ -597,36 +596,34 @@ extension StringUI on String {
           :*/
       TextFormField(
         controller: controller,
-          autofocus: true,
+        autofocus: true,
         validator:
             validator ?? (s) => s.isEmpty ? "Field cannot be empty" : null,
         keyboardType: inputType ?? TextInputType.text,
         decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color:CupertinoColors.white),
-                borderRadius: BorderRadius.circular(10.0)
-            ),
+                borderSide: BorderSide(color: CupertinoColors.white),
+                borderRadius: BorderRadius.circular(10.0)),
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color:CupertinoColors.white),
-                borderRadius: BorderRadius.circular(10.0)
-            ),
+                borderSide: BorderSide(color: CupertinoColors.white),
+                borderRadius: BorderRadius.circular(10.0)),
             border: OutlineInputBorder(
-                borderSide: BorderSide(color:CupertinoColors.white),
-                borderRadius: BorderRadius.circular(10.0)
-            ),
+                borderSide: BorderSide(color: CupertinoColors.white),
+                borderRadius: BorderRadius.circular(10.0)),
             labelText: this,
             labelStyle: TextStyle(color: CupertinoColors.systemGrey),
             prefixIcon: prefix ??
                 Icon(
                   Icons.label,
-                  color:CupertinoColors.systemGrey,
+                  color: CupertinoColors.systemGrey,
                 )),
       );
 
-      Widget adaptiveProgressIndicator()=>Platform.isIOS?CupertinoActivityIndicator():CircularProgressIndicator();
+  Widget adaptiveProgressIndicator() => Platform.isIOS
+      ? CupertinoActivityIndicator()
+      : CircularProgressIndicator();
 
   TextFormField passwordField(TextEditingController controller,
           {Function validator, TextInputType inputType}) =>
@@ -643,7 +640,11 @@ extension StringUI on String {
       );
 
   Widget popUpDateField(BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType, bool obscureText,Color color,Widget prefix}) =>
+          {Function validator,
+          TextInputType inputType,
+          bool obscureText,
+          Color color,
+          Widget prefix}) =>
       InkWell(
         onTap: () async {
           var dt = await showDatePicker(
@@ -656,7 +657,7 @@ extension StringUI on String {
             controller.text = "${dt?.year}/${dt?.month}/${dt?.day}";
         },
         child: AbsorbPointer(
-          child: false//Platform.isIOS
+          child: false //Platform.isIOS
               ? CupertinoFormField(
                   controller: controller,
                   validator: validator,
@@ -664,37 +665,40 @@ extension StringUI on String {
                   obscureText: obscureText ?? false,
                 )
               : TextFormField(
-            controller: controller,
-            validator: validator ??
-                    (s) {
-                  if (s.isEmpty)
-                    return "Please Supply valid value for $this";
-                  return null;
-                },
-            obscureText: obscureText ?? false,
-            keyboardType: inputType ?? TextInputType.text,
-            style: TextStyle(color: color??CupertinoColors.systemGrey),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color:color??CupertinoColors.white),
+                  controller: controller,
+                  validator: validator ??
+                      (s) {
+                        if (s.isEmpty)
+                          return "Please Supply valid value for $this";
+                        return null;
+                      },
+                  obscureText: obscureText ?? false,
+                  keyboardType: inputType ?? TextInputType.text,
+                  style: TextStyle(color: color ?? CupertinoColors.systemGrey),
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: color ?? CupertinoColors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: color ?? CupertinoColors.white),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: color ?? CupertinoColors.white),
+                      ),
+                      labelText: this,
+                      labelStyle:
+                          TextStyle(color: color ?? CupertinoColors.systemGrey),
+                      prefixIcon: prefix ??
+                          Icon(
+                            Icons.label,
+                            color: color ?? CupertinoColors.systemGrey,
+                          )),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color:color??CupertinoColors.white),
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color:color??CupertinoColors.white),
-                ),
-                labelText: this,
-                labelStyle: TextStyle(color: color??CupertinoColors.systemGrey),
-                prefixIcon: prefix ??
-                    Icon(
-                      Icons.label,
-                      color:color?? CupertinoColors.systemGrey,
-                    )),
-          ),
         ),
       );
 
@@ -702,13 +706,12 @@ extension StringUI on String {
           {Function validator,
           TextInputType inputType,
           bool obscureText,
-            Color color,
+          Color color,
           Widget prefix,
           String optionalLabel,
           bool filled}) =>
       Column(
         mainAxisSize: MainAxisSize.min,
-
         children: <Widget>[
           InkResponse(
             onTap: () async =>
@@ -718,7 +721,9 @@ extension StringUI on String {
                         body: SafeArea(
                           child: Column(
                             children: <Widget>[
-                              this.inputField(controller,inputType: inputType ?? TextInputType.text,prefix: prefix),
+                              this.inputField(controller,
+                                  inputType: inputType ?? TextInputType.text,
+                                  prefix: prefix),
                             ],
                           ).addPadding(10.0),
                         ),
@@ -730,58 +735,55 @@ extension StringUI on String {
                       )),
             ),
             child: AbsorbPointer(
-              child:
-                  false?CupertinoFormField(
-
-                controller: controller,
-                placeholder: this,
-
-                validator: validator??(s){
-                  if(s.isEmpty)
-                    return "Please Supply valid value for $this";
-                  return null;
-                },
-                inputType: inputType,
-                obscureText: obscureText??false,
-
-                 
-
-              ):
-                  TextFormField(
-                controller: controller,
-                validator: validator ??
-                    (s) {
-                      if (s.isEmpty)
-                        return "Please Supply valid value for ${optionalLabel??this}";
-                      return null;
-                    },
-                obscureText: obscureText ?? false,
-                keyboardType: inputType ?? TextInputType.text,
-                    style: TextStyle(color: color??CupertinoColors.systemGrey),
-                decoration: InputDecoration(
-                    filled:filled?? true,
-                    fillColor: Colors.white,
-
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color:color??CupertinoColors.white),
-                      borderRadius: BorderRadius.circular(10.0)
+              child: false
+                  ? CupertinoFormField(
+                      controller: controller,
+                      placeholder: this,
+                      validator: validator ??
+                          (s) {
+                            if (s.isEmpty)
+                              return "Please Supply valid value for $this";
+                            return null;
+                          },
+                      inputType: inputType,
+                      obscureText: obscureText ?? false,
+                    )
+                  : TextFormField(
+                      controller: controller,
+                      validator: validator ??
+                          (s) {
+                            if (s.isEmpty)
+                              return "Please Supply valid value for ${optionalLabel ?? this}";
+                            return null;
+                          },
+                      obscureText: obscureText ?? false,
+                      keyboardType: inputType ?? TextInputType.text,
+                      style:
+                          TextStyle(color: color ?? CupertinoColors.systemGrey),
+                      decoration: InputDecoration(
+                          filled: filled ?? true,
+                          fillColor: Colors.white,
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: color ?? CupertinoColors.white),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: color ?? CupertinoColors.white),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: color ?? CupertinoColors.white),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          labelText: this,
+                          labelStyle: TextStyle(
+                              color: color ?? CupertinoColors.systemGrey),
+                          prefixIcon: prefix ??
+                              Icon(
+                                Icons.label,
+                                color: color ?? CupertinoColors.systemGrey,
+                              )),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color:color??CupertinoColors.white),
-                        borderRadius: BorderRadius.circular(10.0)
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color:color??CupertinoColors.white),
-                        borderRadius: BorderRadius.circular(10.0)
-                    ),
-                    labelText: this,
-                    labelStyle: TextStyle(color: color??CupertinoColors.systemGrey),
-                    prefixIcon: prefix ??
-                        Icon(
-                          Icons.label,
-                          color:color?? CupertinoColors.systemGrey,
-                        )),
-              ),
             ).fillWidth(context),
           ),
           SizedBox(
@@ -792,56 +794,66 @@ extension StringUI on String {
 
   Widget popUpNumberField(
           BuildContext context, TextEditingController controller,
-          {Function validator,Color color,Widget prefix,bool filled}) =>
+          {Function validator, Color color, Widget prefix, bool filled}) =>
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
           filled: filled,
-          validator: validator, inputType: TextInputType.number);
+          validator: validator,
+          inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType,Widget prefix,Color color,bool filled}) =>
+          {Function validator,
+          TextInputType inputType,
+          Widget prefix,
+          Color color,
+          bool filled}) =>
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
           filled: filled,
-          validator: validator, inputType: TextInputType.emailAddress);
+          validator: validator,
+          inputType: TextInputType.emailAddress);
 
   Widget popUpPasswordField(
           BuildContext context, TextEditingController controller,
-          {Function validator, TextInputType inputType,Color color,Widget prefix,bool filled}) =>
+          {Function validator,
+          TextInputType inputType,
+          Color color,
+          Widget prefix,
+          bool filled}) =>
       this.popUpField(context, controller,
           validator: validator,
           inputType: TextInputType.visiblePassword,
           color: color,
           filled: filled,
-          prefix: prefix??Icon(Icons.security,color: color??CupertinoColors.systemGrey,),
+          prefix: prefix ??
+              Icon(
+                Icons.security,
+                color: color ?? CupertinoColors.systemGrey,
+              ),
           obscureText: true);
 
-  Widget raisedButton([VoidCallback onPressed,bool isOS=false]) =>
-     isOS
+  Widget raisedButton([VoidCallback onPressed, bool isOS = false]) => isOS
       ? CupertinoButton.filled(
-    child:  Container(
-      decoration: BoxDecoration(
-        color: Colors.white
-      ),
-      child: this.center(),
-    ),
-    onPressed: onPressed ?? () {},
-  )
-      :
-      RaisedButton(
-        onPressed: onPressed ?? () {},
-        child: this.center().addPadding(16.0),
-        elevation: 0.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              10,
+          child: Container(
+            decoration: BoxDecoration(color: Colors.white),
+            child: this.center(),
+          ),
+          onPressed: onPressed ?? () {},
+        )
+      : RaisedButton(
+          onPressed: onPressed ?? () {},
+          child: this.center().addPadding(16.0),
+          elevation: 0.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                10,
+              ),
             ),
           ),
-        ),
-      );
+        );
 
   Widget flatButton([VoidCallback onPressed]) => Platform.isIOS
       ? CupertinoButton(
@@ -853,15 +865,19 @@ extension StringUI on String {
           child: this.center().addPadding(16.0),
         );
 
-  Widget alternateFlatButton(BuildContext context,[VoidCallback onPressed,Color color])=>ClipRRect(
-    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-    child: FlatButton(
-
-      child: this.text().color(context,color??Colors.purple).addPadding(16.0),
-      color: Colors.white,
-      onPressed: onPressed??(){},
-    ),
-  );
+  Widget alternateFlatButton(BuildContext context,
+          [VoidCallback onPressed, Color color]) =>
+      ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        child: FlatButton(
+          child: this
+              .text()
+              .color(context, color ?? Colors.purple)
+              .addPadding(16.0),
+          color: Colors.white,
+          onPressed: onPressed ?? () {},
+        ),
+      );
 
   Text text() => Text(this);
 
@@ -877,11 +893,6 @@ extension StringUI on String {
           textAlign: TextAlign.center,
         );
       })();
-
-
-
-
-
 }
 
 extension TextUtil on Text {
@@ -942,7 +953,7 @@ extension TextUtil on Text {
           if (this.style != null)
             return this.style.copyWith(
                   fontWeight: FontWeight.w100,
-                  color: this.style.color??Colors.grey,
+                  color: this.style.color ?? Colors.grey,
                 );
           return TextStyle(
             fontWeight: FontWeight.w400,
@@ -951,34 +962,32 @@ extension TextUtil on Text {
       );
 
   Text fontSize(double size) => Text(
-    this.data,
-    style: (() {
-      if (this.style != null)
-        return this.style.copyWith(
-          fontWeight:this.style.fontWeight?? FontWeight.w100,
-          color: this.style.color??Colors.grey,
-          fontSize: size??16
-        );
-      return TextStyle(
-        fontSize: size??16,
+        this.data,
+        style: (() {
+          if (this.style != null)
+            return this.style.copyWith(
+                fontWeight: this.style.fontWeight ?? FontWeight.w100,
+                color: this.style.color ?? Colors.grey,
+                fontSize: size ?? 16);
+          return TextStyle(
+            fontSize: size ?? 16,
+          );
+        })(),
       );
-    })(),
-  );
 
   Text fontWeight(FontWeight weight) => Text(
-    this.data,
-    style: (() {
-      if (this.style != null)
-        return this.style.copyWith(
-            fontWeight:weight?? FontWeight.w100,
-            color: this.style.color??Colors.grey,
-            fontSize: this.style.fontSize??16
-        );
-      return TextStyle(
-        fontWeight: weight??16,
+        this.data,
+        style: (() {
+          if (this.style != null)
+            return this.style.copyWith(
+                fontWeight: weight ?? FontWeight.w100,
+                color: this.style.color ?? Colors.grey,
+                fontSize: this.style.fontSize ?? 16);
+          return TextStyle(
+            fontWeight: weight ?? 16,
+          );
+        })(),
       );
-    })(),
-  );
 
   Text headline(context) => Text(
         this.data,
