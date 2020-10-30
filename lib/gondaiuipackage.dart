@@ -591,6 +591,7 @@ extension StringUI on String {
     bool obscureText,
     String helperText,
     Color helperColor,
+    int maxLength,
   }) =>
       /* Platform.isIOS
           ? CupertinoFormField(
@@ -605,6 +606,7 @@ extension StringUI on String {
         controller: controller,
         autofocus: true,
         obscureText: obscureText ?? false,
+        maxLength: maxLength ?? null,
         validator:
             validator ?? (s) => s.isEmpty ? "Field cannot be empty" : null,
         keyboardType: inputType ?? TextInputType.text,
@@ -726,6 +728,7 @@ extension StringUI on String {
           Color color,
           Widget prefix,
           String optionalLabel,
+          int maxLength,
           bool filled}) =>
       Column(
         mainAxisSize: MainAxisSize.min,
@@ -742,6 +745,7 @@ extension StringUI on String {
                                   inputType: inputType ?? TextInputType.text,
                                   prefix: prefix,
                                   helperText: helperText,
+                                  maxLength: maxLength ?? null,
                                   helperColor: helperColor,
                                   obscureText: obscureText ?? false),
                             ],
@@ -770,6 +774,7 @@ extension StringUI on String {
                     )
                   : TextFormField(
                       controller: controller,
+                      maxLength: maxLength ?? null,
                       validator: validator ??
                           (s) {
                             if (s.isEmpty)
@@ -822,7 +827,8 @@ extension StringUI on String {
           Widget prefix,
           bool filled,
           String helperText,
-            bool obscureText ,
+          bool obscureText,
+          int maxLength,
           Color helperColor}) =>
       this.popUpField(context, controller,
           color: color,
@@ -831,7 +837,8 @@ extension StringUI on String {
           validator: validator,
           helperText: helperText ?? "",
           helperColor: helperColor ?? Colors.black,
-          obscureText: obscureText??false,
+          obscureText: obscureText ?? false,
+          maxLength: maxLength ?? 4,
           inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
