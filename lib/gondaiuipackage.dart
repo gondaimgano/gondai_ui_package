@@ -822,6 +822,7 @@ extension StringUI on String {
           Widget prefix,
           bool filled,
           String helperText,
+            bool obscureText ,
           Color helperColor}) =>
       this.popUpField(context, controller,
           color: color,
@@ -830,6 +831,7 @@ extension StringUI on String {
           validator: validator,
           helperText: helperText ?? "",
           helperColor: helperColor ?? Colors.black,
+          obscureText: obscureText??false,
           inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
