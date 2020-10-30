@@ -838,7 +838,7 @@ extension StringUI on String {
           helperText: helperText ?? "",
           helperColor: helperColor ?? Colors.black,
           obscureText: obscureText ?? false,
-          maxLength: maxLength ?? 4,
+          maxLength: maxLength ?? null,
           inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
