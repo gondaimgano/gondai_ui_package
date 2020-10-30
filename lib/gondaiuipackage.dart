@@ -583,12 +583,15 @@ extension StringUI on String {
             pageBuilder: (context, animation1, animation2) {});
       }();
 
-  Widget inputField(TextEditingController controller,
-          {Function validator,
-          TextInputType inputType,
-          Widget prefix,
-          bool obscureText,
-          String helperText}) =>
+  Widget inputField(
+    TextEditingController controller, {
+    Function validator,
+    TextInputType inputType,
+    Widget prefix,
+    bool obscureText,
+    String helperText,
+    Color helperColor,
+  }) =>
       /* Platform.isIOS
           ? CupertinoFormField(
               controller: controller,
@@ -620,6 +623,7 @@ extension StringUI on String {
             labelText: this,
             labelStyle: TextStyle(color: CupertinoColors.systemGrey),
             helperText: helperText ?? "",
+            helperStyle: TextStyle(color: helperColor ?? Colors.black),
             prefixIcon: prefix ??
                 Icon(
                   Icons.label,
@@ -650,6 +654,7 @@ extension StringUI on String {
           TextInputType inputType,
           bool obscureText,
           String helperText,
+          Color helperColor,
           Color color,
           Widget prefix}) =>
       InkWell(
@@ -686,6 +691,8 @@ extension StringUI on String {
                       filled: true,
                       fillColor: Colors.white,
                       helperText: helperText ?? "",
+                      helperStyle:
+                          TextStyle(color: helperColor ?? Colors.black),
                       enabledBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: color ?? CupertinoColors.white),
@@ -715,6 +722,7 @@ extension StringUI on String {
           TextInputType inputType,
           bool obscureText,
           String helperText,
+          Color helperColor,
           Color color,
           Widget prefix,
           String optionalLabel,
@@ -734,6 +742,7 @@ extension StringUI on String {
                                   inputType: inputType ?? TextInputType.text,
                                   prefix: prefix,
                                   helperText: helperText,
+                                  helperColor: helperColor,
                                   obscureText: obscureText ?? false),
                             ],
                           ).addPadding(10.0),
@@ -775,6 +784,8 @@ extension StringUI on String {
                           filled: filled ?? true,
                           fillColor: Colors.white,
                           helperText: helperText ?? "",
+                          helperStyle:
+                              TextStyle(color: helperColor ?? Colors.black),
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: color ?? CupertinoColors.white),
@@ -810,13 +821,15 @@ extension StringUI on String {
           Color color,
           Widget prefix,
           bool filled,
-          String helperText}) =>
+          String helperText,
+          Color helperColor}) =>
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
           filled: filled,
           validator: validator,
           helperText: helperText ?? "",
+          helperColor: helperColor ?? Colors.black,
           inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
@@ -825,12 +838,14 @@ extension StringUI on String {
           Widget prefix,
           Color color,
           String helperText,
+          Color helperColor,
           bool filled}) =>
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
           filled: filled,
           helperText: helperText,
+          helperColor: helperColor,
           validator: validator,
           inputType: TextInputType.emailAddress);
 
@@ -841,6 +856,7 @@ extension StringUI on String {
           Color color,
           Widget prefix,
           String helperText,
+          Color helperColor,
           bool obscure,
           bool filled}) =>
       this.popUpField(context, controller,
@@ -849,6 +865,7 @@ extension StringUI on String {
           color: color,
           filled: filled,
           helperText: helperText,
+          helperColor: helperColor,
           prefix: prefix ??
               Icon(
                 Icons.security,
