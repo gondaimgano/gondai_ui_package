@@ -584,7 +584,10 @@ extension StringUI on String {
       }();
 
   Widget inputField(TextEditingController controller,
-          {Function validator, TextInputType inputType, Widget prefix}) =>
+          {Function validator,
+          TextInputType inputType,
+          Widget prefix,
+          bool obscureText}) =>
       /* Platform.isIOS
           ? CupertinoFormField(
               controller: controller,
@@ -597,6 +600,7 @@ extension StringUI on String {
       TextFormField(
         controller: controller,
         autofocus: true,
+        obscureText: obscureText ?? false,
         validator:
             validator ?? (s) => s.isEmpty ? "Field cannot be empty" : null,
         keyboardType: inputType ?? TextInputType.text,
@@ -723,7 +727,8 @@ extension StringUI on String {
                             children: <Widget>[
                               this.inputField(controller,
                                   inputType: inputType ?? TextInputType.text,
-                                  prefix: prefix),
+                                  prefix: prefix,
+                                  obscureText: obscureText ?? false),
                             ],
                           ).addPadding(10.0),
                         ),
@@ -821,6 +826,7 @@ extension StringUI on String {
           TextInputType inputType,
           Color color,
           Widget prefix,
+          bool obscure,
           bool filled}) =>
       this.popUpField(context, controller,
           validator: validator,
@@ -832,7 +838,7 @@ extension StringUI on String {
                 Icons.security,
                 color: color ?? CupertinoColors.systemGrey,
               ),
-          obscureText: true);
+          obscureText: obscure ?? true);
 
   Widget raisedButton([VoidCallback onPressed, bool isOS = false]) => isOS
       ? CupertinoButton.filled(
