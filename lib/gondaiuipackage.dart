@@ -587,7 +587,8 @@ extension StringUI on String {
           {Function validator,
           TextInputType inputType,
           Widget prefix,
-          bool obscureText}) =>
+          bool obscureText,
+          String helperText}) =>
       /* Platform.isIOS
           ? CupertinoFormField(
               controller: controller,
@@ -618,6 +619,7 @@ extension StringUI on String {
                 borderRadius: BorderRadius.circular(10.0)),
             labelText: this,
             labelStyle: TextStyle(color: CupertinoColors.systemGrey),
+            helperText: helperText ?? "",
             prefixIcon: prefix ??
                 Icon(
                   Icons.label,
@@ -647,6 +649,7 @@ extension StringUI on String {
           {Function validator,
           TextInputType inputType,
           bool obscureText,
+          String helperText,
           Color color,
           Widget prefix}) =>
       InkWell(
@@ -682,6 +685,7 @@ extension StringUI on String {
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
+                      helperText: helperText ?? "",
                       enabledBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: color ?? CupertinoColors.white),
@@ -710,6 +714,7 @@ extension StringUI on String {
           {Function validator,
           TextInputType inputType,
           bool obscureText,
+          String helperText,
           Color color,
           Widget prefix,
           String optionalLabel,
@@ -728,6 +733,7 @@ extension StringUI on String {
                               this.inputField(controller,
                                   inputType: inputType ?? TextInputType.text,
                                   prefix: prefix,
+                                  helperText: helperText,
                                   obscureText: obscureText ?? false),
                             ],
                           ).addPadding(10.0),
@@ -768,6 +774,7 @@ extension StringUI on String {
                       decoration: InputDecoration(
                           filled: filled ?? true,
                           fillColor: Colors.white,
+                          helperText: helperText ?? "",
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: color ?? CupertinoColors.white),
@@ -799,12 +806,17 @@ extension StringUI on String {
 
   Widget popUpNumberField(
           BuildContext context, TextEditingController controller,
-          {Function validator, Color color, Widget prefix, bool filled}) =>
+          {Function validator,
+          Color color,
+          Widget prefix,
+          bool filled,
+          String helperText}) =>
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
           filled: filled,
           validator: validator,
+          helperText: helperText ?? "",
           inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
@@ -812,11 +824,13 @@ extension StringUI on String {
           TextInputType inputType,
           Widget prefix,
           Color color,
+          String helperText,
           bool filled}) =>
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
           filled: filled,
+          helperText: helperText,
           validator: validator,
           inputType: TextInputType.emailAddress);
 
@@ -826,6 +840,7 @@ extension StringUI on String {
           TextInputType inputType,
           Color color,
           Widget prefix,
+          String helperText,
           bool obscure,
           bool filled}) =>
       this.popUpField(context, controller,
@@ -833,6 +848,7 @@ extension StringUI on String {
           inputType: TextInputType.visiblePassword,
           color: color,
           filled: filled,
+          helperText: helperText,
           prefix: prefix ??
               Icon(
                 Icons.security,
