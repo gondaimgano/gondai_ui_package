@@ -392,7 +392,8 @@ extension WidgetUI on Widget {
         color: color ?? Colors.white,
       );
 
-  Widget withDivider({int height, int indent, int endIndent}) => Column(
+  Widget withDivider({double height, double indent, double endIndent}) =>
+      Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           this,
