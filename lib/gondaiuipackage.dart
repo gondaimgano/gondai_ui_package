@@ -44,17 +44,21 @@ extension ListUtil<T> on List<T> {
   }
 
   GridView grid(Function(T item) itemWidget,
-          {int columns, double aspectRatio = 2.44}) =>
+          {int columns,
+          double aspectRatio = 2.44,
+          double crossAxisSpacing,
+          double mainAxisSpacing,
+          EdgeInsets padding}) =>
       GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: columns ?? 2,
           childAspectRatio: aspectRatio,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 12,
+          crossAxisSpacing: crossAxisSpacing ?? 10,
+          mainAxisSpacing: mainAxisSpacing ?? 12,
         ),
         shrinkWrap: true,
         primary: false,
-        padding: const EdgeInsets.all(20),
+        padding: padding ?? const EdgeInsets.all(20),
         itemBuilder: (context, i) => itemWidget(this[i]),
         itemCount: this.length,
       );
