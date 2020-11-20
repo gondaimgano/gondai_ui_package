@@ -697,7 +697,7 @@ extension StringUI on String {
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      helperText: helperText ?? "",
+                      helperText: helperText,
                       helperStyle:
                           TextStyle(color: helperColor ?? Colors.black),
                       enabledBorder: OutlineInputBorder(
@@ -845,7 +845,7 @@ extension StringUI on String {
           prefix: prefix,
           filled: filled,
           validator: validator,
-          helperText: helperText ?? "",
+          helperText: helperText,
           helperColor: helperColor ?? Colors.black,
           secondaryHelperColor: secondaryHelperColor,
           obscureText: obscureText ?? false,
