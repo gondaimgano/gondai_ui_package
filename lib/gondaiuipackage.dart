@@ -629,7 +629,7 @@ extension StringUI on String {
                 borderRadius: BorderRadius.circular(10.0)),
             labelText: this,
             labelStyle: TextStyle(color: CupertinoColors.systemGrey),
-            helperText: helperText ?? "",
+            helperText: helperText,
             helperStyle: TextStyle(color: helperColor ?? Colors.black),
             prefixIcon: prefix ??
                 Icon(
@@ -795,7 +795,7 @@ extension StringUI on String {
                       decoration: InputDecoration(
                           filled: filled ?? true,
                           fillColor: Colors.white,
-                          helperText: helperText ?? "",
+                          helperText: helperText,
                           helperStyle:
                               TextStyle(color: helperColor ?? Colors.black),
                           enabledBorder: OutlineInputBorder(
