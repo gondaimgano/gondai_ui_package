@@ -618,7 +618,7 @@ extension StringUI on String {
         decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-            contentPadding: EdgeInsetsDirectional.only(top: 8),
+            contentPadding: EdgeInsetsDirectional.only(start: 8),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: CupertinoColors.white),
                 borderRadius: BorderRadius.circular(10.0)),
@@ -628,8 +628,8 @@ extension StringUI on String {
             border: OutlineInputBorder(
                 borderSide: BorderSide(color: CupertinoColors.white),
                 borderRadius: BorderRadius.circular(10.0)),
-            labelText: this,
-            labelStyle: TextStyle(color: CupertinoColors.systemGrey),
+            hintText: this,
+            hintStyle: TextStyle(color: CupertinoColors.systemGrey),
             helperText: helperText,
             helperStyle: TextStyle(color: helperColor ?? Colors.black),
             prefixIcon: prefix ??
