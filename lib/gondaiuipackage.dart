@@ -594,6 +594,7 @@ extension StringUI on String {
     TextInputType inputType,
     Widget prefix,
     bool obscureText,
+    bool isOutline,
     String helperText,
     Color helperColor,
     int maxLength,
@@ -618,16 +619,28 @@ extension StringUI on String {
         decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-            contentPadding: EdgeInsetsDirectional.only(start: 8),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: CupertinoColors.white),
-                borderRadius: BorderRadius.circular(10.0)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: CupertinoColors.white),
-                borderRadius: BorderRadius.circular(10.0)),
-            border: OutlineInputBorder(
-                borderSide: BorderSide(color: CupertinoColors.white),
-                borderRadius: BorderRadius.circular(10.0)),
+            //contentPadding: EdgeInsetsDirectional.only(start: 8),
+            enabledBorder: isOutline ?? false
+                ? OutlineInputBorder(
+                    borderSide: BorderSide(color: CupertinoColors.white),
+                    borderRadius: BorderRadius.circular(10.0))
+                : UnderlineInputBorder(
+                    borderSide: BorderSide(color: CupertinoColors.white),
+                    borderRadius: BorderRadius.circular(10.0)),
+            focusedBorder: isOutline ?? false
+                ? OutlineInputBorder(
+                    borderSide: BorderSide(color: CupertinoColors.white),
+                    borderRadius: BorderRadius.circular(10.0))
+                : UnderlineInputBorder(
+                    borderSide: BorderSide(color: CupertinoColors.white),
+                    borderRadius: BorderRadius.circular(10.0)),
+            border: isOutline ?? false
+                ? OutlineInputBorder(
+                    borderSide: BorderSide(color: CupertinoColors.white),
+                    borderRadius: BorderRadius.circular(10.0))
+                : UnderlineInputBorder(
+                    borderSide: BorderSide(color: CupertinoColors.white),
+                    borderRadius: BorderRadius.circular(10.0)),
             labelText: this,
             labelStyle: TextStyle(color: CupertinoColors.systemGrey),
             helperText: helperText,
@@ -663,6 +676,7 @@ extension StringUI on String {
           bool obscureText,
           String helperText,
           Color helperColor,
+          // bool isOutline,
           Color color,
           Widget prefix}) =>
       InkWell(
@@ -736,6 +750,7 @@ extension StringUI on String {
           Widget prefix,
           String optionalLabel,
           int maxLength,
+          bool isOutline,
           bool filled}) =>
       Column(
         mainAxisSize: MainAxisSize.min,
@@ -799,18 +814,33 @@ extension StringUI on String {
                           helperText: helperText,
                           helperStyle:
                               TextStyle(color: helperColor ?? Colors.black),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: color ?? CupertinoColors.white),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: color ?? CupertinoColors.white),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: color ?? CupertinoColors.white),
-                              borderRadius: BorderRadius.circular(10.0)),
+                          enabledBorder: isOutline ?? false
+                              ? OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: color ?? CupertinoColors.white),
+                                  borderRadius: BorderRadius.circular(10.0))
+                              : UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: color ?? CupertinoColors.white),
+                                  borderRadius: BorderRadius.circular(10.0)),
+                          focusedBorder: isOutline ?? false
+                              ? OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: color ?? CupertinoColors.white),
+                                  borderRadius: BorderRadius.circular(10.0))
+                              : UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: color ?? CupertinoColors.white),
+                                  borderRadius: BorderRadius.circular(10.0)),
+                          border: isOutline ?? false
+                              ? OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: color ?? CupertinoColors.white),
+                                  borderRadius: BorderRadius.circular(10.0))
+                              : UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: color ?? CupertinoColors.white),
+                                  borderRadius: BorderRadius.circular(10.0)),
                           labelText: this,
                           labelStyle: TextStyle(
                               color: color ?? CupertinoColors.systemGrey),
@@ -823,7 +853,7 @@ extension StringUI on String {
             ).fillWidth(context),
           ),
           SizedBox(
-            height: 12,
+            height: 5,
           ),
         ],
       );
@@ -837,6 +867,7 @@ extension StringUI on String {
     bool filled,
     String helperText,
     bool obscureText,
+    bool isOutline,
     int maxLength,
     Color helperColor,
     Color secondaryHelperColor,
@@ -845,6 +876,7 @@ extension StringUI on String {
           color: color,
           prefix: prefix,
           filled: filled,
+          isOutline: isOutline,
           validator: validator,
           helperText: helperText,
           helperColor: helperColor ?? Colors.black,
@@ -861,6 +893,7 @@ extension StringUI on String {
           String helperText,
           Color helperColor,
           Color secondaryHelperColor,
+          bool isOutline,
           bool filled}) =>
       this.popUpField(context, controller,
           color: color,
@@ -869,6 +902,7 @@ extension StringUI on String {
           helperText: helperText,
           helperColor: helperColor,
           secondaryHelperColor: secondaryHelperColor,
+          isOutline: isOutline,
           validator: validator,
           inputType: TextInputType.emailAddress);
 
@@ -881,6 +915,7 @@ extension StringUI on String {
           String helperText,
           Color helperColor,
           Color secondaryHelperColor,
+          bool isOutline,
           bool obscure,
           bool filled}) =>
       this.popUpField(context, controller,
@@ -891,6 +926,7 @@ extension StringUI on String {
           helperText: helperText,
           helperColor: helperColor,
           secondaryHelperColor: secondaryHelperColor,
+          isOutline: isOutline,
           prefix: prefix ??
               Icon(
                 Icons.security,
