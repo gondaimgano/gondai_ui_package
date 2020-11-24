@@ -618,6 +618,7 @@ extension StringUI on String {
         decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
+            contentPadding: EdgeInsetsDirectional.only(top: 4),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: CupertinoColors.white),
                 borderRadius: BorderRadius.circular(10.0)),
