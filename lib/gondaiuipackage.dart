@@ -628,8 +628,8 @@ extension StringUI on String {
             border: OutlineInputBorder(
                 borderSide: BorderSide(color: CupertinoColors.white),
                 borderRadius: BorderRadius.circular(10.0)),
-            hintText: this,
-            hintStyle: TextStyle(color: CupertinoColors.systemGrey),
+            labelText: this,
+            labelStyle: TextStyle(color: CupertinoColors.systemGrey),
             helperText: helperText,
             helperStyle: TextStyle(color: helperColor ?? Colors.black),
             prefixIcon: prefix ??
