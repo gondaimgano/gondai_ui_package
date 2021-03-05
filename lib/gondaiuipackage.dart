@@ -959,12 +959,7 @@ extension StringUI on String {
         ),
         );
 
-  Widget flatButton([VoidCallback onPressed]) => Platform.isIOS
-      ? CupertinoButton(
-          child: this.center(),
-          onPressed: onPressed ?? () {},
-        )
-      : TextButton(
+  Widget flatButton([VoidCallback onPressed]) =>  TextButton(
           onPressed: onPressed ?? () {},
           child: this.center().addPadding(16.0),
         );
