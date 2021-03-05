@@ -5,7 +5,7 @@ author: Gondai Mgano
 homepage: https://github.com/gondaimgano/gondai_ui_package
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
