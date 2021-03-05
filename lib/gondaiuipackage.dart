@@ -943,17 +943,20 @@ extension StringUI on String {
           ),
           onPressed: onPressed ?? () {},
         )
-      : RaisedButton(
+      : ElevatedButton(
           onPressed: onPressed ?? () {},
           child: this.center().addPadding(16.0),
-          elevation: 0.0,
-          shape: RoundedRectangleBorder(
+        style: ButtonStyle(
+          // elevation: 0.0,
+          elevation: MaterialStateProperty.all(0.0),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(
                 10,
               ),
             ),
-          ),
+          )),
+        ),
         );
 
   Widget flatButton([VoidCallback onPressed]) => Platform.isIOS
