@@ -534,13 +534,13 @@ extension StringUI on String {
                   content: child,
                   actions: actions ??
                       <Widget>[
-                        FlatButton(
+                        TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(BubbleDecide.OK);
                           },
                           child: Text("Ok"),
                         ),
-                        FlatButton(
+                        TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(BubbleDecide.CANCEL);
                           },
@@ -566,13 +566,13 @@ extension StringUI on String {
                   content: child,
                   actions: actions ??
                       <Widget>[
-                        FlatButton(
+                        TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(BubbleDecide.OK);
                           },
                           child: Text("Ok"),
                         ),
-                        FlatButton(
+                        TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(BubbleDecide.CANCEL);
                           },
@@ -961,7 +961,7 @@ extension StringUI on String {
           child: this.center(),
           onPressed: onPressed ?? () {},
         )
-      : FlatButton(
+      : TextButton(
           onPressed: onPressed ?? () {},
           child: this.center().addPadding(16.0),
         );
@@ -970,12 +970,14 @@ extension StringUI on String {
           [VoidCallback onPressed, Color color]) =>
       ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        child: FlatButton(
+        child: TextButton(
           child: this
               .text()
               .color(context, color ?? Colors.purple)
               .addPadding(16.0),
-          color: Colors.white,
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.white)
+          ),
           onPressed: onPressed ?? () {},
         ),
       );
@@ -1016,7 +1018,7 @@ extension TextUtil on Text {
           ),
         );
 
-  FlatButton flatButton([VoidCallback onPressed]) => FlatButton(
+  TextButton flatButton([VoidCallback onPressed]) => TextButton(
         onPressed: onPressed ?? () {},
         child: this.addPadding(16.0),
       );
