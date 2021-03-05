@@ -5,6 +5,7 @@ export 'custom_tile.dart';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'dropdown_form_field.dart';
@@ -493,11 +494,7 @@ extension StringUI on String {
               height: 50,
               child:
                   //Loading(indicator: BallPulseIndicator(), size: 100.0),
-                  Platform.isIOS
-                      ? CupertinoActivityIndicator(
-                          radius: 15,
-                        )
-                      : CircularProgressIndicator(
+                  CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation(
                               Theme.of(context).accentColor),
                           strokeWidth: 7.0,
@@ -522,36 +519,11 @@ extension StringUI on String {
     String title = " ",
   ]) =>
       () {
-        if (Platform.isIOS)
-          return showCupertinoDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  title: Text(title ?? ''),
-                  content: child,
-                  actions: actions ??
-                      <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(BubbleDecide.OK);
-                          },
-                          child: Text("Ok"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(BubbleDecide.CANCEL);
-                          },
-                          child: Text("Cancel"),
-                        )
-                      ],
-                );
-              });
+    if(kIsWeb)
+      {
         return showGeneralDialog(
 
-            //barrierColor: Colors.black.withOpacity(0.5),
+          //barrierColor: Colors.black.withOpacity(0.5),
             transitionBuilder: (context, a1, a2, widget) {
               return ScaleTransition(
                 scale: CurvedAnimation(
@@ -587,6 +559,73 @@ extension StringUI on String {
             barrierLabel: '',
             context: context,
             pageBuilder: (context, animation1, animation2) {});
+      }else {
+      if (Platform.isIOS)
+        return showCupertinoDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                title: Text(title ?? ''),
+                content: child,
+                actions: actions ??
+                    <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(BubbleDecide.OK);
+                        },
+                        child: Text("Ok"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(BubbleDecide.CANCEL);
+                        },
+                        child: Text("Cancel"),
+                      )
+                    ],
+              );
+            });
+      return showGeneralDialog(
+
+        //barrierColor: Colors.black.withOpacity(0.5),
+          transitionBuilder: (context, a1, a2, widget) {
+            return ScaleTransition(
+              scale: CurvedAnimation(
+                parent: a1,
+                curve: Curves.easeOut,
+              ),
+              child: AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                title: Text(title ?? ''),
+                content: child,
+                actions: actions ??
+                    <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(BubbleDecide.OK);
+                        },
+                        child: Text("Ok"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(BubbleDecide.CANCEL);
+                        },
+                        child: Text("Cancel"),
+                      )
+                    ],
+              ),
+            );
+          },
+          transitionDuration: Duration(milliseconds: 200),
+          barrierDismissible: false,
+          barrierLabel: '',
+          context: context,
+          pageBuilder: (context, animation1, animation2) {});
+    }
       }();
 
   Widget inputField(
