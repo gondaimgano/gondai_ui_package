@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gradient_widgets/gradient_widgets.dart';
 import 'dropdown_form_field.dart';
 import 'package:flutter/services.dart';
 
@@ -16,7 +15,7 @@ import 'cupertino_form_field.dart';
 extension ListUtil<T> on List<T> {
 
   ListView custom(Function(T item) itemWidget,
-      [Widget separator, bool shrinkWrap]) {
+      [Widget? separator, bool? shrinkWrap]) {
     return ListView.separated(
       itemBuilder: (context, i) => itemWidget(this[i]),
       separatorBuilder: (context, i) => separator ?? SizedBox(height: 3),
@@ -26,7 +25,7 @@ extension ListUtil<T> on List<T> {
   }
 
   ListView neverMoveList(Function(T item) itemWidget,
-      [Widget separator, bool shrinkWrap]) {
+      [Widget? separator, bool? shrinkWrap]) {
     return ListView.separated(
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, i) => itemWidget(this[i]),
@@ -36,7 +35,7 @@ extension ListUtil<T> on List<T> {
     );
   }
 
-  ListView horizontal(Function(T item) itemWidget, [Widget separator]) {
+  ListView horizontal(Function(T item) itemWidget, [Widget? separator]) {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, i) => itemWidget(this[i]),
@@ -46,15 +45,15 @@ extension ListUtil<T> on List<T> {
   }
 
   GridView grid(Function(T item) itemWidget,
-          {int columns,
-          double aspectRatio = 2.44,
-          double crossAxisSpacing,
-          double mainAxisSpacing,
-          EdgeInsets padding}) =>
+          {int? columns,
+          double? aspectRatio = 2.44,
+          double? crossAxisSpacing,
+          double? mainAxisSpacing,
+          EdgeInsets? padding}) =>
       GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: columns ?? 2,
-          childAspectRatio: aspectRatio,
+          childAspectRatio: aspectRatio??2.44,
           crossAxisSpacing: crossAxisSpacing ?? 10,
           mainAxisSpacing: mainAxisSpacing ?? 12,
         ),
@@ -67,10 +66,10 @@ extension ListUtil<T> on List<T> {
 
   DropDownFormField dropDown(
     TextEditingController controller, {
-    String hintText,
-    String textField,
-    String valueField,
-    Function onChange,
+    String? hintText,
+    String? textField,
+    String? valueField,
+    Function? onChange,
   }) =>
       DropDownFormField(
         hintText: hintText ?? "Select Ten Item",
@@ -80,7 +79,7 @@ extension ListUtil<T> on List<T> {
         textField: textField,
         valueField: valueField,
         onChanged: (newValue) {
-          onChange(newValue);
+          onChange!(newValue);
         },
       );
 }
@@ -97,10 +96,10 @@ extension ListString on List<String> {
 
 extension ListWidget on List<Widget> {
   Column inColumn({
-    MainAxisAlignment mainAxisAlignment,
-    MainAxisSize mainAxisSize,
-    CrossAxisAlignment crossAxisAlignment,
-    VerticalDirection verticalDirection,
+    MainAxisAlignment? mainAxisAlignment,
+    MainAxisSize? mainAxisSize,
+    CrossAxisAlignment? crossAxisAlignment,
+    VerticalDirection? verticalDirection,
   }) =>
       Column(
         mainAxisSize: mainAxisSize ?? MainAxisSize.min,
@@ -124,24 +123,13 @@ extension CardUtil on Widget {
         child: this,
       );
 
-  GradientCard inCardGradient() => GradientCard(
-        gradient:
-            LinearGradient(colors: [Color(0xff823b8e), Color(0xffed2a7b)]),
-        child: Container(width: double.infinity, child: this.addPadding(8.0)),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomRight: 30.0.circular(),
-            bottomLeft: 30.0.circular(),
-          ),
-        ),
-      );
 
   FittedBox inBox() => FittedBox(
         fit: BoxFit.contain,
         child: this,
       );
 
-  AspectRatio inAspect([double ratio]) => AspectRatio(
+  AspectRatio inAspect([double? ratio]) => AspectRatio(
         aspectRatio: ratio ?? 1.0,
         child: this,
       );
@@ -192,11 +180,11 @@ extension DoubleUtil on double {
 
   String toCurrency([String currency = "USD"]) {
     RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
-    Function mathFunc = (Match match) => '${match[1]},';
+    //Function mathFunc = (Match match) => '${match[1]},';
     String _r1 = "";
     try {
       _r1 = "${this.toStringAsFixed(2)} $currency"
-          .replaceAllMapped(reg, mathFunc);
+          .replaceAllMapped(reg, (Match match) => '${match[1]},');
     } catch (ex) {
       _r1 = "${this}";
     }
@@ -239,17 +227,16 @@ extension BuildContextUI on BuildContext {
 
   Text textWithTheme(String t) => Text(
         t,
-        style: Theme.of(this).textTheme.title,
+        style: Theme.of(this).textTheme.headline6,
       );
 
-  MaterialButton buttonWithTheme(String label, {VoidCallback onPressed}) =>
-      RaisedButton(
+  ElevatedButton buttonWithTheme(String label, {VoidCallback? onPressed}) => ElevatedButton(
         onPressed: onPressed ?? () {},
         child: Text(label),
       );
 
   TextFormField inputField(TextEditingController controller,
-          {Function validator, TextInputType inputType}) =>
+          {FormFieldValidator? validator, TextInputType? inputType}) =>
       TextFormField(
         controller: controller,
         validator: validator,
@@ -319,7 +306,7 @@ extension InputUI on TextFormField {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.of(context).pop(this.controller.text),
+          onPressed: () => Navigator.of(context).pop(this.controller?.text),
         ),
       );
 }
@@ -348,7 +335,7 @@ extension WidgetUI on Widget {
         ),
       );
 
-  Container square([double sq]) => Container(
+  Container square([double? sq]) => Container(
         child: this,
         width: sq ?? 100,
         height: sq ?? 100,
@@ -361,12 +348,12 @@ extension WidgetUI on Widget {
       );
 
   Flexible flexible(int flex) => Flexible(
-        flex: flex ?? 1,
+        flex: flex,
         child: this,
       );
 
   Expanded expand(int flex) => Expanded(
-        flex: flex ?? 1,
+        flex: flex ,
         child: this,
       );
 
@@ -393,12 +380,12 @@ extension WidgetUI on Widget {
         width: MediaQuery.of(context).size.width,
       );
 
-  Widget backgroundColor([Color color]) => Container(
+  Widget backgroundColor([Color? color]) => Container(
         child: this,
         color: color ?? Colors.white,
       );
 
-  Widget withDivider({double height, double indent, double endIndent}) =>
+  Widget withDivider({double? height, double? indent, double? endIndent}) =>
       Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -515,7 +502,7 @@ extension StringUI on String {
   Future<dynamic> showBubbleAlert(
     BuildContext context,
     Widget child, [
-    List<Widget> actions,
+    List<Widget>? actions,
     String title = " ",
   ]) =>
       () {
@@ -534,7 +521,7 @@ extension StringUI on String {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  title: Text(title ?? ''),
+                  title: Text(title),
                   content: child,
                   actions: actions ??
                       <Widget>[
@@ -558,7 +545,8 @@ extension StringUI on String {
             barrierDismissible: false,
             barrierLabel: '',
             context: context,
-            pageBuilder: (context, animation1, animation2) {});
+          pageBuilder: (context, animation1, animation2) =>Container(width: 0,height: 0,),
+           );
       }else {
       if (Platform.isIOS)
         return showCupertinoDialog(
@@ -624,20 +612,20 @@ extension StringUI on String {
           barrierDismissible: false,
           barrierLabel: '',
           context: context,
-          pageBuilder: (context, animation1, animation2) {});
+          pageBuilder: (context, animation1, animation2) =>Container(width: 0,height: 0,));
     }
       }();
 
   Widget inputField(
-    TextEditingController controller, {
-    Function validator,
-    TextInputType inputType,
-    Widget prefix,
-    bool obscureText,
-    bool isOutline,
-    String helperText,
-    Color helperColor,
-    int maxLength,
+    TextEditingController? controller, {
+        FormFieldValidator? validator,
+    TextInputType? inputType,
+    Widget? prefix,
+    bool? obscureText,
+    bool? isOutline,
+    String? helperText,
+    Color? helperColor,
+    int? maxLength,
   }) =>
       /* Platform.isIOS
           ? CupertinoFormField(
@@ -654,7 +642,7 @@ extension StringUI on String {
         obscureText: obscureText ?? false,
         maxLength: maxLength ?? null,
         validator:
-            validator ?? (s) => s.isEmpty ? "Field cannot be empty" : null,
+            validator ?? (s) => s!.isEmpty ? "Field cannot be empty" : null,
         keyboardType: inputType ?? TextInputType.text,
         decoration: InputDecoration(
             filled: true,
@@ -697,7 +685,7 @@ extension StringUI on String {
       : CircularProgressIndicator();
 
   TextFormField passwordField(TextEditingController controller,
-          {Function validator, TextInputType inputType}) =>
+          {FormFieldValidator? validator, TextInputType? inputType}) =>
       TextFormField(
         controller: controller,
         validator: validator,
@@ -711,14 +699,14 @@ extension StringUI on String {
       );
 
   Widget popUpDateField(BuildContext context, TextEditingController controller,
-          {Function validator,
-          TextInputType inputType,
-          bool obscureText,
-          String helperText,
-          Color helperColor,
+          {FormFieldValidator? validator,
+          TextInputType? inputType,
+          bool? obscureText,
+          String? helperText,
+          Color? helperColor,
           // bool isOutline,
-          Color color,
-          Widget prefix}) =>
+          Color? color,
+          Widget? prefix}) =>
       InkWell(
         onTap: () async {
           var dt = await showDatePicker(
@@ -742,7 +730,8 @@ extension StringUI on String {
                   controller: controller,
                   validator: validator ??
                       (s) {
-                        if (s.isEmpty)
+
+                        if (s?.isEmpty??false)
                           return "Please Supply valid value for $this";
                         return null;
                       },
@@ -780,18 +769,18 @@ extension StringUI on String {
       );
 
   Widget popUpField(BuildContext context, TextEditingController controller,
-          {Function validator,
-          TextInputType inputType,
-          bool obscureText,
-          String helperText,
-          Color helperColor,
-          Color secondaryHelperColor,
-          Color color,
-          Widget prefix,
-          String optionalLabel,
-          int maxLength,
-          bool isOutline,
-          bool filled}) =>
+          {FormFieldValidator? validator,
+          TextInputType? inputType,
+          bool? obscureText,
+          String? helperText,
+          Color? helperColor,
+          Color? secondaryHelperColor,
+          Color? color,
+          Widget? prefix,
+          String? optionalLabel,
+          int? maxLength,
+          bool? isOutline,
+          bool? filled}) =>
       Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -828,7 +817,7 @@ extension StringUI on String {
                       placeholder: this,
                       validator: validator ??
                           (s) {
-                            if (s.isEmpty)
+                            if (s?.isEmpty??false)
                               return "Please Supply valid value for $this";
                             return null;
                           },
@@ -840,7 +829,7 @@ extension StringUI on String {
                       maxLength: maxLength ?? null,
                       validator: validator ??
                           (s) {
-                            if (s.isEmpty)
+                            if (s?.isEmpty??false)
                               return "Please Supply valid value for ${optionalLabel ?? this}";
                             return null;
                           },
@@ -901,16 +890,16 @@ extension StringUI on String {
   Widget popUpNumberField(
     BuildContext context,
     TextEditingController controller, {
-    Function validator,
-    Color color,
-    Widget prefix,
-    bool filled,
-    String helperText,
-    bool obscureText,
-    bool isOutline,
-    int maxLength,
-    Color helperColor,
-    Color secondaryHelperColor,
+        FormFieldValidator? validator,
+    Color? color,
+    Widget? prefix,
+    bool? filled,
+    String? helperText,
+    bool? obscureText,
+    bool? isOutline,
+    int? maxLength,
+    Color? helperColor,
+    Color? secondaryHelperColor,
   }) =>
       this.popUpField(context, controller,
           color: color,
@@ -926,15 +915,15 @@ extension StringUI on String {
           inputType: TextInputType.number);
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
-          {Function validator,
-          TextInputType inputType,
-          Widget prefix,
-          Color color,
-          String helperText,
-          Color helperColor,
-          Color secondaryHelperColor,
-          bool isOutline,
-          bool filled}) =>
+          {FormFieldValidator? validator,
+          TextInputType? inputType,
+          Widget? prefix,
+          Color? color,
+          String? helperText,
+          Color? helperColor,
+          Color? secondaryHelperColor,
+          bool? isOutline,
+          bool? filled}) =>
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
@@ -948,16 +937,16 @@ extension StringUI on String {
 
   Widget popUpPasswordField(
           BuildContext context, TextEditingController controller,
-          {Function validator,
-          TextInputType inputType,
-          Color color,
-          Widget prefix,
-          String helperText,
-          Color helperColor,
-          Color secondaryHelperColor,
-          bool isOutline,
-          bool obscure,
-          bool filled}) =>
+          {FormFieldValidator? validator,
+          TextInputType? inputType,
+          Color? color,
+          Widget? prefix,
+          String? helperText,
+          Color? helperColor,
+          Color? secondaryHelperColor,
+          bool? isOutline,
+          bool? obscure,
+          bool? filled}) =>
       this.popUpField(context, controller,
           validator: validator,
           inputType: TextInputType.visiblePassword,
@@ -974,7 +963,7 @@ extension StringUI on String {
               ),
           obscureText: obscure ?? true);
 
-  Widget raisedButton([VoidCallback onPressed, bool isOS = false]) => isOS
+  Widget raisedButton([VoidCallback? onPressed, bool isOS = false]) => isOS
       ? CupertinoButton.filled(
           child: Container(
             decoration: BoxDecoration(color: Colors.white),
@@ -999,13 +988,13 @@ extension StringUI on String {
         );
 
 
-  Widget flatButton([VoidCallback onPressed]) =>  TextButton(
+  Widget flatButton([VoidCallback? onPressed]) =>  TextButton(
           onPressed: onPressed ?? () {},
           child: this.center().addPadding(16.0),
         );
 
   Widget alternateFlatButton(BuildContext context,
-          [VoidCallback onPressed, Color color]) =>
+          [VoidCallback? onPressed, Color? color]) =>
       ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
         child: TextButton(
@@ -1022,12 +1011,12 @@ extension StringUI on String {
 
   Text text() => Text(this);
 
-  Text center([BuildContext context]) => (() {
+  Text center([BuildContext? context]) => (() {
         if (context != null)
           return Text(
             this,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline,
+            style: Theme.of(context).textTheme.headline5,
           );
         return Text(
           this,
@@ -1037,7 +1026,7 @@ extension StringUI on String {
 }
 
 extension TextUtil on Text {
-  Widget raisedButton([VoidCallback onPressed]) => Platform.isIOS
+  Widget raisedButton([VoidCallback? onPressed]) => Platform.isIOS
       ? CupertinoButton.filled(
           child: this.addPadding(16.0),
           onPressed: () {
@@ -1056,16 +1045,16 @@ extension TextUtil on Text {
           ),
         );
 
-  TextButton flatButton([VoidCallback onPressed]) => TextButton(
+  TextButton flatButton([VoidCallback? onPressed]) => TextButton(
         onPressed: onPressed ?? () {},
         child: this.addPadding(16.0),
       );
 
   Text bold([context]) => Text(
-        this.data,
+        this.data??"",
         style: (() {
           if (this.style != null)
-            return this.style.copyWith(
+            return this.style?.copyWith(
                   fontWeight: FontWeight.bold,
                 );
           return TextStyle(
@@ -1075,10 +1064,10 @@ extension TextUtil on Text {
       );
 
   Text caption(context) => Text(
-        this.data,
+        this.data??"",
         style: (() {
           if (this.style != null)
-            return this.style.copyWith(
+            return this.style?.copyWith(
                   fontWeight: FontWeight.w400,
                   color: Colors.black87,
                 );
@@ -1089,12 +1078,12 @@ extension TextUtil on Text {
       );
 
   Text subtitle(context) => Text(
-        this.data,
+        this.data??"",
         style: (() {
           if (this.style != null)
-            return this.style.copyWith(
+            return this.style?.copyWith(
                   fontWeight: FontWeight.w100,
-                  color: this.style.color ?? Colors.grey,
+                  color: this.style?.color ?? Colors.grey,
                 );
           return TextStyle(
             fontWeight: FontWeight.w400,
@@ -1103,38 +1092,38 @@ extension TextUtil on Text {
       );
 
   Text fontSize(double size) => Text(
-        this.data,
+        this.data??"",
         style: (() {
           if (this.style != null)
-            return this.style.copyWith(
-                fontWeight: this.style.fontWeight ?? FontWeight.w100,
-                color: this.style.color ?? Colors.grey,
-                fontSize: size ?? 16);
+            return this.style?.copyWith(
+                fontWeight: this.style?.fontWeight ?? FontWeight.w100,
+                color: this.style?.color ?? Colors.grey,
+                fontSize: size );
           return TextStyle(
-            fontSize: size ?? 16,
+            fontSize: size ,
           );
         })(),
       );
 
   Text fontWeight(FontWeight weight) => Text(
-        this.data,
+        this.data??"",
         style: (() {
           if (this.style != null)
-            return this.style.copyWith(
+            return this.style?.copyWith(
                 fontWeight: weight ?? FontWeight.w100,
-                color: this.style.color ?? Colors.grey,
-                fontSize: this.style.fontSize ?? 16);
+                color: this.style?.color ?? Colors.grey,
+                fontSize: this.style?.fontSize ?? 16);
           return TextStyle(
-            fontWeight: weight ?? 16,
+            fontWeight: weight,
           );
         })(),
       );
 
   Text headline(context) => Text(
-        this.data,
+        this.data??"",
         style: (() {
           if (this.style != null)
-            return this.style.copyWith(
+            return this.style?.copyWith(
                   fontSize: 30.0,
                 );
           return TextStyle(
@@ -1143,11 +1132,11 @@ extension TextUtil on Text {
         })(),
       );
 
-  Text color(context, [Color color]) => Text(
-        this.data,
+  Text color(context, [Color? color]) => Text(
+        this.data??"",
         style: (() {
           if (this.style != null)
-            return this.style.copyWith(
+            return this.style?.copyWith(
                   color: color ?? Colors.white,
                 );
           return TextStyle(
@@ -1158,7 +1147,7 @@ extension TextUtil on Text {
 }
 
 extension ButtonUtil on MaterialButton {
-  Widget fixedWidth(BuildContext context, [double width]) => ButtonTheme(
+  Widget fixedWidth(BuildContext context, [double? width]) => ButtonTheme(
         minWidth: width ?? context.width().percent(0.33),
         textTheme: ButtonTextTheme.primary,
         buttonColor: Colors.blueAccent,

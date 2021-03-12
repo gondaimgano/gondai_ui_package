@@ -5,12 +5,12 @@ author: Gondai Mgano
 homepage: https://github.com/gondaimgano/gondai_ui_package
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  gradient_widgets: ^0.5.2
+ # gradient_widgets: ^0.5.2
   loading:
 
 dev_dependencies:

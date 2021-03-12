@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 class CupertinoFormField extends FormField<String> {
   CupertinoFormField({
-    Key key,
-    FormFieldSetter<String> onSaved,
-    FormFieldValidator<String> validator,
-    String initialValue,
+    Key? key,
+    FormFieldSetter<String>? onSaved,
+    FormFieldValidator<String>? validator,
+    String? initialValue,
     bool autoValidate = false,
-    bool obscureText,
-    TextInputType inputType,
+    bool? obscureText,
+    TextInputType? inputType,
     this.controller,
-    String placeholder,
+    String? placeholder,
     this.onChanged,
   }):super(
     key:key,
@@ -49,7 +49,7 @@ class CupertinoFormField extends FormField<String> {
             SizedBox(height: 5,),
             field.hasError?Row(
               children: [
-                Text(field.errorText,textAlign:TextAlign.start,style: TextStyle(color:CupertinoColors.systemRed,fontSize:11,),),
+                Text(field.errorText??"",textAlign:TextAlign.start,style: TextStyle(color:CupertinoColors.systemRed,fontSize:11,),),
               ],
             ):Container(width: 0,height: 0,),
           ],
@@ -57,16 +57,16 @@ class CupertinoFormField extends FormField<String> {
       }
   );
 
-  final ValueChanged onChanged;
-  final TextEditingController controller;
+  final ValueChanged? onChanged;
+  final TextEditingController? controller;
   @override
   FormFieldState<String> createState() =>_CupertinoFormTextField();
 }
 
 class _CupertinoFormTextField extends FormFieldState<String>{
-  TextEditingController _controller;
+  TextEditingController? _controller;
 
-  TextEditingController get _effectiveController => widget.controller ?? _controller;
+  TextEditingController? get _effectiveController => widget.controller ?? _controller;
 
   @override
   CupertinoFormField get widget => super.widget as CupertinoFormField;
@@ -77,7 +77,7 @@ class _CupertinoFormTextField extends FormFieldState<String>{
     if (widget.controller == null) {
       _controller = TextEditingController(text: widget.initialValue);
     } else {
-      widget.controller.addListener(_handleControllerChanged);
+      widget.controller?.addListener(_handleControllerChanged);
     }
   }
 
@@ -89,9 +89,9 @@ class _CupertinoFormTextField extends FormFieldState<String>{
       widget.controller?.addListener(_handleControllerChanged);
 
       if (oldWidget.controller != null && widget.controller == null)
-        _controller = TextEditingController.fromValue(oldWidget.controller.value);
+        _controller = TextEditingController.fromValue(oldWidget.controller?.value);
       if (widget.controller != null) {
-        setValue(widget.controller.text);
+        setValue(widget.controller?.text);
         if (oldWidget.controller == null)
           _controller = null;
       }
@@ -108,7 +108,7 @@ class _CupertinoFormTextField extends FormFieldState<String>{
   void reset() {
     super.reset();
     setState(() {
-      _effectiveController.text = widget.initialValue;
+      _effectiveController?.text = widget.initialValue??"";
     });
   }
 
@@ -120,8 +120,8 @@ class _CupertinoFormTextField extends FormFieldState<String>{
     // notifications for changes originating from within this class -- for
     // example, the reset() method. In such cases, the FormField value will
     // already have been set.
-    if (_effectiveController.text != value)
-      didChange(_effectiveController.text);
+    if (_effectiveController?.text != value)
+      didChange(_effectiveController?.text);
   }
 }
 
