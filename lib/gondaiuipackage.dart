@@ -556,7 +556,7 @@ extension StringUI on String {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                title: Text(title ?? ''),
+                title: Text(title),
                 content: child,
                 actions: actions ??
                     <Widget>[
@@ -588,7 +588,7 @@ extension StringUI on String {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                title: Text(title ?? ''),
+                title: Text(title),
                 content: child,
                 actions: actions ??
                     <Widget>[
@@ -1110,7 +1110,7 @@ extension TextUtil on Text {
         style: (() {
           if (this.style != null)
             return this.style?.copyWith(
-                fontWeight: weight ?? FontWeight.w100,
+                fontWeight: weight,
                 color: this.style?.color ?? Colors.grey,
                 fontSize: this.style?.fontSize ?? 16);
           return TextStyle(
