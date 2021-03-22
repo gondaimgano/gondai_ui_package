@@ -653,8 +653,8 @@ extension StringUI on String {
           validator ?? (s) => s!.isEmpty ? "Field cannot be empty" : null,
       keyboardType: inputType ?? TextInputType.text,
       decoration: InputDecoration(
-          filled: isLight? false:true,
-          fillColor:Colors.white,
+          filled:  true,
+          fillColor:isLight?Colors.grey:Colors.black,
           //contentPadding: EdgeInsetsDirectional.only(start: 8),
           enabledBorder: isOutline ?? false
               ? OutlineInputBorder(
@@ -787,112 +787,116 @@ extension StringUI on String {
           String? optionalLabel,
           int? maxLength,
           bool? isOutline,
-          bool? filled}) =>
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          InkResponse(
-            onTap: () async =>
-                controller.text = await Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                        body: SafeArea(
-                          child: Column(
-                            children: <Widget>[
-                              this.inputField(controller,
-                                  inputType: inputType ?? TextInputType.text,
-                                  prefix: prefix,
-                                  helperText: helperText,
-                                  maxLength: maxLength ?? null,
-                                  helperColor:
-                                      secondaryHelperColor ?? helperColor,
-                                  obscureText: obscureText ?? false),
-                            ],
-                          ).addPadding(10.0),
-                        ),
-                        floatingActionButton: FloatingActionButton(
-                          child: Icon(Icons.arrow_forward_ios).addPadding(8.0),
-                          onPressed: () =>
-                              Navigator.of(context).pop(controller.text),
-                        ),
+          bool? filled}) {
+
+    final brightness= MediaQueryData.fromWindow(WidgetsBinding.instance!.window).platformBrightness;
+    final isLight = brightness == Brightness.light;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        InkResponse(
+          onTap: () async =>
+          controller.text = await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => Scaffold(
+                  body: SafeArea(
+                    child: Column(
+                      children: <Widget>[
+                        this.inputField(controller,
+                            inputType: inputType ?? TextInputType.text,
+                            prefix: prefix,
+                            helperText: helperText,
+                            maxLength: maxLength ?? null,
+                            helperColor:
+                            secondaryHelperColor ?? helperColor,
+                            obscureText: obscureText ?? false),
+                      ],
+                    ).addPadding(10.0),
+                  ),
+                  floatingActionButton: FloatingActionButton(
+                    child: Icon(Icons.arrow_forward_ios).addPadding(8.0),
+                    onPressed: () =>
+                        Navigator.of(context).pop(controller.text),
+                  ),
+                )),
+          ),
+          child: AbsorbPointer(
+            child: false
+                ? CupertinoFormField(
+              controller: controller,
+              placeholder: this,
+              validator: validator ??
+                      (s) {
+                    if (s?.isEmpty ?? false)
+                      return "Please Supply valid value for $this";
+                    return null;
+                  },
+              inputType: inputType,
+              obscureText: obscureText ?? false,
+            )
+                : TextFormField(
+              controller: controller,
+              maxLength: maxLength ?? null,
+              validator: validator ??
+                      (s) {
+                    if (s?.isEmpty ?? false)
+                      return "Please Supply valid value for ${optionalLabel ?? this}";
+                    return null;
+                  },
+              obscureText: obscureText ?? false,
+              keyboardType: inputType ?? TextInputType.text,
+              style: TextStyle(color: isLight? CupertinoColors.black:CupertinoColors.white),
+              decoration: InputDecoration(
+                  filled: filled ?? true,
+                  fillColor:isLight? Colors.transparent: Colors.white,
+                  helperText: helperText,
+                  helperStyle:
+                  TextStyle(color: helperColor ?? Colors.black),
+                  enabledBorder: isOutline ?? false
+                      ? OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: color ?? CupertinoColors.white),
+                      borderRadius: BorderRadius.circular(10.0))
+                      : UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: color ?? CupertinoColors.white),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  focusedBorder: isOutline ?? false
+                      ? OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: color ?? CupertinoColors.white),
+                      borderRadius: BorderRadius.circular(10.0))
+                      : UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: color ?? CupertinoColors.white),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  border: isOutline ?? false
+                      ? OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: color ?? CupertinoColors.white),
+                      borderRadius: BorderRadius.circular(10.0))
+                      : UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: color ?? CupertinoColors.white),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  labelText: this,
+                  labelStyle: TextStyle(
+                      color: color ?? CupertinoColors.systemGrey),
+                  prefixIcon: prefix ??
+                      Icon(
+                        Icons.label,
+                        color: color ?? CupertinoColors.systemGrey,
                       )),
             ),
-            child: AbsorbPointer(
-              child: false
-                  ? CupertinoFormField(
-                      controller: controller,
-                      placeholder: this,
-                      validator: validator ??
-                          (s) {
-                            if (s?.isEmpty ?? false)
-                              return "Please Supply valid value for $this";
-                            return null;
-                          },
-                      inputType: inputType,
-                      obscureText: obscureText ?? false,
-                    )
-                  : TextFormField(
-                      controller: controller,
-                      maxLength: maxLength ?? null,
-                      validator: validator ??
-                          (s) {
-                            if (s?.isEmpty ?? false)
-                              return "Please Supply valid value for ${optionalLabel ?? this}";
-                            return null;
-                          },
-                      obscureText: obscureText ?? false,
-                      keyboardType: inputType ?? TextInputType.text,
-                      style:
-                          TextStyle(color: color ?? CupertinoColors.systemGrey),
-                      decoration: InputDecoration(
-                          filled: filled ?? true,
-                          fillColor: Colors.white,
-                          helperText: helperText,
-                          helperStyle:
-                              TextStyle(color: helperColor ?? Colors.black),
-                          enabledBorder: isOutline ?? false
-                              ? OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0))
-                              : UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                          focusedBorder: isOutline ?? false
-                              ? OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0))
-                              : UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                          border: isOutline ?? false
-                              ? OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0))
-                              : UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                          labelText: this,
-                          labelStyle: TextStyle(
-                              color: color ?? CupertinoColors.systemGrey),
-                          prefixIcon: prefix ??
-                              Icon(
-                                Icons.label,
-                                color: color ?? CupertinoColors.systemGrey,
-                              )),
-                    ),
-            ).fillWidth(context),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-        ],
-      );
+          ).fillWidth(context),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+      ],
+    );
+  }
+
 
   Widget popUpNumberField(
     BuildContext context,
