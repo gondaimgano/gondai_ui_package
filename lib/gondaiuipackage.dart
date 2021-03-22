@@ -13,7 +13,6 @@ import 'package:flutter/services.dart';
 import 'cupertino_form_field.dart';
 
 extension ListUtil<T> on List<T> {
-
   ListView custom(Function(T item) itemWidget,
       [Widget? separator, bool? shrinkWrap]) {
     return ListView.separated(
@@ -53,7 +52,7 @@ extension ListUtil<T> on List<T> {
       GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: columns ?? 2,
-          childAspectRatio: aspectRatio??2.44,
+          childAspectRatio: aspectRatio ?? 2.44,
           crossAxisSpacing: crossAxisSpacing ?? 10,
           mainAxisSpacing: mainAxisSpacing ?? 12,
         ),
@@ -115,6 +114,7 @@ extension CardUtil on Widget {
         duration: Duration(milliseconds: 800),
         child: this,
       );
+
   Card inCard() => Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
@@ -122,7 +122,6 @@ extension CardUtil on Widget {
         margin: const EdgeInsets.all(12.0),
         child: this,
       );
-
 
   FittedBox inBox() => FittedBox(
         fit: BoxFit.contain,
@@ -133,10 +132,12 @@ extension CardUtil on Widget {
         aspectRatio: ratio ?? 1.0,
         child: this,
       );
+
   Widget sizeUpHeightTo(BuildContext context, double frac) => Container(
         child: this,
         height: context.height().percent(frac),
       );
+
   Container inContainer(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
         //  height: MediaQuery.of(context).size.height * 0.3,
@@ -230,7 +231,8 @@ extension BuildContextUI on BuildContext {
         style: Theme.of(this).textTheme.headline6,
       );
 
-  ElevatedButton buttonWithTheme(String label, {VoidCallback? onPressed}) => ElevatedButton(
+  ElevatedButton buttonWithTheme(String label, {VoidCallback? onPressed}) =>
+      ElevatedButton(
         onPressed: onPressed ?? () {},
         child: Text(label),
       );
@@ -353,7 +355,7 @@ extension WidgetUI on Widget {
       );
 
   Expanded expand(int flex) => Expanded(
-        flex: flex ,
+        flex: flex,
         child: this,
       );
 
@@ -482,10 +484,10 @@ extension StringUI on String {
               child:
                   //Loading(indicator: BallPulseIndicator(), size: 100.0),
                   CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(
-                              Theme.of(context).accentColor),
-                          strokeWidth: 7.0,
-                        ),
+                valueColor:
+                    AlwaysStoppedAnimation(Theme.of(context).accentColor),
+                strokeWidth: 7.0,
+              ),
             ),
             SizedBox(
               height: 12,
@@ -506,11 +508,9 @@ extension StringUI on String {
     String title = " ",
   ]) =>
       () {
-    if(kIsWeb)
-      {
-        return showGeneralDialog(
-
-          //barrierColor: Colors.black.withOpacity(0.5),
+        if (kIsWeb) {
+          return showGeneralDialog(
+            //barrierColor: Colors.black.withOpacity(0.5),
             transitionBuilder: (context, a1, a2, widget) {
               return ScaleTransition(
                 scale: CurvedAnimation(
@@ -545,80 +545,86 @@ extension StringUI on String {
             barrierDismissible: false,
             barrierLabel: '',
             context: context,
-          pageBuilder: (context, animation1, animation2) =>Container(width: 0,height: 0,),
-           );
-      }else {
-      if (Platform.isIOS)
-        return showCupertinoDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                title: Text(title),
-                content: child,
-                actions: actions ??
-                    <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(BubbleDecide.OK);
-                        },
-                        child: Text("Ok"),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(BubbleDecide.CANCEL);
-                        },
-                        child: Text("Cancel"),
-                      )
-                    ],
-              );
-            });
-      return showGeneralDialog(
+            pageBuilder: (context, animation1, animation2) => Container(
+              width: 0,
+              height: 0,
+            ),
+          );
+        } else {
+          if (Platform.isIOS)
+            return showCupertinoDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    title: Text(title),
+                    content: child,
+                    actions: actions ??
+                        <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(BubbleDecide.OK);
+                            },
+                            child: Text("Ok"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(BubbleDecide.CANCEL);
+                            },
+                            child: Text("Cancel"),
+                          )
+                        ],
+                  );
+                });
+          return showGeneralDialog(
 
-        //barrierColor: Colors.black.withOpacity(0.5),
-          transitionBuilder: (context, a1, a2, widget) {
-            return ScaleTransition(
-              scale: CurvedAnimation(
-                parent: a1,
-                curve: Curves.easeOut,
-              ),
-              child: AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                title: Text(title),
-                content: child,
-                actions: actions ??
-                    <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(BubbleDecide.OK);
-                        },
-                        child: Text("Ok"),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(BubbleDecide.CANCEL);
-                        },
-                        child: Text("Cancel"),
-                      )
-                    ],
-              ),
-            );
-          },
-          transitionDuration: Duration(milliseconds: 200),
-          barrierDismissible: false,
-          barrierLabel: '',
-          context: context,
-          pageBuilder: (context, animation1, animation2) =>Container(width: 0,height: 0,));
-    }
+              //barrierColor: Colors.black.withOpacity(0.5),
+              transitionBuilder: (context, a1, a2, widget) {
+                return ScaleTransition(
+                  scale: CurvedAnimation(
+                    parent: a1,
+                    curve: Curves.easeOut,
+                  ),
+                  child: AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    title: Text(title),
+                    content: child,
+                    actions: actions ??
+                        <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(BubbleDecide.OK);
+                            },
+                            child: Text("Ok"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(BubbleDecide.CANCEL);
+                            },
+                            child: Text("Cancel"),
+                          )
+                        ],
+                  ),
+                );
+              },
+              transitionDuration: Duration(milliseconds: 200),
+              barrierDismissible: false,
+              barrierLabel: '',
+              context: context,
+              pageBuilder: (context, animation1, animation2) => Container(
+                    width: 0,
+                    height: 0,
+                  ));
+        }
       }();
 
   Widget inputField(
     TextEditingController? controller, {
-        FormFieldValidator? validator,
+    FormFieldValidator? validator,
     TextInputType? inputType,
     Widget? prefix,
     bool? obscureText,
@@ -626,8 +632,8 @@ extension StringUI on String {
     String? helperText,
     Color? helperColor,
     int? maxLength,
-  }) =>
-      /* Platform.isIOS
+  }) {
+    /* Platform.isIOS
           ? CupertinoFormField(
               controller: controller,
               validator: validator ??
@@ -636,49 +642,52 @@ extension StringUI on String {
               placeholder: this,
             )
           :*/
-      TextFormField(
-        controller: controller,
-        autofocus: true,
-        obscureText: obscureText ?? false,
-        maxLength: maxLength ?? null,
-        validator:
-            validator ?? (s) => s!.isEmpty ? "Field cannot be empty" : null,
-        keyboardType: inputType ?? TextInputType.text,
-        decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            //contentPadding: EdgeInsetsDirectional.only(start: 8),
-            enabledBorder: isOutline ?? false
-                ? OutlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0))
-                : UnderlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0)),
-            focusedBorder: isOutline ?? false
-                ? OutlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0))
-                : UnderlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0)),
-            border: isOutline ?? false
-                ? OutlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0))
-                : UnderlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0)),
-            labelText: this,
-            labelStyle: TextStyle(color: CupertinoColors.systemGrey),
-            helperText: helperText,
-            helperStyle: TextStyle(color: helperColor ?? Colors.black),
-            prefixIcon: prefix ??
-                Icon(
-                  Icons.label,
-                  color: CupertinoColors.systemGrey,
-                )),
-      );
+   final brightness= MediaQueryData.fromWindow(WidgetsBinding.instance!.window).platformBrightness;
+   final isLight = brightness == Brightness.light;
+    return TextFormField(
+      controller: controller,
+      autofocus: true,
+      obscureText: obscureText ?? false,
+      maxLength: maxLength ?? null,
+      validator:
+          validator ?? (s) => s!.isEmpty ? "Field cannot be empty" : null,
+      keyboardType: inputType ?? TextInputType.text,
+      decoration: InputDecoration(
+          filled: isLight? false:true,
+          fillColor:Colors.white,
+          //contentPadding: EdgeInsetsDirectional.only(start: 8),
+          enabledBorder: isOutline ?? false
+              ? OutlineInputBorder(
+                  borderSide: BorderSide(color: CupertinoColors.white),
+                  borderRadius: BorderRadius.circular(10.0))
+              : UnderlineInputBorder(
+                  borderSide: BorderSide(color: CupertinoColors.white),
+                  borderRadius: BorderRadius.circular(10.0)),
+          focusedBorder: isOutline ?? false
+              ? OutlineInputBorder(
+                  borderSide: BorderSide(color: CupertinoColors.white),
+                  borderRadius: BorderRadius.circular(10.0))
+              : UnderlineInputBorder(
+                  borderSide: BorderSide(color: CupertinoColors.white),
+                  borderRadius: BorderRadius.circular(10.0)),
+          border: isOutline ?? false
+              ? OutlineInputBorder(
+                  borderSide: BorderSide(color: CupertinoColors.white),
+                  borderRadius: BorderRadius.circular(10.0))
+              : UnderlineInputBorder(
+                  borderSide: BorderSide(color: CupertinoColors.white),
+                  borderRadius: BorderRadius.circular(10.0)),
+          labelText: this,
+          labelStyle: TextStyle(color: CupertinoColors.systemGrey),
+          helperText: helperText,
+          helperStyle: TextStyle(color: helperColor ?? Colors.black),
+          prefixIcon: prefix ??
+              Icon(
+                Icons.label,
+                color: CupertinoColors.systemGrey,
+              )),
+    );
+  }
 
   Widget adaptiveProgressIndicator() => Platform.isIOS
       ? CupertinoActivityIndicator()
@@ -715,8 +724,7 @@ extension StringUI on String {
               firstDate: DateTime.now().subtract(Duration(days: (365 * 90))),
               lastDate: DateTime.now());
 
-          if (dt != null)
-            controller.text = "${dt.year}/${dt.month}/${dt.day}";
+          if (dt != null) controller.text = "${dt.year}/${dt.month}/${dt.day}";
         },
         child: AbsorbPointer(
           child: false //Platform.isIOS
@@ -730,8 +738,7 @@ extension StringUI on String {
                   controller: controller,
                   validator: validator ??
                       (s) {
-
-                        if (s?.isEmpty??false)
+                        if (s?.isEmpty ?? false)
                           return "Please Supply valid value for $this";
                         return null;
                       },
@@ -817,7 +824,7 @@ extension StringUI on String {
                       placeholder: this,
                       validator: validator ??
                           (s) {
-                            if (s?.isEmpty??false)
+                            if (s?.isEmpty ?? false)
                               return "Please Supply valid value for $this";
                             return null;
                           },
@@ -829,7 +836,7 @@ extension StringUI on String {
                       maxLength: maxLength ?? null,
                       validator: validator ??
                           (s) {
-                            if (s?.isEmpty??false)
+                            if (s?.isEmpty ?? false)
                               return "Please Supply valid value for ${optionalLabel ?? this}";
                             return null;
                           },
@@ -890,7 +897,7 @@ extension StringUI on String {
   Widget popUpNumberField(
     BuildContext context,
     TextEditingController controller, {
-        FormFieldValidator? validator,
+    FormFieldValidator? validator,
     Color? color,
     Widget? prefix,
     bool? filled,
@@ -974,24 +981,23 @@ extension StringUI on String {
       : ElevatedButton(
           onPressed: onPressed ?? () {},
           child: this.center().addPadding(16.0),
-        style: ButtonStyle(
-          // elevation: 0.0,
-          elevation: MaterialStateProperty.all(0.0),
-          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                10,
+          style: ButtonStyle(
+            // elevation: 0.0,
+            elevation: MaterialStateProperty.all(0.0),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  10,
+                ),
               ),
-            ),
-          )),
-        ),
+            )),
+          ),
         );
 
-
-  Widget flatButton([VoidCallback? onPressed]) =>  TextButton(
-          onPressed: onPressed ?? () {},
-          child: this.center().addPadding(16.0),
-        );
+  Widget flatButton([VoidCallback? onPressed]) => TextButton(
+        onPressed: onPressed ?? () {},
+        child: this.center().addPadding(16.0),
+      );
 
   Widget alternateFlatButton(BuildContext context,
           [VoidCallback? onPressed, Color? color]) =>
@@ -1003,8 +1009,7 @@ extension StringUI on String {
               .color(context, color ?? Colors.purple)
               .addPadding(16.0),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.white)
-          ),
+              backgroundColor: MaterialStateProperty.all(Colors.white)),
           onPressed: onPressed ?? () {},
         ),
       );
@@ -1051,7 +1056,7 @@ extension TextUtil on Text {
       );
 
   Text bold([context]) => Text(
-        this.data??"",
+        this.data ?? "",
         style: (() {
           if (this.style != null)
             return this.style?.copyWith(
@@ -1064,7 +1069,7 @@ extension TextUtil on Text {
       );
 
   Text caption(context) => Text(
-        this.data??"",
+        this.data ?? "",
         style: (() {
           if (this.style != null)
             return this.style?.copyWith(
@@ -1078,7 +1083,7 @@ extension TextUtil on Text {
       );
 
   Text subtitle(context) => Text(
-        this.data??"",
+        this.data ?? "",
         style: (() {
           if (this.style != null)
             return this.style?.copyWith(
@@ -1092,21 +1097,21 @@ extension TextUtil on Text {
       );
 
   Text fontSize(double size) => Text(
-        this.data??"",
+        this.data ?? "",
         style: (() {
           if (this.style != null)
             return this.style?.copyWith(
                 fontWeight: this.style?.fontWeight ?? FontWeight.w100,
                 color: this.style?.color ?? Colors.grey,
-                fontSize: size );
+                fontSize: size);
           return TextStyle(
-            fontSize: size ,
+            fontSize: size,
           );
         })(),
       );
 
   Text fontWeight(FontWeight weight) => Text(
-        this.data??"",
+        this.data ?? "",
         style: (() {
           if (this.style != null)
             return this.style?.copyWith(
@@ -1120,7 +1125,7 @@ extension TextUtil on Text {
       );
 
   Text headline(context) => Text(
-        this.data??"",
+        this.data ?? "",
         style: (() {
           if (this.style != null)
             return this.style?.copyWith(
@@ -1133,7 +1138,7 @@ extension TextUtil on Text {
       );
 
   Text color(context, [Color? color]) => Text(
-        this.data??"",
+        this.data ?? "",
         style: (() {
           if (this.style != null)
             return this.style?.copyWith(
