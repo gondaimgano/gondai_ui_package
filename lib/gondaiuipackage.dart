@@ -13,9 +13,7 @@ import 'package:flutter/services.dart';
 import 'cupertino_form_field.dart';
 
 extension ListUtil<T> on List<T> {
-
-  ListView custom(Function(T item) itemWidget,
-      [Widget separator, bool shrinkWrap]) {
+  ListView custom(Function(T item) itemWidget, [Widget separator, bool shrinkWrap]) {
     return ListView.separated(
       itemBuilder: (context, i) => itemWidget(this[i]),
       separatorBuilder: (context, i) => separator ?? SizedBox(height: 3),
@@ -24,8 +22,7 @@ extension ListUtil<T> on List<T> {
     );
   }
 
-  ListView neverMoveList(Function(T item) itemWidget,
-      [Widget separator, bool shrinkWrap]) {
+  ListView neverMoveList(Function(T item) itemWidget, [Widget separator, bool shrinkWrap]) {
     return ListView.separated(
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, i) => itemWidget(this[i]),
@@ -44,12 +41,7 @@ extension ListUtil<T> on List<T> {
     );
   }
 
-  GridView grid(Function(T item) itemWidget,
-          {int columns,
-          double aspectRatio = 2.44,
-          double crossAxisSpacing,
-          double mainAxisSpacing,
-          EdgeInsets padding}) =>
+  GridView grid(Function(T item) itemWidget, {int columns, double aspectRatio = 2.44, double crossAxisSpacing, double mainAxisSpacing, EdgeInsets padding}) =>
       GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: columns ?? 2,
@@ -124,8 +116,7 @@ extension CardUtil on Widget {
       );
 
   GradientCard inCardGradient() => GradientCard(
-        gradient:
-            LinearGradient(colors: [Color(0xff823b8e), Color(0xffed2a7b)]),
+        gradient: LinearGradient(colors: [Color(0xff823b8e), Color(0xffed2a7b)]),
         child: Container(width: double.infinity, child: this.addPadding(8.0)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -194,8 +185,7 @@ extension DoubleUtil on double {
     Function mathFunc = (Match match) => '${match[1]},';
     String _r1 = "";
     try {
-      _r1 = "${this.toStringAsFixed(2)} $currency"
-          .replaceAllMapped(reg, mathFunc);
+      _r1 = "${this.toStringAsFixed(2)} $currency".replaceAllMapped(reg, mathFunc);
     } catch (ex) {
       _r1 = "${this}";
     }
@@ -241,15 +231,12 @@ extension BuildContextUI on BuildContext {
         style: Theme.of(this).textTheme.title,
       );
 
-  MaterialButton buttonWithTheme(String label, {VoidCallback onPressed}) =>
-      RaisedButton(
+  MaterialButton buttonWithTheme(String label, {VoidCallback onPressed}) => RaisedButton(
         onPressed: onPressed ?? () {},
         child: Text(label),
       );
 
-  TextFormField inputField(TextEditingController controller,
-          {Function validator, TextInputType inputType}) =>
-      TextFormField(
+  TextFormField inputField(TextEditingController controller, {Function validator, TextInputType inputType}) => TextFormField(
         controller: controller,
         validator: validator,
         keyboardType: inputType ?? TextInputType.text,
@@ -328,15 +315,13 @@ extension WidgetUI on Widget {
         context: context,
         builder: (context) => Container(
           width: context.width(),
-          margin:
-              EdgeInsets.only(bottom: 15.0, left: 8.0, right: 8.0, top: 15.0),
+          margin: EdgeInsets.only(bottom: 15.0, left: 8.0, right: 8.0, top: 15.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(
                 Radius.circular(15),
               ),
               boxShadow: [
-                BoxShadow(
-                    color: Colors.white12, blurRadius: 1.0, spreadRadius: 9.0),
+                BoxShadow(color: Colors.white12, blurRadius: 1.0, spreadRadius: 9.0),
               ]),
           child: Card(
             child: Container(
@@ -355,8 +340,7 @@ extension WidgetUI on Widget {
 
   Container circle([color]) => Container(
         child: this,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle, color: color ?? CupertinoColors.white),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: color ?? CupertinoColors.white),
       );
 
   Flexible flexible(int flex) => Flexible(
@@ -397,8 +381,7 @@ extension WidgetUI on Widget {
         color: color ?? Colors.white,
       );
 
-  Widget withDivider({double height, double indent, double endIndent}) =>
-      Column(
+  Widget withDivider({double height, double indent, double endIndent}) => Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           this,
@@ -498,8 +481,7 @@ extension StringUI on String {
                           radius: 15,
                         )
                       : CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(
-                              Theme.of(context).accentColor),
+                          valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
                           strokeWidth: 7.0,
                         ),
             ),
@@ -614,34 +596,21 @@ extension StringUI on String {
         autofocus: true,
         obscureText: obscureText ?? false,
         maxLength: maxLength ?? null,
-        validator:
-            validator ?? (s) => s.isEmpty ? "Field cannot be empty" : null,
+        validator: validator ?? (s) => s.isEmpty ? "Field cannot be empty" : null,
         keyboardType: inputType ?? TextInputType.text,
         decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
             //contentPadding: EdgeInsetsDirectional.only(start: 8),
             enabledBorder: isOutline ?? false
-                ? OutlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0))
-                : UnderlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0)),
+                ? OutlineInputBorder(borderSide: BorderSide(color: CupertinoColors.white), borderRadius: BorderRadius.circular(10.0))
+                : UnderlineInputBorder(borderSide: BorderSide(color: CupertinoColors.white), borderRadius: BorderRadius.circular(10.0)),
             focusedBorder: isOutline ?? false
-                ? OutlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0))
-                : UnderlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0)),
+                ? OutlineInputBorder(borderSide: BorderSide(color: CupertinoColors.white), borderRadius: BorderRadius.circular(10.0))
+                : UnderlineInputBorder(borderSide: BorderSide(color: CupertinoColors.white), borderRadius: BorderRadius.circular(10.0)),
             border: isOutline ?? false
-                ? OutlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0))
-                : UnderlineInputBorder(
-                    borderSide: BorderSide(color: CupertinoColors.white),
-                    borderRadius: BorderRadius.circular(10.0)),
+                ? OutlineInputBorder(borderSide: BorderSide(color: CupertinoColors.white), borderRadius: BorderRadius.circular(10.0))
+                : UnderlineInputBorder(borderSide: BorderSide(color: CupertinoColors.white), borderRadius: BorderRadius.circular(10.0)),
             labelText: this,
             labelStyle: TextStyle(color: CupertinoColors.systemGrey),
             helperText: helperText,
@@ -653,22 +622,14 @@ extension StringUI on String {
                 )),
       );
 
-  Widget adaptiveProgressIndicator() => Platform.isIOS
-      ? CupertinoActivityIndicator()
-      : CircularProgressIndicator();
+  Widget adaptiveProgressIndicator() => Platform.isIOS ? CupertinoActivityIndicator() : CircularProgressIndicator();
 
-  TextFormField passwordField(TextEditingController controller,
-          {Function validator, TextInputType inputType}) =>
-      TextFormField(
+  TextFormField passwordField(TextEditingController controller, {Function validator, TextInputType inputType}) => TextFormField(
         controller: controller,
         validator: validator,
         obscureText: true,
         keyboardType: inputType ?? TextInputType.text,
-        decoration: InputDecoration(
-            filled: true,
-            fillColor: CupertinoColors.extraLightBackgroundGray,
-            border: null,
-            labelText: this),
+        decoration: InputDecoration(filled: true, fillColor: CupertinoColors.extraLightBackgroundGray, border: null, labelText: this),
       );
 
   Widget popUpDateField(BuildContext context, TextEditingController controller,
@@ -683,13 +644,9 @@ extension StringUI on String {
       InkWell(
         onTap: () async {
           var dt = await showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime.now().subtract(Duration(days: (365 * 90))),
-              lastDate: DateTime.now());
+              context: context, initialDate: DateTime.now(), firstDate: DateTime.now().subtract(Duration(days: (365 * 90))), lastDate: DateTime.now());
 
-          if (dt != null)
-            controller.text = "${dt?.year}/${dt?.month}/${dt?.day}";
+          if (dt != null) controller.text = "${dt?.year}/${dt?.month}/${dt?.day}";
         },
         child: AbsorbPointer(
           child: false //Platform.isIOS
@@ -703,8 +660,7 @@ extension StringUI on String {
                   controller: controller,
                   validator: validator ??
                       (s) {
-                        if (s.isEmpty)
-                          return "Please Supply valid value for $this";
+                        if (s.isEmpty) return "Please Supply valid value for $this";
                         return null;
                       },
                   obscureText: obscureText ?? false,
@@ -714,23 +670,18 @@ extension StringUI on String {
                       filled: true,
                       fillColor: Colors.white,
                       helperText: helperText,
-                      helperStyle:
-                          TextStyle(color: helperColor ?? Colors.black),
+                      helperStyle: TextStyle(color: helperColor ?? Colors.black),
                       enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: color ?? CupertinoColors.white),
+                        borderSide: BorderSide(color: color ?? CupertinoColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: color ?? CupertinoColors.white),
+                        borderSide: BorderSide(color: color ?? CupertinoColors.white),
                       ),
                       border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: color ?? CupertinoColors.white),
+                        borderSide: BorderSide(color: color ?? CupertinoColors.white),
                       ),
                       labelText: this,
-                      labelStyle:
-                          TextStyle(color: color ?? CupertinoColors.systemGrey),
+                      labelStyle: TextStyle(color: color ?? CupertinoColors.systemGrey),
                       prefixIcon: prefix ??
                           Icon(
                             Icons.label,
@@ -740,48 +691,50 @@ extension StringUI on String {
         ),
       );
 
-  Widget popUpField(BuildContext context, TextEditingController controller,
-          {Function validator,
-          TextInputType inputType,
-          bool obscureText,
-          String helperText,
-          Color helperColor,
-          Color secondaryHelperColor,
-          Color color,
-          Widget prefix,
-          String optionalLabel,
-          int maxLength,
-          bool isOutline,
-          bool filled}) =>
+  Widget popUpField(
+    BuildContext context,
+    TextEditingController controller, {
+    Function validator,
+    TextInputType inputType,
+    bool obscureText,
+    String helperText,
+    Color helperColor,
+    Color secondaryHelperColor,
+    Color color,
+    Widget prefix,
+    String optionalLabel,
+    int maxLength,
+    bool isOutline,
+    bool filled,
+    VoidCallback onTap,
+  }) =>
       Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           InkResponse(
-            onTap: () async =>
-                controller.text = await Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                        body: SafeArea(
-                          child: Column(
-                            children: <Widget>[
-                              this.inputField(controller,
-                                  inputType: inputType ?? TextInputType.text,
-                                  prefix: prefix,
-                                  helperText: helperText,
-                                  maxLength: maxLength ?? null,
-                                  helperColor:
-                                      secondaryHelperColor ?? helperColor,
-                                  obscureText: obscureText ?? false),
-                            ],
-                          ).addPadding(10.0),
-                        ),
-                        floatingActionButton: FloatingActionButton(
-                          child: Icon(Icons.arrow_forward_ios).addPadding(8.0),
-                          onPressed: () =>
-                              Navigator.of(context).pop(controller.text),
-                        ),
-                      )),
-            ),
+            onTap: onTap ??
+                () async => controller.text = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => Scaffold(
+                                body: SafeArea(
+                                  child: Column(
+                                    children: <Widget>[
+                                      this.inputField(controller,
+                                          inputType: inputType ?? TextInputType.text,
+                                          prefix: prefix,
+                                          helperText: helperText,
+                                          maxLength: maxLength ?? null,
+                                          helperColor: secondaryHelperColor ?? helperColor,
+                                          obscureText: obscureText ?? false),
+                                    ],
+                                  ).addPadding(10.0),
+                                ),
+                                floatingActionButton: FloatingActionButton(
+                                  child: Icon(Icons.arrow_forward_ios).addPadding(8.0),
+                                  onPressed: () => Navigator.of(context).pop(controller.text),
+                                ),
+                              )),
+                    ),
             child: AbsorbPointer(
               child: false
                   ? CupertinoFormField(
@@ -789,8 +742,7 @@ extension StringUI on String {
                       placeholder: this,
                       validator: validator ??
                           (s) {
-                            if (s.isEmpty)
-                              return "Please Supply valid value for $this";
+                            if (s.isEmpty) return "Please Supply valid value for $this";
                             return null;
                           },
                       inputType: inputType,
@@ -801,50 +753,28 @@ extension StringUI on String {
                       maxLength: maxLength ?? null,
                       validator: validator ??
                           (s) {
-                            if (s.isEmpty)
-                              return "Please Supply valid value for ${optionalLabel ?? this}";
+                            if (s.isEmpty) return "Please Supply valid value for ${optionalLabel ?? this}";
                             return null;
                           },
                       obscureText: obscureText ?? false,
                       keyboardType: inputType ?? TextInputType.text,
-                      style:
-                          TextStyle(color: color ?? CupertinoColors.systemGrey),
+                      style: TextStyle(color: color ?? CupertinoColors.systemGrey),
                       decoration: InputDecoration(
                           filled: filled ?? true,
                           fillColor: Colors.white,
                           helperText: helperText,
-                          helperStyle:
-                              TextStyle(color: helperColor ?? Colors.black),
+                          helperStyle: TextStyle(color: helperColor ?? Colors.black),
                           enabledBorder: isOutline ?? false
-                              ? OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0))
-                              : UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0)),
+                              ? OutlineInputBorder(borderSide: BorderSide(color: color ?? CupertinoColors.white), borderRadius: BorderRadius.circular(10.0))
+                              : UnderlineInputBorder(borderSide: BorderSide(color: color ?? CupertinoColors.white), borderRadius: BorderRadius.circular(10.0)),
                           focusedBorder: isOutline ?? false
-                              ? OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0))
-                              : UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0)),
+                              ? OutlineInputBorder(borderSide: BorderSide(color: color ?? CupertinoColors.white), borderRadius: BorderRadius.circular(10.0))
+                              : UnderlineInputBorder(borderSide: BorderSide(color: color ?? CupertinoColors.white), borderRadius: BorderRadius.circular(10.0)),
                           border: isOutline ?? false
-                              ? OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0))
-                              : UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: color ?? CupertinoColors.white),
-                                  borderRadius: BorderRadius.circular(10.0)),
+                              ? OutlineInputBorder(borderSide: BorderSide(color: color ?? CupertinoColors.white), borderRadius: BorderRadius.circular(10.0))
+                              : UnderlineInputBorder(borderSide: BorderSide(color: color ?? CupertinoColors.white), borderRadius: BorderRadius.circular(10.0)),
                           labelText: this,
-                          labelStyle: TextStyle(
-                              color: color ?? CupertinoColors.systemGrey),
+                          labelStyle: TextStyle(color: color ?? CupertinoColors.systemGrey),
                           prefixIcon: prefix ??
                               Icon(
                                 Icons.label,
@@ -872,10 +802,12 @@ extension StringUI on String {
     int maxLength,
     Color helperColor,
     Color secondaryHelperColor,
+    VoidCallback onTap,
   }) =>
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
+          onTap: onTap,
           filled: filled,
           isOutline: isOutline,
           validator: validator,
@@ -888,6 +820,7 @@ extension StringUI on String {
 
   Widget popUpEmailField(BuildContext context, TextEditingController controller,
           {Function validator,
+          VoidCallback onTap,
           TextInputType inputType,
           Widget prefix,
           Color color,
@@ -899,6 +832,7 @@ extension StringUI on String {
       this.popUpField(context, controller,
           color: color,
           prefix: prefix,
+          onTap: onTap,
           filled: filled,
           helperText: helperText,
           helperColor: helperColor,
@@ -907,9 +841,9 @@ extension StringUI on String {
           validator: validator,
           inputType: TextInputType.emailAddress);
 
-  Widget popUpPasswordField(
-          BuildContext context, TextEditingController controller,
+  Widget popUpPasswordField(BuildContext context, TextEditingController controller,
           {Function validator,
+          VoidCallback onTap,
           TextInputType inputType,
           Color color,
           Widget prefix,
@@ -921,6 +855,7 @@ extension StringUI on String {
           bool filled}) =>
       this.popUpField(context, controller,
           validator: validator,
+          onTap: onTap,
           inputType: TextInputType.visiblePassword,
           color: color,
           filled: filled,
@@ -966,15 +901,10 @@ extension StringUI on String {
           child: this.center().addPadding(16.0),
         );
 
-  Widget alternateFlatButton(BuildContext context,
-          [VoidCallback onPressed, Color color]) =>
-      ClipRRect(
+  Widget alternateFlatButton(BuildContext context, [VoidCallback onPressed, Color color]) => ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
         child: FlatButton(
-          child: this
-              .text()
-              .color(context, color ?? Colors.purple)
-              .addPadding(16.0),
+          child: this.text().color(context, color ?? Colors.purple).addPadding(16.0),
           color: Colors.white,
           onPressed: onPressed ?? () {},
         ),
@@ -1066,10 +996,7 @@ extension TextUtil on Text {
         this.data,
         style: (() {
           if (this.style != null)
-            return this.style.copyWith(
-                fontWeight: this.style.fontWeight ?? FontWeight.w100,
-                color: this.style.color ?? Colors.grey,
-                fontSize: size ?? 16);
+            return this.style.copyWith(fontWeight: this.style.fontWeight ?? FontWeight.w100, color: this.style.color ?? Colors.grey, fontSize: size ?? 16);
           return TextStyle(
             fontSize: size ?? 16,
           );
@@ -1080,10 +1007,7 @@ extension TextUtil on Text {
         this.data,
         style: (() {
           if (this.style != null)
-            return this.style.copyWith(
-                fontWeight: weight ?? FontWeight.w100,
-                color: this.style.color ?? Colors.grey,
-                fontSize: this.style.fontSize ?? 16);
+            return this.style.copyWith(fontWeight: weight ?? FontWeight.w100, color: this.style.color ?? Colors.grey, fontSize: this.style.fontSize ?? 16);
           return TextStyle(
             fontWeight: weight ?? 16,
           );
