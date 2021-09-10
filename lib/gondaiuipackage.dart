@@ -228,7 +228,7 @@ extension BuildContextUI on BuildContext {
 
   Text textWithTheme(String t) => Text(
         t,
-        style: Theme.of(this).textTheme.title,
+        style: Theme.of(this).textTheme.headline6,
       );
 
   MaterialButton buttonWithTheme(String label, {VoidCallback onPressed}) => RaisedButton(
@@ -516,13 +516,13 @@ extension StringUI on String {
                   content: child,
                   actions: actions ??
                       <Widget>[
-                        FlatButton(
+                        TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(BubbleDecide.OK);
                           },
                           child: Text("Ok"),
                         ),
-                        FlatButton(
+                        TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(BubbleDecide.CANCEL);
                           },
@@ -548,13 +548,13 @@ extension StringUI on String {
                   content: child,
                   actions: actions ??
                       <Widget>[
-                        FlatButton(
+                        TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(BubbleDecide.OK);
                           },
                           child: Text("Ok"),
                         ),
-                        FlatButton(
+                        TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(BubbleDecide.CANCEL);
                           },
@@ -878,14 +878,16 @@ extension StringUI on String {
           ),
           onPressed: onPressed ?? () {},
         )
-      : RaisedButton(
+      : ElevatedButton(
           onPressed: onPressed ?? () {},
           child: this.center().addPadding(16.0),
-          elevation: 0.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                10,
+          style: ElevatedButton.styleFrom(
+            elevation: 0.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  10,
+                ),
               ),
             ),
           ),
@@ -896,16 +898,18 @@ extension StringUI on String {
           child: this.center(),
           onPressed: onPressed ?? () {},
         )
-      : FlatButton(
+      : TextButton(
           onPressed: onPressed ?? () {},
           child: this.center().addPadding(16.0),
         );
 
   Widget alternateFlatButton(BuildContext context, [VoidCallback onPressed, Color color]) => ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        child: FlatButton(
+        child: TextButton(
           child: this.text().color(context, color ?? Colors.purple).addPadding(16.0),
-          color: Colors.white,
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.white
+          ),
           onPressed: onPressed ?? () {},
         ),
       );
@@ -917,7 +921,7 @@ extension StringUI on String {
           return Text(
             this,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline,
+            style: Theme.of(context).textTheme.headline6,
           );
         return Text(
           this,
@@ -946,7 +950,7 @@ extension TextUtil on Text {
           ),
         );
 
-  FlatButton flatButton([VoidCallback onPressed]) => FlatButton(
+  TextButton flatButton([VoidCallback onPressed]) => TextButton(
         onPressed: onPressed ?? () {},
         child: this.addPadding(16.0),
       );
