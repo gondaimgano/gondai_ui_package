@@ -906,9 +906,9 @@ extension StringUI on String {
   Widget alternateFlatButton(BuildContext context, [VoidCallback onPressed, Color color]) => ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
         child: TextButton(
-          child: this.text().color(context, color ?? Colors.purple).addPadding(16.0),
+          child: this.text().color(context, color ?? Colors.purple).addPadding(8.0),
           style: TextButton.styleFrom(
-            backgroundColor: Colors.white
+            backgroundColor: Colors.white,
           ),
           onPressed: onPressed ?? () {},
         ),
